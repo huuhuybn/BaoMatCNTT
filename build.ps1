@@ -299,8 +299,19 @@ strong { color: var(--primary); }
     <li>3.4. Demo Sao lưu và Phục hồi <span class="toc-page">23</span></li>
     <li>3.5. Tổng kết Demo <span class="toc-page">25</span></li>
   </ul>
-  <li>Kết luận <span class="toc-page">26</span></li>
-  <li>Tài liệu tham khảo <span class="toc-page">28</span></li>
+  <li>Chương 4. Áp dụng bảo mật cho dự án thực tiễn — Opdo.store <span class="toc-page">26</span></li>
+  <ul class="toc-sub">
+    <li>4.1. Giới thiệu dự án Opdo.store <span class="toc-page">26</span></li>
+    <li>4.2. Kiến trúc hệ thống và CSDL <span class="toc-page">27</span></li>
+    <li>4.3. Triển khai phân quyền người dùng <span class="toc-page">28</span></li>
+    <li>4.4. Triển khai mã hóa dữ liệu <span class="toc-page">30</span></li>
+    <li>4.5. Triển khai kiểm toán và giám sát <span class="toc-page">31</span></li>
+    <li>4.6. Triển khai sao lưu và phục hồi <span class="toc-page">32</span></li>
+    <li>4.7. Các biện pháp bảo mật bổ sung <span class="toc-page">33</span></li>
+    <li>4.8. Tổng kết triển khai thực tiễn <span class="toc-page">34</span></li>
+  </ul>
+  <li>Kết luận <span class="toc-page">35</span></li>
+  <li>Tài liệu tham khảo <span class="toc-page">37</span></li>
 </ul>
 </div>
 </div>
