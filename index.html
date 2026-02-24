@@ -1,651 +1,826 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-
-:root {
-  --page-w: 210mm;
-  --page-h: 297mm;
-  --margin-top: 25mm;
-  --margin-bottom: 20mm;
-  --margin-left: 30mm;
-  --margin-right: 20mm;
-  --primary: #1a237e;
-  --primary-light: #3949ab;
-  --accent: #c62828;
-  --bg-light: #f5f7fa;
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-/* ===== SCREEN VIEW: show A4 pages ===== */
-body {
-  font-family: 'Roboto', 'Times New Roman', serif;
-  font-size: 13pt;
-  line-height: 1.8;
-  color: #1a1a1a;
-  background: #e0e0e0;
-}
-
-.page {
-  width: var(--page-w);
-  min-height: var(--page-h);
-  background: #fff;
-  margin: 20px auto;
-  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Header bar */
-.page-header {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 18mm;
-  display: flex;
-  align-items: center;
-  padding: 3mm var(--margin-right) 3mm var(--margin-left);
-  border-bottom: 2px solid var(--primary);
-  background: #fff;
-}
-.page-header .logo-img {
-  height: 12mm;
-  margin-right: 8px;
-}
-.page-header .header-text {
-  font-size: 9pt;
-  color: var(--primary);
-  font-weight: 500;
-  line-height: 1.3;
-}
-.page-header .header-text span {
-  display: block;
-  font-size: 8pt;
-  color: #555;
-  font-weight: 400;
-}
-
-/* Footer bar */
-.page-footer {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 12mm;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2mm var(--margin-right) 2mm var(--margin-left);
-  border-top: 1.5px solid var(--primary);
-  background: #fff;
-  font-size: 9pt;
-  color: #555;
-}
-.page-footer .footer-title {
-  font-style: italic;
-}
-.page-footer .page-number {
-  font-weight: 600;
-  color: var(--primary);
-}
-
-/* ===== COVER PAGE ===== */
-.cover-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(var(--page-h) - 10mm);
-  text-align: center;
-  padding: 0;
-}
-.cover-page .page-header,
-.cover-page .page-footer { display: none; }
-.page.cover-container { padding: 0; }
-.page.cover-container .page-header,
-.page.cover-container .page-footer { display: none; }
-
-.cover-border {
-  border: 3px double var(--primary);
-  margin: 15mm;
-  padding: 20mm 15mm;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(var(--page-h) - 40mm);
-}
-.cover-university { font-size: 16pt; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
-.cover-program { font-size: 12pt; color: #555; margin-top: 4px; }
-.cover-logo { width: 80px; height: 80px; margin: 25px 0; }
-.cover-logo img { width: 100%; height: 100%; object-fit: contain; }
-.cover-divider { width: 60%; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin: 15px 0; }
-.cover-subject { font-size: 12pt; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; margin: 15px 0 5px; }
-.cover-title { font-size: 24pt; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; line-height: 1.4; margin: 10px 0; }
-.cover-subtitle { font-size: 13pt; color: #333; font-weight: 400; margin: 5px 0 30px; line-height: 1.5; }
-.cover-info { margin-top: 30px; font-size: 12pt; }
-.cover-info p { margin: 5px 0; }
-.cover-info .label { color: #555; }
-.cover-info .value { font-weight: 600; color: #1a1a1a; }
-.cover-year { font-size: 14pt; font-weight: 700; color: var(--primary); margin-top: 30px; letter-spacing: 3px; }
-
-/* ===== TOC PAGE ===== */
-.toc { padding-top: 5mm; }
-.toc-title { font-size: 18pt; color: var(--primary); text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
-.toc-list { list-style: none; padding: 0; }
-.toc-list > li { margin: 8px 0; font-size: 12pt; font-weight: 600; color: var(--primary); display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #ccc; padding-bottom: 4px; }
-.toc-list > li > .toc-page { font-weight: 400; color: #555; min-width: 25px; text-align: right; }
-.toc-sub { list-style: none; padding-left: 20px; margin: 3px 0; }
-.toc-sub li { font-weight: 400; font-size: 11pt; color: #333; display: flex; justify-content: space-between; border-bottom: 1px dotted #eee; padding: 2px 0; }
-.toc-sub li .toc-page { color: #777; }
-
-/* ===== CONTENT STYLES ===== */
-h1.chapter {
-  font-size: 18pt;
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  text-align: center;
-  padding: 8px 0 12px;
-  border-bottom: 3px solid var(--primary);
-  margin: 0 0 20px;
-}
-h2 { font-size: 14pt; color: #283593; margin: 22px 0 10px; border-left: 4px solid #283593; padding-left: 12px; }
-h3 { font-size: 12pt; color: #303f9f; margin: 16px 0 8px; }
-h4 { font-size: 11pt; color: #3949ab; margin: 12px 0 6px; }
-p { margin: 6px 0; text-align: justify; }
-ul, ol { margin: 6px 0 6px 22px; }
-li { margin: 3px 0; }
-
-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11pt; }
-th { background: var(--primary); color: #fff; padding: 7px 8px; text-align: left; font-weight: 500; font-size: 10.5pt; }
-td { padding: 6px 8px; border: 1px solid #ddd; }
-tr:nth-child(even) { background: #f5f5f5; }
-
-pre {
-  background: #1e1e2e;
-  color: #cdd6f4;
-  padding: 12px 14px;
-  border-radius: 6px;
-  font-family: 'Roboto Mono', 'Consolas', monospace;
-  font-size: 9.5pt;
-  line-height: 1.5;
-  overflow-x: auto;
-  margin: 8px 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-code { font-family: 'Roboto Mono', monospace; font-size: 10pt; }
-p code { background: #e8eaf6; padding: 1px 4px; border-radius: 3px; color: var(--primary); }
-
-blockquote { border-left: 4px solid var(--primary); padding: 8px 14px; background: #e8eaf6; margin: 10px 0; font-size: 11pt; }
-
-.diagram { background: #eceff1; border: 1px solid #b0bec5; padding: 12px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 10pt; white-space: pre; margin: 10px 0; line-height: 1.4; overflow-x: auto; }
-
-.result-table th { background: #2e7d32; }
-.threat-table td:last-child { font-weight: 500; }
-strong { color: var(--primary); }
-.separator { border: none; border-top: 2px solid var(--primary); margin: 20px 0; }
-.stars { color: #f9a825; letter-spacing: 1px; }
-.ref { font-size: 10.5pt; color: #444; }
-.ref li { margin: 4px 0; }
-
-/* ===== PRINT STYLES ===== */
-@media print {
-  body { background: #fff; }
-  .page {
-    width: auto;
-    min-height: auto;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    page-break-after: always;
-  }
-  .page:last-child { page-break-after: auto; }
-  .page-header, .page-footer { display: none !important; }
-  
-  @page {
-    size: A4;
-    margin: 20mm 20mm 18mm 30mm;
-    @top-center {
-      content: "Äáº I Há»ŒC HÃ’A BÃŒNH";
-      font-size: 9pt;
-      color: #1a237e;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</title>
+  <style>
+    :root {
+      --page-w: 210mm;
+      --page-h: 297mm;
+      --margin-top: 25mm;
+      --margin-bottom: 20mm;
+      --margin-left: 30mm;
+      --margin-right: 20mm;
+      --primary: #1a237e;
+      --primary-light: #3949ab;
+      --accent: #c62828;
+      --bg-light: #f5f7fa;
     }
-    @bottom-left {
-      content: "Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CSDL";
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      line-height: 1.8;
+      color: #1a1a1a;
+      background: #e0e0e0;
+    }
+
+    .page {
+      width: var(--page-w);
+      min-height: var(--page-h);
+      background: #fff;
+      margin: 20px auto;
+      padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 18mm;
+      display: flex;
+      align-items: center;
+      padding: 3mm var(--margin-right) 3mm var(--margin-left);
+      border-bottom: 2px solid var(--primary);
+      background: #fff;
+    }
+
+    .page-header .logo-img {
+      height: 12mm;
+      margin-right: 8px;
+    }
+
+    .page-header .header-text {
+      font-size: 9pt;
+      color: var(--primary);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .page-header .header-text span {
+      display: block;
       font-size: 8pt;
-      font-style: italic;
+      color: #555;
+      font-weight: 400;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 12mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2mm var(--margin-right) 2mm var(--margin-left);
+      border-top: 1.5px solid var(--primary);
+      background: #fff;
+      font-size: 9pt;
       color: #555;
     }
-    @bottom-right {
-      content: counter(page);
-      font-size: 9pt;
-      font-weight: bold;
-      color: #1a237e;
-    }
-  }
-  @page :first { @top-center { content: none; } @bottom-left { content: none; } @bottom-right { content: none; } }
 
-  pre { white-space: pre-wrap !important; word-wrap: break-word !important; font-size: 9pt; }
-  table { page-break-inside: avoid; }
-  h1, h2, h3 { page-break-after: avoid; }
-}
-</style>
+    .page-footer .footer-title {
+      font-style: italic;
+    }
+
+    .page-footer .page-number {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .page.cover-container {
+      padding: 0;
+    }
+
+    .page.cover-container .page-header,
+    .page.cover-container .page-footer {
+      display: none;
+    }
+
+    .cover-border {
+      border: 3px double var(--primary);
+      margin: 15mm;
+      padding: 20mm 15mm;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(var(--page-h) - 40mm);
+    }
+
+    .cover-university {
+      font-size: 16pt;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .cover-program {
+      font-size: 12pt;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .cover-logo {
+      width: 80px;
+      height: 80px;
+      margin: 25px 0;
+    }
+
+    .cover-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .cover-divider {
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      margin: 15px 0;
+    }
+
+    .cover-subject {
+      font-size: 12pt;
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 15px 0 5px;
+    }
+
+    .cover-title {
+      font-size: 24pt;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1.4;
+      margin: 10px 0;
+    }
+
+    .cover-subtitle {
+      font-size: 13pt;
+      color: #333;
+      font-weight: 400;
+      margin: 5px 0 30px;
+      line-height: 1.5;
+    }
+
+    .cover-info {
+      margin-top: 30px;
+      font-size: 12pt;
+    }
+
+    .cover-info p {
+      margin: 5px 0;
+    }
+
+    .cover-info .label {
+      color: #555;
+    }
+
+    .cover-info .value {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .cover-year {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 30px;
+      letter-spacing: 3px;
+    }
+
+    .toc {
+      padding-top: 5mm;
+    }
+
+    .toc-title {
+      font-size: 18pt;
+      color: var(--primary);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-list>li {
+      margin: 8px 0;
+      font-size: 12pt;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dotted #ccc;
+      padding-bottom: 4px;
+    }
+
+    .toc-list>li>.toc-page {
+      font-weight: 400;
+      color: #555;
+      min-width: 25px;
+      text-align: right;
+    }
+
+    .toc-sub {
+      list-style: none;
+      padding-left: 20px;
+      margin: 3px 0;
+    }
+
+    .toc-sub li {
+      font-weight: 400;
+      font-size: 11pt;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dotted #eee;
+      padding: 2px 0;
+    }
+
+    .toc-sub li .toc-page {
+      color: #777;
+    }
+
+    h1.chapter {
+      font-size: 18pt;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+      padding: 8px 0 12px;
+      border-bottom: 3px solid var(--primary);
+      margin: 0 0 20px;
+    }
+
+    h2 {
+      font-size: 14pt;
+      color: #283593;
+      margin: 22px 0 10px;
+      border-left: 4px solid #283593;
+      padding-left: 12px;
+    }
+
+    h3 {
+      font-size: 12pt;
+      color: #303f9f;
+      margin: 16px 0 8px;
+    }
+
+    h4 {
+      font-size: 11pt;
+      color: #3949ab;
+      margin: 12px 0 6px;
+    }
+
+    p {
+      margin: 6px 0;
+      text-align: justify;
+    }
+
+    ul,
+    ol {
+      margin: 6px 0 6px 22px;
+    }
+
+    li {
+      margin: 3px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 11pt;
+    }
+
+    th {
+      background: var(--primary);
+      color: #fff;
+      padding: 7px 8px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 10.5pt;
+    }
+
+    td {
+      padding: 6px 8px;
+      border: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+      background: #f5f5f5;
+    }
+
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin: 8px 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 10pt;
+    }
+
+    p code {
+      background: #e8eaf6;
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: var(--primary);
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      padding: 8px 14px;
+      background: #e8eaf6;
+      margin: 10px 0;
+      font-size: 11pt;
+    }
+
+    .diagram {
+      background: #eceff1;
+      border: 1px solid #b0bec5;
+      padding: 12px;
+      border-radius: 4px;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 10pt;
+      white-space: pre;
+      margin: 10px 0;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+
+    .result-table th {
+      background: #2e7d32;
+    }
+
+    .threat-table td:last-child {
+      font-weight: 500;
+    }
+
+    strong {
+      color: var(--primary);
+    }
+
+    .separator {
+      border: none;
+      border-top: 2px solid var(--primary);
+      margin: 20px 0;
+    }
+
+    .stars {
+      color: #f9a825;
+      letter-spacing: 1px;
+    }
+
+    .ref {
+      font-size: 10.5pt;
+      color: #444;
+    }
+
+    .ref li {
+      margin: 4px 0;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .page-header,
+      .page-footer {
+        display: none !important;
+      }
+
+      @page {
+        size: A4;
+        margin: 20mm 20mm 18mm 30mm;
+      }
+
+      pre {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        font-size: 9pt;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        page-break-after: avoid;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ===== TRANG BÃŒA ===== -->
-<div class="page cover-container">
-<div class="cover-border">
-  <p class="cover-university">TrÆ°á»ng Äáº¡i há»c HÃ²a BÃ¬nh</p>
-  <p class="cover-program">ChÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ©</p>
-  <div class="cover-logo">
-    <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo Äáº¡i há»c HÃ²a BÃ¬nh" onerror="this.outerHTML='<div style=&quot;font-size:48pt;color:#1a237e&quot;>ðŸ›¡ï¸</div>'">
+  <!-- ===== TRANG BÌA ===== -->
+  <div class="page cover-container">
+    <div class="cover-border">
+      <p class="cover-university">Trường Đại học Hòa Bình</p>
+      <p class="cover-program">Chương trình đào tạo Thạc sĩ</p>
+      <div class="cover-logo">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png"
+          alt="Logo Đại học Hòa Bình"
+          onerror="this.outerHTML='<div style=&quot;font-size:48pt;color:#1a237e&quot;>&#128737;</div>'">
+      </div>
+      <div class="cover-divider"></div>
+      <p class="cover-subject">Bài tập môn học</p>
+      <h1 class="cover-title">Bảo mật và An toàn<br>Thông tin trong<br>Cơ sở Dữ liệu</h1>
+      <p class="cover-subtitle">Nghiên cứu các giải pháp bảo mật cơ sở dữ liệu<br>và demo thực hành trên Microsoft SQL
+        Server</p>
+      <div class="cover-divider"></div>
+      <div class="cover-info">
+        <p><span class="label">Người thực hiện:</span></p>
+        <p><span class="value">Nguyễn Hữu Huy</span></p>
+        <p><span class="value">Nguyễn Thị Phương</span></p>
+      </div>
+      <p class="cover-year">— 2025 —</p>
+    </div>
   </div>
-  <div class="cover-divider"></div>
-  <p class="cover-subject">BÃ i táº­p mÃ´n há»c</p>
-  <h1 class="cover-title">Báº£o máº­t vÃ  An toÃ n<br>ThÃ´ng tin trong<br>CÆ¡ sá»Ÿ Dá»¯ liá»‡u</h1>
-  <p class="cover-subtitle">NghiÃªn cá»©u cÃ¡c giáº£i phÃ¡p báº£o máº­t cÆ¡ sá»Ÿ dá»¯ liá»‡u<br>vÃ  demo thá»±c hÃ nh trÃªn Microsoft SQL Server</p>
-  <div class="cover-divider"></div>
-  <div class="cover-info">
-    <p><span class="label">NgÆ°á»i thá»±c hiá»‡n:</span></p>
-    <p><span class="value">Nguyá»…n Há»¯u Huy</span></p>
-    <p><span class="value">Nguyá»…n Thá»‹ PhÆ°Æ¡ng</span></p>
-  </div>
-  <p class="cover-year">â€” 2025 â€”</p>
-</div>
-</div>
 
-<!-- ===== Má»¤C Lá»¤C ===== -->
+  <!-- ===== MỤC LỤC ===== -->
+  <div class="page">
+    <div class="page-header">
+      <img class="logo-img"
+        src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png"
+        alt="Logo" onerror="this.style.display='none'">
+      <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
+    </div>
+    <div class="page-footer">
+      <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
+      <span class="page-number">i</span>
+    </div>
+    <div class="toc">
+      <h2 class="toc-title">Mục Lục</h2>
+      <ul class="toc-list">
+        <li>Chương 1. Cơ sở lý thuyết <span class="toc-page">1</span></li>
+        <ul class="toc-sub">
+          <li>1.1. Cơ sở dữ liệu <span class="toc-page">1</span></li>
+          <li>1.2. Hệ quản trị cơ sở dữ liệu <span class="toc-page">3</span></li>
+          <li>1.3. Phân tích ưu nhược điểm của bảo mật thông tin <span class="toc-page">5</span></li>
+        </ul>
+        <li>Chương 2. Vấn đề nghiên cứu và giải pháp an toàn <span class="toc-page">7</span></li>
+        <ul class="toc-sub">
+          <li>2.1. Các mối đe dọa đối với cơ sở dữ liệu <span class="toc-page">7</span></li>
+          <li>2.2. Các giải pháp bảo mật và an toàn thông tin <span class="toc-page">9</span></li>
+          <li>2.3. Tổng kết các giải pháp <span class="toc-page">13</span></li>
+        </ul>
+        <li>Chương 3. Demo các bước bảo mật trên SQL Server <span class="toc-page">14</span></li>
+        <ul class="toc-sub">
+          <li>3.0. Chuẩn bị môi trường Demo <span class="toc-page">14</span></li>
+          <li>3.1. Demo Phân quyền người dùng <span class="toc-page">16</span></li>
+          <li>3.2. Demo Mã hóa dữ liệu <span class="toc-page">19</span></li>
+          <li>3.3. Demo Kiểm toán (Audit) <span class="toc-page">21</span></li>
+          <li>3.4. Demo Sao lưu và Phục hồi <span class="toc-page">23</span></li>
+          <li>3.5. Tổng kết Demo <span class="toc-page">25</span></li>
+        </ul>
+        <li>Chương 4. Áp dụng bảo mật cho dự án thực tiễn — Opdo.store <span class="toc-page">26</span></li>
+        <ul class="toc-sub">
+          <li>4.1. Giới thiệu dự án Opdo.store <span class="toc-page">26</span></li>
+          <li>4.2. Kiến trúc hệ thống và CSDL <span class="toc-page">27</span></li>
+          <li>4.3. Triển khai phân quyền người dùng <span class="toc-page">28</span></li>
+          <li>4.4. Triển khai mã hóa dữ liệu <span class="toc-page">30</span></li>
+          <li>4.5. Triển khai kiểm toán và giám sát <span class="toc-page">31</span></li>
+          <li>4.6. Triển khai sao lưu và phục hồi <span class="toc-page">32</span></li>
+          <li>4.7. Các biện pháp bảo mật bổ sung <span class="toc-page">33</span></li>
+          <li>4.8. Tổng kết triển khai thực tiễn <span class="toc-page">34</span></li>
+        </ul>
+        <li>Kết luận <span class="toc-page">35</span></li>
+        <li>Tài liệu tham khảo <span class="toc-page">37</span></li>
+      </ul>
+    </div>
+  </div>
+
+<!-- ===== CHƯƠNG 1 ===== -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
-  <span class="page-number">i</span>
-</div>
-<div class="toc">
-<h2 class="toc-title">Má»¥c Lá»¥c</h2>
-<ul class="toc-list">
-  <li>ChÆ°Æ¡ng 1. CÆ¡ sá»Ÿ lÃ½ thuyáº¿t <span class="toc-page">1</span></li>
-  <ul class="toc-sub">
-    <li>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">1</span></li>
-    <li>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">3</span></li>
-    <li>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a báº£o máº­t thÃ´ng tin <span class="toc-page">5</span></li>
-  </ul>
-  <li>ChÆ°Æ¡ng 2. Váº¥n Ä‘á» nghiÃªn cá»©u vÃ  giáº£i phÃ¡p an toÃ n <span class="toc-page">7</span></li>
-  <ul class="toc-sub">
-    <li>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">7</span></li>
-    <li>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin <span class="toc-page">9</span></li>
-    <li>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p <span class="toc-page">13</span></li>
-  </ul>
-  <li>ChÆ°Æ¡ng 3. Demo cÃ¡c bÆ°á»›c báº£o máº­t trÃªn SQL Server <span class="toc-page">14</span></li>
-  <ul class="toc-sub">
-    <li>3.0. Chuáº©n bá»‹ mÃ´i trÆ°á»ng Demo <span class="toc-page">14</span></li>
-    <li>3.1. Demo PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng <span class="toc-page">16</span></li>
-    <li>3.2. Demo MÃ£ hÃ³a dá»¯ liá»‡u <span class="toc-page">19</span></li>
-    <li>3.3. Demo Kiá»ƒm toÃ¡n (Audit) <span class="toc-page">21</span></li>
-    <li>3.4. Demo Sao lÆ°u vÃ  Phá»¥c há»“i <span class="toc-page">23</span></li>
-    <li>3.5. Tá»•ng káº¿t Demo <span class="toc-page">25</span></li>
-  </ul>
-  <li>ChÆ°Æ¡ng 4. Ãp dá»¥ng báº£o máº­t cho dá»± Ã¡n thá»±c tiá»…n â€” Opdo.store <span class="toc-page">26</span></li>
-  <ul class="toc-sub">
-    <li>4.1. Giá»›i thiá»‡u dá»± Ã¡n Opdo.store <span class="toc-page">26</span></li>
-    <li>4.2. Kiáº¿n trÃºc há»‡ thá»‘ng vÃ  CSDL <span class="toc-page">27</span></li>
-    <li>4.3. Triá»ƒn khai phÃ¢n quyá»n ngÆ°á»i dÃ¹ng <span class="toc-page">28</span></li>
-    <li>4.4. Triá»ƒn khai mÃ£ hÃ³a dá»¯ liá»‡u <span class="toc-page">30</span></li>
-    <li>4.5. Triá»ƒn khai kiá»ƒm toÃ¡n vÃ  giÃ¡m sÃ¡t <span class="toc-page">31</span></li>
-    <li>4.6. Triá»ƒn khai sao lÆ°u vÃ  phá»¥c há»“i <span class="toc-page">32</span></li>
-    <li>4.7. CÃ¡c biá»‡n phÃ¡p báº£o máº­t bá»• sung <span class="toc-page">33</span></li>
-    <li>4.8. Tá»•ng káº¿t triá»ƒn khai thá»±c tiá»…n <span class="toc-page">34</span></li>
-  </ul>
-  <li>Káº¿t luáº­n <span class="toc-page">35</span></li>
-  <li>TÃ i liá»‡u tham kháº£o <span class="toc-page">37</span></li>
-</ul>
-</div>
-</div>
-
-<!-- ===== CHÆ¯Æ NG 1 ===== -->
-<div class="page">
-<div class="page-header">
-  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
-</div>
-<div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">1</span>
 </div>
 
-<h1 class="chapter">ChÆ°Æ¡ng 1. CÆ¡ Sá»Ÿ LÃ½ Thuyáº¿t</h1>
+<h1 class="chapter">Chương 1. Cơ Sở Lý Thuyết</h1>
 
-<h2>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u (Database)</h2>
-<h3>1.1.1. KhÃ¡i niá»‡m</h3>
-<p>CÆ¡ sá»Ÿ dá»¯ liá»‡u (CSDL) lÃ  má»™t táº­p há»£p cÃ³ tá»• chá»©c cá»§a cÃ¡c dá»¯ liá»‡u cÃ³ liÃªn quan vá»›i nhau, Ä‘Æ°á»£c lÆ°u trá»¯ trÃªn cÃ¡c thiáº¿t bá»‹ lÆ°u trá»¯ mÃ¡y tÃ­nh, Ä‘Æ°á»£c thiáº¿t káº¿ vÃ  xÃ¢y dá»±ng sao cho viá»‡c cáº­p nháº­t, tÃ¬m kiáº¿m vÃ  khai thÃ¡c dá»¯ liá»‡u phá»¥c vá»¥ cho cÃ¡c má»¥c Ä‘Ã­ch khÃ¡c nhau cá»§a nhiá»u ngÆ°á»i dÃ¹ng má»™t cÃ¡ch dá»… dÃ ng vÃ  hiá»‡u quáº£.</p>
-<p>Má»™t CSDL cÃ³ cÃ¡c Ä‘áº·c Ä‘iá»ƒm cÆ¡ báº£n sau:</p>
+<h2>1.1. Cơ sở dữ liệu (Database)</h2>
+<h3>1.1.1. Khái niệm</h3>
+<p>Cơ sở dữ liệu (CSDL) là một tập hợp có tổ chức của các dữ liệu có liên quan với nhau, được lưu trữ trên các thiết bị lưu trữ máy tính, được thiết kế và xây dựng sao cho việc cập nhật, tìm kiếm và khai thác dữ liệu phục vụ cho các mục đích khác nhau của nhiều người dùng một cách dễ dàng và hiệu quả.</p>
+<p>Một CSDL có các đặc điểm cơ bản sau:</p>
 <ul>
-<li><strong>TÃ­nh cáº¥u trÃºc (Structured):</strong> Dá»¯ liá»‡u Ä‘Æ°á»£c tá»• chá»©c theo má»™t cáº¥u trÃºc nháº¥t Ä‘á»‹nh, thÆ°á»ng lÃ  dáº¡ng báº£ng (table) vá»›i cÃ¡c hÃ ng (row) vÃ  cá»™t (column).</li>
-<li><strong>TÃ­nh chia sáº» (Shared):</strong> Nhiá»u ngÆ°á»i dÃ¹ng vÃ  á»©ng dá»¥ng khÃ¡c nhau cÃ³ thá»ƒ truy cáº­p vÃ  sá»­ dá»¥ng cÃ¹ng má»™t CSDL.</li>
-<li><strong>TÃ­nh toÃ n váº¹n (Integrity):</strong> Dá»¯ liá»‡u pháº£i Ä‘áº£m báº£o tÃ­nh chÃ­nh xÃ¡c, nháº¥t quÃ¡n vÃ  Ä‘Ã¡ng tin cáº­y.</li>
-<li><strong>TÃ­nh Ä‘á»™c láº­p (Independence):</strong> Dá»¯ liá»‡u Ä‘Æ°á»£c quáº£n lÃ½ Ä‘á»™c láº­p vá»›i cÃ¡c chÆ°Æ¡ng trÃ¬nh á»©ng dá»¥ng sá»­ dá»¥ng chÃºng.</li>
+<li><strong>Tính cấu trúc (Structured):</strong> Dữ liệu được tổ chức theo một cấu trúc nhất định, thường là dạng bảng (table) với các hàng (row) và cột (column).</li>
+<li><strong>Tính chia sẻ (Shared):</strong> Nhiều người dùng và ứng dụng khác nhau có thể truy cập và sử dụng cùng một CSDL.</li>
+<li><strong>Tính toàn vẹn (Integrity):</strong> Dữ liệu phải đảm bảo tính chính xác, nhất quán và đáng tin cậy.</li>
+<li><strong>Tính độc lập (Independence):</strong> Dữ liệu được quản lý độc lập với các chương trình ứng dụng sử dụng chúng.</li>
 </ul>
 
-<h3>1.1.2. PhÃ¢n loáº¡i cÆ¡ sá»Ÿ dá»¯ liá»‡u</h3>
+<h3>1.1.2. Phân loại cơ sở dữ liệu</h3>
 <table>
-<tr><th>Loáº¡i CSDL</th><th>Äáº·c Ä‘iá»ƒm</th><th>VÃ­ dá»¥</th></tr>
-<tr><td><strong>CSDL quan há»‡ (Relational)</strong></td><td>Dá»¯ liá»‡u tá»• chá»©c dáº¡ng báº£ng, liÃªn káº¿t qua khÃ³a ngoáº¡i</td><td>SQL Server, MySQL, PostgreSQL, Oracle</td></tr>
-<tr><td><strong>CSDL NoSQL</strong></td><td>Linh hoáº¡t vá» cáº¥u trÃºc, phÃ¹ há»£p dá»¯ liá»‡u phi cáº¥u trÃºc</td><td>MongoDB, Cassandra, Redis</td></tr>
-<tr><td><strong>CSDL phÃ¢n tÃ¡n (Distributed)</strong></td><td>Dá»¯ liá»‡u phÃ¢n tÃ¡n trÃªn nhiá»u mÃ¡y chá»§</td><td>Google Spanner, CockroachDB</td></tr>
-<tr><td><strong>CSDL Ä‘Ã¡m mÃ¢y (Cloud)</strong></td><td>Hosted trÃªn ná»n táº£ng Ä‘Ã¡m mÃ¢y</td><td>Azure SQL, Amazon RDS, Google Cloud SQL</td></tr>
-<tr><td><strong>CSDL hÆ°á»›ng Ä‘á»‘i tÆ°á»£ng</strong></td><td>LÆ°u trá»¯ dá»¯ liá»‡u dÆ°á»›i dáº¡ng Ä‘á»‘i tÆ°á»£ng</td><td>ObjectDB, db4o</td></tr>
+<tr><th>Loại CSDL</th><th>Đặc điểm</th><th>Ví dụ</th></tr>
+<tr><td><strong>CSDL quan hệ (Relational)</strong></td><td>Dữ liệu tổ chức dạng bảng, liên kết qua khóa ngoại</td><td>SQL Server, MySQL, PostgreSQL, Oracle</td></tr>
+<tr><td><strong>CSDL NoSQL</strong></td><td>Linh hoạt về cấu trúc, phù hợp dữ liệu phi cấu trúc</td><td>MongoDB, Cassandra, Redis</td></tr>
+<tr><td><strong>CSDL phân tán (Distributed)</strong></td><td>Dữ liệu phân tán trên nhiều máy chủ</td><td>Google Spanner, CockroachDB</td></tr>
+<tr><td><strong>CSDL đám mây (Cloud)</strong></td><td>Hosted trên nền tảng đám mây</td><td>Azure SQL, Amazon RDS, Google Cloud SQL</td></tr>
+<tr><td><strong>CSDL hướng đối tượng</strong></td><td>Lưu trữ dữ liệu dưới dạng đối tượng</td><td>ObjectDB, db4o</td></tr>
 </table>
 
-<h3>1.1.3. MÃ´ hÃ¬nh dá»¯ liá»‡u quan há»‡</h3>
-<p>MÃ´ hÃ¬nh dá»¯ liá»‡u quan há»‡ (Relational Data Model) do E.F. Codd Ä‘á» xuáº¥t nÄƒm 1970, lÃ  mÃ´ hÃ¬nh phá»• biáº¿n nháº¥t hiá»‡n nay. Trong mÃ´ hÃ¬nh nÃ y:</p>
+<h3>1.1.3. Mô hình dữ liệu quan hệ</h3>
+<p>Mô hình dữ liệu quan hệ (Relational Data Model) do E.F. Codd đề xuất năm 1970, là mô hình phổ biến nhất hiện nay. Trong mô hình này:</p>
 <ul>
-<li><strong>Quan há»‡ (Relation):</strong> ÄÆ°á»£c biá»ƒu diá»…n dÆ°á»›i dáº¡ng báº£ng hai chiá»u.</li>
-<li><strong>Thuá»™c tÃ­nh (Attribute):</strong> TÃªn cÃ¡c cá»™t trong báº£ng, mÃ´ táº£ Ä‘áº·c Ä‘iá»ƒm cá»§a thá»±c thá»ƒ.</li>
-<li><strong>Bá»™ (Tuple):</strong> Má»—i hÃ ng trong báº£ng, biá»ƒu diá»…n má»™t báº£n ghi cá»¥ thá»ƒ.</li>
-<li><strong>KhÃ³a chÃ­nh (Primary Key):</strong> Thuá»™c tÃ­nh hoáº·c táº­p thuá»™c tÃ­nh xÃ¡c Ä‘á»‹nh duy nháº¥t má»—i bá»™.</li>
-<li><strong>KhÃ³a ngoáº¡i (Foreign Key):</strong> Thuá»™c tÃ­nh tham chiáº¿u Ä‘áº¿n khÃ³a chÃ­nh cá»§a báº£ng khÃ¡c, táº¡o liÃªn káº¿t giá»¯a cÃ¡c báº£ng.</li>
+<li><strong>Quan hệ (Relation):</strong> Được biểu diễn dưới dạng bảng hai chiều.</li>
+<li><strong>Thuộc tính (Attribute):</strong> Tên các cột trong bảng, mô tả đặc điểm của thực thể.</li>
+<li><strong>Bộ (Tuple):</strong> Mỗi hàng trong bảng, biểu diễn một bản ghi cụ thể.</li>
+<li><strong>Khóa chính (Primary Key):</strong> Thuộc tính hoặc tập thuộc tính xác định duy nhất mỗi bộ.</li>
+<li><strong>Khóa ngoại (Foreign Key):</strong> Thuộc tính tham chiếu đến khóa chính của bảng khác, tạo liên kết giữa các bảng.</li>
 </ul>
 
-<h3>1.1.4. CÃ¡c rÃ ng buá»™c toÃ n váº¹n dá»¯ liá»‡u</h3>
+<h3>1.1.4. Các ràng buộc toàn vẹn dữ liệu</h3>
 <ul>
-<li><strong>RÃ ng buá»™c miá»n giÃ¡ trá»‹ (Domain Constraint):</strong> Giá»›i háº¡n táº­p giÃ¡ trá»‹ há»£p lá»‡ cho má»™t thuá»™c tÃ­nh.</li>
-<li><strong>RÃ ng buá»™c khÃ³a (Key Constraint):</strong> Äáº£m báº£o tÃ­nh duy nháº¥t cá»§a khÃ³a chÃ­nh.</li>
-<li><strong>RÃ ng buá»™c toÃ n váº¹n thá»±c thá»ƒ (Entity Integrity):</strong> KhÃ³a chÃ­nh khÃ´ng Ä‘Æ°á»£c chá»©a giÃ¡ trá»‹ NULL.</li>
-<li><strong>RÃ ng buá»™c toÃ n váº¹n tham chiáº¿u (Referential Integrity):</strong> GiÃ¡ trá»‹ khÃ³a ngoáº¡i pháº£i tá»“n táº¡i trong báº£ng tham chiáº¿u hoáº·c lÃ  NULL.</li>
+<li><strong>Ràng buộc miền giá trị (Domain Constraint):</strong> Giới hạn tập giá trị hợp lệ cho một thuộc tính.</li>
+<li><strong>Ràng buộc khóa (Key Constraint):</strong> Đảm bảo tính duy nhất của khóa chính.</li>
+<li><strong>Ràng buộc toàn vẹn thực thể (Entity Integrity):</strong> Khóa chính không được chứa giá trị NULL.</li>
+<li><strong>Ràng buộc toàn vẹn tham chiếu (Referential Integrity):</strong> Giá trị khóa ngoại phải tồn tại trong bảng tham chiếu hoặc là NULL.</li>
 </ul>
 </div>
 
-<!-- Trang tiáº¿p - HQTCSDL -->
+<!-- Trang tiếp - HQTCSDL -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">3</span>
 </div>
 
-<h2>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u (DBMS)</h2>
-<h3>1.2.1. KhÃ¡i niá»‡m</h3>
-<p>Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u (HQTCSDL - Database Management System) lÃ  pháº§n má»m há»‡ thá»‘ng cho phÃ©p ngÆ°á»i dÃ¹ng Ä‘á»‹nh nghÄ©a, táº¡o láº­p, duy trÃ¬ vÃ  kiá»ƒm soÃ¡t truy cáº­p Ä‘áº¿n cÆ¡ sá»Ÿ dá»¯ liá»‡u. HQTCSDL Ä‘Ã³ng vai trÃ² trung gian giá»¯a ngÆ°á»i dÃ¹ng/á»©ng dá»¥ng vÃ  dá»¯ liá»‡u váº­t lÃ½ Ä‘Æ°á»£c lÆ°u trá»¯.</p>
+<h2>1.2. Hệ quản trị cơ sở dữ liệu (DBMS)</h2>
+<h3>1.2.1. Khái niệm</h3>
+<p>Hệ quản trị cơ sở dữ liệu (HQTCSDL - Database Management System) là phần mềm hệ thống cho phép người dùng định nghĩa, tạo lập, duy trì và kiểm soát truy cập đến cơ sở dữ liệu. HQTCSDL đóng vai trò trung gian giữa người dùng/ứng dụng và dữ liệu vật lý được lưu trữ.</p>
 
-<h3>1.2.2. CÃ¡c chá»©c nÄƒng chÃ­nh cá»§a HQTCSDL</h3>
+<h3>1.2.2. Các chức năng chính của HQTCSDL</h3>
 <ol>
-<li><strong>Äá»‹nh nghÄ©a dá»¯ liá»‡u (Data Definition):</strong> Cho phÃ©p táº¡o, sá»­a Ä‘á»•i, xÃ³a cÃ¡c cáº¥u trÃºc dá»¯ liá»‡u báº±ng ngÃ´n ngá»¯ DDL.</li>
-<li><strong>Thao tÃ¡c dá»¯ liá»‡u (Data Manipulation):</strong> Cho phÃ©p thÃªm, sá»­a, xÃ³a, truy váº¥n dá»¯ liá»‡u báº±ng ngÃ´n ngá»¯ DML.</li>
-<li><strong>Kiá»ƒm soÃ¡t truy cáº­p (Access Control):</strong> Quáº£n lÃ½ quyá»n truy cáº­p cá»§a ngÆ°á»i dÃ¹ng, Ä‘áº£m báº£o báº£o máº­t.</li>
-<li><strong>Quáº£n lÃ½ giao dá»‹ch (Transaction Management):</strong> Äáº£m báº£o tÃ­nh ACID (Atomicity, Consistency, Isolation, Durability).</li>
-<li><strong>Sao lÆ°u vÃ  phá»¥c há»“i (Backup &amp; Recovery):</strong> Cung cáº¥p cÆ¡ cháº¿ báº£o vá»‡ dá»¯ liá»‡u khá»i há»ng hÃ³c.</li>
-<li><strong>Tá»‘i Æ°u hÃ³a truy váº¥n (Query Optimization):</strong> Tá»± Ä‘á»™ng chá»n phÆ°Æ¡ng Ã¡n thá»±c thi tá»‘i Æ°u.</li>
+<li><strong>Định nghĩa dữ liệu (Data Definition):</strong> Cho phép tạo, sửa đổi, xóa các cấu trúc dữ liệu bằng ngôn ngữ DDL.</li>
+<li><strong>Thao tác dữ liệu (Data Manipulation):</strong> Cho phép thêm, sửa, xóa, truy vấn dữ liệu bằng ngôn ngữ DML.</li>
+<li><strong>Kiểm soát truy cập (Access Control):</strong> Quản lý quyền truy cập của người dùng, đảm bảo bảo mật.</li>
+<li><strong>Quản lý giao dịch (Transaction Management):</strong> Đảm bảo tính ACID (Atomicity, Consistency, Isolation, Durability).</li>
+<li><strong>Sao lưu và phục hồi (Backup &amp; Recovery):</strong> Cung cấp cơ chế bảo vệ dữ liệu khỏi hỏng hóc.</li>
+<li><strong>Tối ưu hóa truy vấn (Query Optimization):</strong> Tự động chọn phương án thực thi tối ưu.</li>
 </ol>
 
-<h3>1.2.3. Kiáº¿n trÃºc 3 má»©c cá»§a HQTCSDL (ANSI/SPARC)</h3>
-<div class="diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚      Má»©c ngoÃ i (External Level)     â”‚
-â”‚   CÃ¡c khung nhÃ¬n (Views) cá»§a        â”‚
-â”‚   tá»«ng nhÃ³m ngÆ°á»i dÃ¹ng              â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚      Má»©c khÃ¡i niá»‡m (Conceptual)     â”‚
-â”‚   MÃ´ táº£ toÃ n bá»™ cáº¥u trÃºc logic     â”‚
-â”‚   cá»§a CSDL                          â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚      Má»©c trong (Internal Level)      â”‚
-â”‚   Cáº¥u trÃºc lÆ°u trá»¯ váº­t lÃ½          â”‚
-â”‚   trÃªn Ä‘Ä©a                          â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
-
-<h3>1.2.4. CÃ¡c HQTCSDL phá»• biáº¿n</h3>
+<h3>1.2.3. Các HQTCSDL phổ biến</h3>
 <table>
-<tr><th>HQTCSDL</th><th>NhÃ  phÃ¡t triá»ƒn</th><th>Äáº·c Ä‘iá»ƒm ná»•i báº­t</th></tr>
-<tr><td><strong>Microsoft SQL Server</strong></td><td>Microsoft</td><td>TÃ­ch há»£p tá»‘t vá»›i há»‡ sinh thÃ¡i Microsoft, báº£o máº­t máº¡nh máº½</td></tr>
-<tr><td><strong>Oracle Database</strong></td><td>Oracle Corp.</td><td>Hiá»‡u nÄƒng cao, báº£o máº­t enterprise, há»— trá»£ multi-tenant</td></tr>
-<tr><td><strong>MySQL</strong></td><td>Oracle Corp.</td><td>MÃ£ nguá»“n má»Ÿ, phá»• biáº¿n cho web, hiá»‡u suáº¥t tá»‘t</td></tr>
-<tr><td><strong>PostgreSQL</strong></td><td>Cá»™ng Ä‘á»“ng</td><td>MÃ£ nguá»“n má»Ÿ, tuÃ¢n thá»§ chuáº©n SQL, há»— trá»£ JSON</td></tr>
-<tr><td><strong>MongoDB</strong></td><td>MongoDB Inc.</td><td>NoSQL, linh hoáº¡t schema, phÃ¹ há»£p big data</td></tr>
+<tr><th>HQTCSDL</th><th>Nhà phát triển</th><th>Đặc điểm nổi bật</th></tr>
+<tr><td><strong>Microsoft SQL Server</strong></td><td>Microsoft</td><td>Tích hợp tốt với hệ sinh thái Microsoft, bảo mật mạnh mẽ</td></tr>
+<tr><td><strong>Oracle Database</strong></td><td>Oracle Corp.</td><td>Hiệu năng cao, bảo mật enterprise, hỗ trợ multi-tenant</td></tr>
+<tr><td><strong>MySQL</strong></td><td>Oracle Corp.</td><td>Mã nguồn mở, phổ biến cho web, hiệu suất tốt</td></tr>
+<tr><td><strong>PostgreSQL</strong></td><td>Cộng đồng</td><td>Mã nguồn mở, tuân thủ chuẩn SQL, hỗ trợ JSON</td></tr>
+<tr><td><strong>MongoDB</strong></td><td>MongoDB Inc.</td><td>NoSQL, linh hoạt schema, phù hợp big data</td></tr>
 </table>
 </div>
 
-<!-- Trang tiáº¿p - PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm -->
+<!-- Trang tiếp - Phân tích ưu nhược điểm -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">5</span>
 </div>
 
-<h2>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a tÃ­nh báº£o máº­t thÃ´ng tin</h2>
-<h3>1.3.1. Tá»•ng quan vá» báº£o máº­t thÃ´ng tin</h3>
-<p>Báº£o máº­t thÃ´ng tin (Information Security) lÃ  táº­p há»£p cÃ¡c biá»‡n phÃ¡p nháº±m báº£o vá»‡ thÃ´ng tin khá»i cÃ¡c truy cáº­p, sá»­ dá»¥ng, tiáº¿t lá»™, sá»­a Ä‘á»•i hoáº·c phÃ¡ há»§y trÃ¡i phÃ©p. Ba trá»¥ cá»™t cÆ¡ báº£n cá»§a báº£o máº­t thÃ´ng tin Ä‘Æ°á»£c gá»i lÃ  <strong>bá»™ ba CIA</strong>:</p>
+<h2>1.3. Phân tích ưu nhược điểm của tính bảo mật thông tin</h2>
+<h3>1.3.1. Tổng quan về bảo mật thông tin</h3>
+<p>Bảo mật thông tin (Information Security) là tập hợp các biện pháp nhằm bảo vệ thông tin khỏi các truy cập, sử dụng, tiết lộ, sửa đổi hoặc phá hủy trái phép. Ba trụ cột cơ bản của bảo mật thông tin được gọi là <strong>bộ ba CIA</strong>:</p>
 <ul>
-<li><strong>TÃ­nh báº£o máº­t (Confidentiality):</strong> Äáº£m báº£o thÃ´ng tin chá»‰ Ä‘Æ°á»£c truy cáº­p bá»Ÿi nhá»¯ng ngÆ°á»i Ä‘Æ°á»£c á»§y quyá»n.</li>
-<li><strong>TÃ­nh toÃ n váº¹n (Integrity):</strong> Äáº£m báº£o thÃ´ng tin khÃ´ng bá»‹ sá»­a Ä‘á»•i trÃ¡i phÃ©p.</li>
-<li><strong>TÃ­nh sáºµn sÃ ng (Availability):</strong> Äáº£m báº£o thÃ´ng tin luÃ´n sáºµn sÃ ng khi cáº§n thiáº¿t.</li>
+<li><strong>Tính bảo mật (Confidentiality):</strong> Đảm bảo thông tin chỉ được truy cập bởi những người được ủy quyền.</li>
+<li><strong>Tính toàn vẹn (Integrity):</strong> Đảm bảo thông tin không bị sửa đổi trái phép.</li>
+<li><strong>Tính sẵn sàng (Availability):</strong> Đảm bảo thông tin luôn sẵn sàng khi cần thiết.</li>
 </ul>
 
-<h3>1.3.2. Æ¯u Ä‘iá»ƒm cá»§a viá»‡c triá»ƒn khai báº£o máº­t thÃ´ng tin</h3>
+<h3>1.3.2. Ưu điểm của việc triển khai bảo mật thông tin</h3>
 <table>
-<tr><th>STT</th><th>Æ¯u Ä‘iá»ƒm</th><th>MÃ´ táº£ chi tiáº¿t</th></tr>
-<tr><td>1</td><td><strong>Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m</strong></td><td>NgÄƒn cháº·n rÃ² rá»‰ thÃ´ng tin cÃ¡ nhÃ¢n, tÃ i chÃ­nh, bÃ­ máº­t kinh doanh</td></tr>
-<tr><td>2</td><td><strong>Kiá»ƒm soÃ¡t truy cáº­p hiá»‡u quáº£</strong></td><td>PhÃ¢n quyá»n rÃµ rÃ ng theo nguyÃªn táº¯c least privilege</td></tr>
-<tr><td>3</td><td><strong>PhÃ¡t hiá»‡n vÃ  ngÄƒn cháº·n táº¥n cÃ´ng</strong></td><td>Há»‡ thá»‘ng giÃ¡m sÃ¡t giÃºp phÃ¡t hiá»‡n sá»›m hÃ nh vi báº¥t thÆ°á»ng</td></tr>
-<tr><td>4</td><td><strong>Äáº£m báº£o tÃ­nh toÃ n váº¹n dá»¯ liá»‡u</strong></td><td>MÃ£ hÃ³a vÃ  chá»¯ kÃ½ sá»‘ báº£o vá»‡ dá»¯ liá»‡u khá»i thay Ä‘á»•i trÃ¡i phÃ©p</td></tr>
-<tr><td>5</td><td><strong>Kháº£ nÄƒng phá»¥c há»“i sau sá»± cá»‘</strong></td><td>Sao lÆ°u Ä‘á»‹nh ká»³ giÃºp giáº£m thiá»ƒu thá»i gian giÃ¡n Ä‘oáº¡n</td></tr>
-<tr><td>6</td><td><strong>TÄƒng uy tÃ­n tá»• chá»©c</strong></td><td>Há»‡ thá»‘ng báº£o máº­t tá»‘t táº¡o niá»m tin cho khÃ¡ch hÃ ng, Ä‘á»‘i tÃ¡c</td></tr>
-<tr><td>7</td><td><strong>TuÃ¢n thá»§ quy Ä‘á»‹nh phÃ¡p luáº­t</strong></td><td>ÄÃ¡p á»©ng Luáº­t An ninh máº¡ng, GDPR vÃ  cÃ¡c tiÃªu chuáº©n quá»‘c táº¿</td></tr>
+<tr><th>STT</th><th>Ưu điểm</th><th>Mô tả chi tiết</th></tr>
+<tr><td>1</td><td><strong>Bảo vệ dữ liệu nhạy cảm</strong></td><td>Ngăn chặn rò rỉ thông tin cá nhân, tài chính, bí mật kinh doanh</td></tr>
+<tr><td>2</td><td><strong>Kiểm soát truy cập hiệu quả</strong></td><td>Phân quyền rõ ràng theo nguyên tắc least privilege</td></tr>
+<tr><td>3</td><td><strong>Phát hiện và ngăn chặn tấn công</strong></td><td>Hệ thống giám sát giúp phát hiện sớm hành vi bất thường</td></tr>
+<tr><td>4</td><td><strong>Đảm bảo tính toàn vẹn dữ liệu</strong></td><td>Mã hóa và chữ ký số bảo vệ dữ liệu khỏi thay đổi trái phép</td></tr>
+<tr><td>5</td><td><strong>Khả năng phục hồi sau sự cố</strong></td><td>Sao lưu định kỳ giúp giảm thiểu thời gian gián đoạn</td></tr>
+<tr><td>6</td><td><strong>Tăng uy tín tổ chức</strong></td><td>Hệ thống bảo mật tốt tạo niềm tin cho khách hàng, đối tác</td></tr>
+<tr><td>7</td><td><strong>Tuân thủ quy định pháp luật</strong></td><td>Đáp ứng Luật An ninh mạng, GDPR và các tiêu chuẩn quốc tế</td></tr>
 </table>
 
-<h3>1.3.3. NhÆ°á»£c Ä‘iá»ƒm vÃ  thÃ¡ch thá»©c</h3>
+<h3>1.3.3. Nhược điểm và thách thức</h3>
 <table>
-<tr><th>STT</th><th>NhÆ°á»£c Ä‘iá»ƒm</th><th>MÃ´ táº£ chi tiáº¿t</th></tr>
-<tr><td>1</td><td><strong>Chi phÃ­ triá»ƒn khai cao</strong></td><td>Äáº§u tÆ° pháº§n cá»©ng, pháº§n má»m vÃ  nhÃ¢n sá»± chuyÃªn mÃ´n Ä‘Ã²i há»i ngÃ¢n sÃ¡ch lá»›n</td></tr>
-<tr><td>2</td><td><strong>Giáº£m hiá»‡u nÄƒng há»‡ thá»‘ng</strong></td><td>MÃ£ hÃ³a, kiá»ƒm toÃ¡n táº¡o thÃªm táº£i cho há»‡ thá»‘ng</td></tr>
-<tr><td>3</td><td><strong>Phá»©c táº¡p trong quáº£n trá»‹</strong></td><td>Quáº£n lÃ½ chÃ­nh sÃ¡ch báº£o máº­t Ä‘Ã²i há»i kiáº¿n thá»©c chuyÃªn sÃ¢u</td></tr>
-<tr><td>4</td><td><strong>áº¢nh hÆ°á»Ÿng tráº£i nghiá»‡m ngÆ°á»i dÃ¹ng</strong></td><td>XÃ¡c thá»±c Ä‘a yáº¿u tá»‘ cÃ³ thá»ƒ gÃ¢y báº¥t tiá»‡n</td></tr>
-<tr><td>5</td><td><strong>KhÃ³ cÃ¢n báº±ng báº£o máº­t vÃ  tiá»‡n dá»¥ng</strong></td><td>Báº£o máº­t quÃ¡ cháº·t cáº£n trá»Ÿ nÄƒng suáº¥t; quÃ¡ lá»ng dá»… bá»‹ táº¥n cÃ´ng</td></tr>
-<tr><td>6</td><td><strong>KhÃ´ng cÃ³ giáº£i phÃ¡p hoÃ n háº£o</strong></td><td>LuÃ´n tá»“n táº¡i lá»— há»•ng zero-day vÃ  rá»§i ro tá»« con ngÆ°á»i</td></tr>
-<tr><td>7</td><td><strong>YÃªu cáº§u cáº­p nháº­t liÃªn tá»¥c</strong></td><td>Má»‘i Ä‘e dá»a tiáº¿n hÃ³a, Ä‘Ã²i há»i cáº­p nháº­t vÃ  Ä‘Ã o táº¡o thÆ°á»ng xuyÃªn</td></tr>
+<tr><th>STT</th><th>Nhược điểm</th><th>Mô tả chi tiết</th></tr>
+<tr><td>1</td><td><strong>Chi phí triển khai cao</strong></td><td>Đầu tư phần cứng, phần mềm và nhân sự chuyên môn đòi hỏi ngân sách lớn</td></tr>
+<tr><td>2</td><td><strong>Giảm hiệu năng hệ thống</strong></td><td>Mã hóa, kiểm toán tạo thêm tải cho hệ thống</td></tr>
+<tr><td>3</td><td><strong>Phức tạp trong quản trị</strong></td><td>Quản lý chính sách bảo mật đòi hỏi kiến thức chuyên sâu</td></tr>
+<tr><td>4</td><td><strong>Ảnh hưởng trải nghiệm người dùng</strong></td><td>Xác thực đa yếu tố có thể gây bất tiện</td></tr>
+<tr><td>5</td><td><strong>Khó cân bằng bảo mật và tiện dụng</strong></td><td>Bảo mật quá chặt cản trở năng suất; quá lỏng dễ bị tấn công</td></tr>
+<tr><td>6</td><td><strong>Không có giải pháp hoàn hảo</strong></td><td>Luôn tồn tại lỗ hổng zero-day và rủi ro từ con người</td></tr>
+<tr><td>7</td><td><strong>Yêu cầu cập nhật liên tục</strong></td><td>Mối đe dọa tiến hóa, đòi hỏi cập nhật và đào tạo thường xuyên</td></tr>
 </table>
 
-<h3>1.3.4. Ma tráº­n Ä‘Ã¡nh giÃ¡ cÃ¡c phÆ°Æ¡ng phÃ¡p báº£o máº­t</h3>
+<h3>1.3.4. Ma trận đánh giá các phương pháp bảo mật</h3>
 <table>
-<tr><th>PhÆ°Æ¡ng phÃ¡p</th><th>Báº£o máº­t</th><th>Hiá»‡u nÄƒng</th><th>Chi phÃ­</th><th>Äá»™ phá»©c táº¡p</th></tr>
-<tr><td>PhÃ¢n quyá»n (Authorization)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
-<tr><td>MÃ£ hÃ³a dá»¯ liá»‡u (Encryption)</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
-<tr><td>Kiá»ƒm toÃ¡n (Auditing)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
-<tr><td>Sao lÆ°u &amp; Phá»¥c há»“i</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
-<tr><td>TÆ°á»ng lá»­a (Firewall)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
-<tr><td>XÃ¡c thá»±c Ä‘a yáº¿u tá»‘ (MFA)</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
+<tr><th>Phương pháp</th><th>Bảo mật</th><th>Hiệu năng</th><th>Chi phí</th><th>Độ phức tạp</th></tr>
+<tr><td>Phân quyền (Authorization)</td><td class="stars">★★★★☆</td><td class="stars">★★★★★</td><td class="stars">★★★★★</td><td class="stars">★★★☆☆</td></tr>
+<tr><td>Mã hóa dữ liệu (Encryption)</td><td class="stars">★★★★★</td><td class="stars">★★★☆☆</td><td class="stars">★★★★☆</td><td class="stars">★★★★☆</td></tr>
+<tr><td>Kiểm toán (Auditing)</td><td class="stars">★★★★☆</td><td class="stars">★★★★☆</td><td class="stars">★★★★☆</td><td class="stars">★★★☆☆</td></tr>
+<tr><td>Sao lưu &amp; Phục hồi</td><td class="stars">★★★★★</td><td class="stars">★★★★★</td><td class="stars">★★★☆☆</td><td class="stars">★★★☆☆</td></tr>
+<tr><td>Tường lửa (Firewall)</td><td class="stars">★★★★☆</td><td class="stars">★★★★☆</td><td class="stars">★★★☆☆</td><td class="stars">★★★★☆</td></tr>
+<tr><td>Xác thực đa yếu tố (MFA)</td><td class="stars">★★★★★</td><td class="stars">★★★★☆</td><td class="stars">★★★☆☆</td><td class="stars">★★★★☆</td></tr>
 </table>
-<blockquote>â˜…â˜…â˜…â˜…â˜… = Xuáº¥t sáº¯c &nbsp;|&nbsp; â˜…â˜…â˜…â˜…â˜† = Tá»‘t &nbsp;|&nbsp; â˜…â˜…â˜…â˜†â˜† = Trung bÃ¬nh</blockquote>
+<blockquote>★★★★★ = Xuất sắc &nbsp;|&nbsp; ★★★★☆ = Tốt &nbsp;|&nbsp; ★★★☆☆ = Trung bình</blockquote>
 </div>
-<!-- ===== CHÆ¯Æ NG 2 ===== -->
+
+
+<!-- ===== CHƯƠNG 2 ===== -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">7</span>
 </div>
-
-<h1 class="chapter">ChÆ°Æ¡ng 2. Váº¥n Äá» NghiÃªn Cá»©u vÃ  Giáº£i PhÃ¡p An ToÃ n</h1>
-
-<h2>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u</h2>
-<h3>2.1.1. Tá»•ng quan tÃ¬nh hÃ¬nh an ninh máº¡ng</h3>
-<p>Trong bá»‘i cáº£nh chuyá»ƒn Ä‘á»•i sá»‘ toÃ n cáº§u, cÃ¡c cuá»™c táº¥n cÃ´ng máº¡ng ngÃ y cÃ ng gia tÄƒng cáº£ vá» sá»‘ lÆ°á»£ng láº«n má»©c Ä‘á»™ tinh vi:</p>
+<h1 class="chapter">Chương 2. Vấn Đề Nghiên Cứu và Giải Pháp An Toàn</h1>
+<h2>2.1. Các mối đe dọa đối với cơ sở dữ liệu</h2>
+<h3>2.1.1. Tổng quan tình hình an ninh mạng</h3>
+<p>Trong bối cảnh chuyển đổi số toàn cầu, các cuộc tấn công mạng ngày càng gia tăng cả về số lượng lẫn mức độ tinh vi:</p>
 <ul>
-<li>Sá»‘ lÆ°á»£ng cuá»™c táº¥n cÃ´ng ransomware tÄƒng trung bÃ¬nh 13% má»—i nÄƒm.</li>
-<li>Chi phÃ­ trung bÃ¬nh cho má»™t vá»¥ rÃ² rá»‰ dá»¯ liá»‡u lÃªn Ä‘áº¿n 4.45 triá»‡u USD (IBM, 2023).</li>
-<li>82% cÃ¡c vá»¥ vi pháº¡m dá»¯ liá»‡u liÃªn quan Ä‘áº¿n yáº¿u tá»‘ con ngÆ°á»i (Verizon DBIR, 2023).</li>
-<li>Táº¡i Viá»‡t Nam, Luáº­t An ninh máº¡ng 2018 vÃ  Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP Ä‘áº·t ra yÃªu cáº§u nghiÃªm ngáº·t vá» báº£o máº­t.</li>
+<li>Số lượng cuộc tấn công ransomware tăng trung bình 13% mỗi năm.</li>
+<li>Chi phí trung bình cho một vụ rò rỉ dữ liệu lên đến 4.45 triệu USD (IBM, 2023).</li>
+<li>82% các vụ vi phạm dữ liệu liên quan đến yếu tố con người (Verizon DBIR, 2023).</li>
+<li>Tại Việt Nam, Luật An ninh mạng 2018 và Nghị định 13/2023/NĐ-CP đặt ra yêu cầu nghiêm ngặt về bảo mật.</li>
 </ul>
-
-<h3>2.1.2. PhÃ¢n loáº¡i cÃ¡c má»‘i Ä‘e dá»a</h3>
-<h4>A. Táº¥n cÃ´ng tá»« bÃªn ngoÃ i</h4>
+<h3>2.1.2. Phân loại các mối đe dọa</h3>
+<h4>A. Tấn công từ bên ngoài</h4>
 <table class="threat-table">
-<tr><th>Loáº¡i táº¥n cÃ´ng</th><th>MÃ´ táº£</th><th>Má»©c Ä‘á»™</th></tr>
-<tr><td><strong>SQL Injection</strong></td><td>ChÃ¨n mÃ£ SQL Ä‘á»™c háº¡i qua input Ä‘á»ƒ truy cáº­p/sá»­a Ä‘á»•i CSDL trÃ¡i phÃ©p</td><td>ðŸ”´ Ráº¥t cao</td></tr>
-<tr><td><strong>Brute Force</strong></td><td>Thá»­ táº¥t cáº£ tá»• há»£p máº­t kháº©u Ä‘á»ƒ Ä‘Äƒng nháº­p trÃ¡i phÃ©p</td><td>ðŸŸ  Cao</td></tr>
-<tr><td><strong>Man-in-the-Middle</strong></td><td>Cháº·n báº¯t vÃ  sá»­a Ä‘á»•i dá»¯ liá»‡u truyá»n giá»¯a client vÃ  server</td><td>ðŸ”´ Ráº¥t cao</td></tr>
-<tr><td><strong>Ransomware</strong></td><td>MÃ£ hÃ³a dá»¯ liá»‡u Ä‘Ã²i tiá»n chuá»™c</td><td>ðŸ”´ Ráº¥t cao</td></tr>
-<tr><td><strong>DDoS</strong></td><td>Táº¥n cÃ´ng tá»« chá»‘i dá»‹ch vá»¥ lÃ m tÃª liá»‡t há»‡ thá»‘ng</td><td>ðŸŸ  Cao</td></tr>
-<tr><td><strong>Phishing</strong></td><td>Lá»«a Ä‘áº£o ngÆ°á»i dÃ¹ng Ä‘á»ƒ láº¥y thÃ´ng tin Ä‘Äƒng nháº­p</td><td>ðŸŸ  Cao</td></tr>
+<tr><th>Loại tấn công</th><th>Mô tả</th><th>Mức độ</th></tr>
+<tr><td><strong>SQL Injection</strong></td><td>Chèn mã SQL độc hại qua input để truy cập/sửa đổi CSDL trái phép</td><td>&#128308; Rất cao</td></tr>
+<tr><td><strong>Brute Force</strong></td><td>Thử tất cả tổ hợp mật khẩu để đăng nhập trái phép</td><td>&#128992; Cao</td></tr>
+<tr><td><strong>Man-in-the-Middle</strong></td><td>Chặn bắt và sửa đổi dữ liệu truyền giữa client và server</td><td>&#128308; Rất cao</td></tr>
+<tr><td><strong>Ransomware</strong></td><td>Mã hóa dữ liệu đòi tiền chuộc</td><td>&#128308; Rất cao</td></tr>
+<tr><td><strong>DDoS</strong></td><td>Tấn công từ chối dịch vụ làm tê liệt hệ thống</td><td>&#128992; Cao</td></tr>
+<tr><td><strong>Phishing</strong></td><td>Lừa đảo người dùng để lấy thông tin đăng nhập</td><td>&#128992; Cao</td></tr>
 </table>
-
-<h4>B. Má»‘i Ä‘e dá»a tá»« bÃªn trong</h4>
+<h4>B. Mối đe dọa từ bên trong</h4>
 <table class="threat-table">
-<tr><th>Loáº¡i má»‘i Ä‘e dá»a</th><th>MÃ´ táº£</th><th>Má»©c Ä‘á»™</th></tr>
-<tr><td><strong>NhÃ¢n viÃªn cá»‘ Ã½</strong></td><td>NhÃ¢n viÃªn cÃ³ quyá»n truy cáº­p cá»‘ tÃ¬nh láº¥y cáº¯p hoáº·c phÃ¡ hoáº¡i dá»¯ liá»‡u</td><td>ðŸ”´ Ráº¥t cao</td></tr>
-<tr><td><strong>Sai sÃ³t vÃ´ Ã½</strong></td><td>XÃ³a nháº§m dá»¯ liá»‡u, cáº¥u hÃ¬nh sai, chia sáº» quyá»n khÃ´ng Ä‘Ãºng</td><td>ðŸŸ  Cao</td></tr>
-<tr><td><strong>TÃ i khoáº£n bá»‹ chiáº¿m</strong></td><td>TÃ i khoáº£n há»£p lá»‡ bá»‹ káº» táº¥n cÃ´ng kiá»ƒm soÃ¡t</td><td>ðŸ”´ Ráº¥t cao</td></tr>
-<tr><td><strong>Quyá»n truy cáº­p dÆ° thá»«a</strong></td><td>Cáº¥p quyá»n nhiá»u hÆ¡n má»©c cáº§n thiáº¿t</td><td>ðŸŸ¡ Trung bÃ¬nh</td></tr>
+<tr><th>Loại mối đe dọa</th><th>Mô tả</th><th>Mức độ</th></tr>
+<tr><td><strong>Nhân viên cố ý</strong></td><td>Nhân viên có quyền truy cập cố tình lấy cắp hoặc phá hoại dữ liệu</td><td>&#128308; Rất cao</td></tr>
+<tr><td><strong>Sai sót vô ý</strong></td><td>Xóa nhầm dữ liệu, cấu hình sai, chia sẻ quyền không đúng</td><td>&#128992; Cao</td></tr>
+<tr><td><strong>Tài khoản bị chiếm</strong></td><td>Tài khoản hợp lệ bị kẻ tấn công kiểm soát</td><td>&#128308; Rất cao</td></tr>
+<tr><td><strong>Quyền truy cập dư thừa</strong></td><td>Cấp quyền nhiều hơn mức cần thiết</td><td>&#128993; Trung bình</td></tr>
 </table>
-
-<h4>C. Lá»— há»•ng ká»¹ thuáº­t</h4>
+<h4>C. Lỗ hổng kỹ thuật</h4>
 <ul>
-<li><strong>Cáº¥u hÃ¬nh máº·c Ä‘á»‹nh:</strong> Sá»­ dá»¥ng tÃ i khoáº£n <code>sa</code> vá»›i máº­t kháº©u yáº¿u hoáº·c rá»—ng.</li>
-<li><strong>Pháº§n má»m lá»—i thá»i:</strong> KhÃ´ng cáº­p nháº­t báº£n vÃ¡ báº£o máº­t cho HQTCSDL.</li>
-<li><strong>Dá»¯ liá»‡u khÃ´ng mÃ£ hÃ³a:</strong> LÆ°u trá»¯ máº­t kháº©u dáº¡ng plain text.</li>
-<li><strong>Thiáº¿u kiá»ƒm toÃ¡n:</strong> KhÃ´ng ghi nháº­n log hoáº¡t Ä‘á»™ng.</li>
-<li><strong>Thiáº¿u sao lÆ°u:</strong> KhÃ´ng cÃ³ káº¿ hoáº¡ch sao lÆ°u Ä‘á»‹nh ká»³.</li>
+<li><strong>Cấu hình mặc định:</strong> Sử dụng tài khoản <code>sa</code> với mật khẩu yếu hoặc rỗng.</li>
+<li><strong>Phần mềm lỗi thời:</strong> Không cập nhật bản vá bảo mật cho HQTCSDL.</li>
+<li><strong>Dữ liệu không mã hóa:</strong> Lưu trữ mật khẩu dạng plain text.</li>
+<li><strong>Thiếu kiểm toán:</strong> Không ghi nhận log hoạt động.</li>
+<li><strong>Thiếu sao lưu:</strong> Không có kế hoạch sao lưu định kỳ.</li>
 </ul>
 </div>
 
-<!-- Trang tiáº¿p - Giáº£i phÃ¡p -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">9</span>
 </div>
-
-<h2>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin</h2>
-<p>Dá»±a trÃªn phÃ¢n tÃ­ch cÃ¡c má»‘i Ä‘e dá»a, chÃºng tÃ´i Ä‘á» xuáº¥t <strong>4 giáº£i phÃ¡p chÃ­nh</strong> triá»ƒn khai trÃªn SQL Server:</p>
-
-<h3>2.2.1. Giáº£i phÃ¡p 1: PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng (Authorization &amp; Access Control)</h3>
-<p><strong>Má»¥c tiÃªu:</strong> Äáº£m báº£o má»—i ngÆ°á»i dÃ¹ng chá»‰ cÃ³ quyá»n truy cáº­p tá»‘i thiá»ƒu cáº§n thiáº¿t.</p>
-<p><strong>NguyÃªn táº¯c:</strong> Principle of Least Privilege (PoLP), Separation of Duties (SoD), Role-Based Access Control (RBAC).</p>
+<h2>2.2. Các giải pháp bảo mật và an toàn thông tin</h2>
+<p>Dựa trên phân tích các mối đe dọa, chúng tôi đề xuất <strong>4 giải pháp chính</strong> triển khai trên SQL Server:</p>
+<h3>2.2.1. Giải pháp 1: Phân quyền người dùng (Authorization &amp; Access Control)</h3>
+<p><strong>Mục tiêu:</strong> Đảm bảo mỗi người dùng chỉ có quyền truy cập tối thiểu cần thiết.</p>
+<p><strong>Nguyên tắc:</strong> Principle of Least Privilege (PoLP), Separation of Duties (SoD), Role-Based Access Control (RBAC).</p>
 <table>
-<tr><th>Biá»‡n phÃ¡p</th><th>MÃ´ táº£</th><th>CÃ´ng cá»¥ SQL Server</th></tr>
-<tr><td>Táº¡o Login &amp; User</td><td>PhÃ¢n biá»‡t tÃ i khoáº£n Ä‘Äƒng nháº­p vÃ  tÃ i khoáº£n CSDL</td><td><code>CREATE LOGIN</code>, <code>CREATE USER</code></td></tr>
-<tr><td>Táº¡o Role</td><td>NhÃ³m quyá»n theo vai trÃ² nghiá»‡p vá»¥</td><td><code>CREATE ROLE</code>, <code>ALTER ROLE</code></td></tr>
-<tr><td>Cáº¥p/Thu há»“i quyá»n</td><td>GÃ¡n quyá»n cá»¥ thá»ƒ cho tá»«ng role/user</td><td><code>GRANT</code>, <code>DENY</code>, <code>REVOKE</code></td></tr>
-<tr><td>Schema separation</td><td>TÃ¡ch biá»‡t dá»¯ liá»‡u theo schema</td><td><code>CREATE SCHEMA</code></td></tr>
-<tr><td>Row-Level Security</td><td>Kiá»ƒm soÃ¡t truy cáº­p á»Ÿ má»©c dÃ²ng dá»¯ liá»‡u</td><td>Security Policy, Filter Predicate</td></tr>
+<tr><th>Biện pháp</th><th>Mô tả</th><th>Công cụ SQL Server</th></tr>
+<tr><td>Tạo Login &amp; User</td><td>Phân biệt tài khoản đăng nhập và tài khoản CSDL</td><td><code>CREATE LOGIN</code>, <code>CREATE USER</code></td></tr>
+<tr><td>Tạo Role</td><td>Nhóm quyền theo vai trò nghiệp vụ</td><td><code>CREATE ROLE</code>, <code>ALTER ROLE</code></td></tr>
+<tr><td>Cấp/Thu hồi quyền</td><td>Gán quyền cụ thể cho từng role/user</td><td><code>GRANT</code>, <code>DENY</code>, <code>REVOKE</code></td></tr>
+<tr><td>Schema separation</td><td>Tách biệt dữ liệu theo schema</td><td><code>CREATE SCHEMA</code></td></tr>
+<tr><td>Row-Level Security</td><td>Kiểm soát truy cập ở mức dòng dữ liệu</td><td>Security Policy, Filter Predicate</td></tr>
 </table>
-
-<h3>2.2.2. Giáº£i phÃ¡p 2: MÃ£ hÃ³a dá»¯ liá»‡u (Data Encryption)</h3>
-<p><strong>Má»¥c tiÃªu:</strong> Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m cáº£ khi lÆ°u trá»¯ (at rest) vÃ  khi truyá»n táº£i (in transit).</p>
-<div class="diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚     Transparent Data Encryption (TDE)       â”‚
-â”‚     MÃ£ hÃ³a toÃ n bá»™ database file            â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚     Column-Level Encryption                  â”‚
-â”‚     MÃ£ hÃ³a tá»«ng cá»™t dá»¯ liá»‡u nháº¡y cáº£m      â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚     Always Encrypted                         â”‚
-â”‚     MÃ£ hÃ³a end-to-end, server khÃ´ng cÃ³ key  â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚     Transport Layer Security (TLS/SSL)       â”‚
-â”‚     MÃ£ hÃ³a dá»¯ liá»‡u truyá»n trÃªn máº¡ng       â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
+<h3>2.2.2. Giải pháp 2: Mã hóa dữ liệu (Data Encryption)</h3>
+<p><strong>Mục tiêu:</strong> Bảo vệ dữ liệu nhạy cảm cả khi lưu trữ (at rest) và khi truyền tải (in transit).</p>
 <table>
-<tr><th>PhÆ°Æ¡ng phÃ¡p</th><th>Pháº¡m vi</th><th>Hiá»‡u nÄƒng</th><th>Äá»™ báº£o máº­t</th><th>PhÃ¹ há»£p</th></tr>
-<tr><td><strong>TDE</strong></td><td>ToÃ n bá»™ DB</td><td>áº¢nh hÆ°á»Ÿng Ã­t</td><td>Cao</td><td>Báº£o vá»‡ file backup</td></tr>
-<tr><td><strong>Column Encryption</strong></td><td>Tá»«ng cá»™t</td><td>áº¢nh hÆ°á»Ÿng vá»«a</td><td>Ráº¥t cao</td><td>Dá»¯ liá»‡u nháº¡y cáº£m cá»¥ thá»ƒ</td></tr>
-<tr><td><strong>Always Encrypted</strong></td><td>Tá»«ng cá»™t</td><td>áº¢nh hÆ°á»Ÿng nhiá»u</td><td>Cá»±c cao</td><td>YÃªu cáº§u end-to-end</td></tr>
-<tr><td><strong>TLS/SSL</strong></td><td>Truyá»n táº£i</td><td>áº¢nh hÆ°á»Ÿng Ã­t</td><td>Cao</td><td>Má»i káº¿t ná»‘i</td></tr>
+<tr><th>Phương pháp</th><th>Phạm vi</th><th>Hiệu năng</th><th>Độ bảo mật</th><th>Phù hợp</th></tr>
+<tr><td><strong>TDE</strong></td><td>Toàn bộ DB</td><td>Ảnh hưởng ít</td><td>Cao</td><td>Bảo vệ file backup</td></tr>
+<tr><td><strong>Column Encryption</strong></td><td>Từng cột</td><td>Ảnh hưởng vừa</td><td>Rất cao</td><td>Dữ liệu nhạy cảm cụ thể</td></tr>
+<tr><td><strong>Always Encrypted</strong></td><td>Từng cột</td><td>Ảnh hưởng nhiều</td><td>Cực cao</td><td>Yêu cầu end-to-end</td></tr>
+<tr><td><strong>TLS/SSL</strong></td><td>Truyền tải</td><td>Ảnh hưởng ít</td><td>Cao</td><td>Mọi kết nối</td></tr>
 </table>
 </div>
 
-<!-- Trang tiáº¿p - Giáº£i phÃ¡p (tiáº¿p) -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">11</span>
 </div>
-
-<h3>2.2.3. Giáº£i phÃ¡p 3: Kiá»ƒm toÃ¡n (Database Auditing)</h3>
-<p><strong>Má»¥c tiÃªu:</strong> Ghi nháº­n vÃ  giÃ¡m sÃ¡t má»i hoáº¡t Ä‘á»™ng trÃªn CSDL Ä‘á»ƒ phÃ¡t hiá»‡n báº¥t thÆ°á»ng.</p>
+<h3>2.2.3. Giải pháp 3: Kiểm toán (Database Auditing)</h3>
+<p><strong>Mục tiêu:</strong> Ghi nhận và giám sát mọi hoạt động trên CSDL để phát hiện bất thường.</p>
 <table>
-<tr><th>Loáº¡i sá»± kiá»‡n</th><th>VÃ­ dá»¥</th><th>Má»©c Ä‘á»™ quan trá»ng</th></tr>
-<tr><td>ÄÄƒng nháº­p/ÄÄƒng xuáº¥t</td><td>Login thÃ nh cÃ´ng/tháº¥t báº¡i</td><td>Cao</td></tr>
-<tr><td>Thay Ä‘á»•i dá»¯ liá»‡u</td><td>INSERT, UPDATE, DELETE trÃªn báº£ng nháº¡y cáº£m</td><td>Ráº¥t cao</td></tr>
-<tr><td>Thay Ä‘á»•i cáº¥u trÃºc</td><td>ALTER TABLE, DROP TABLE</td><td>Ráº¥t cao</td></tr>
-<tr><td>Thay Ä‘á»•i quyá»n</td><td>GRANT, REVOKE, DENY</td><td>Cao</td></tr>
-<tr><td>Truy váº¥n dá»¯ liá»‡u</td><td>SELECT trÃªn dá»¯ liá»‡u nháº¡y cáº£m</td><td>Trung bÃ¬nh</td></tr>
-<tr><td>Sao lÆ°u/Phá»¥c há»“i</td><td>BACKUP, RESTORE</td><td>Cao</td></tr>
+<tr><th>Loại sự kiện</th><th>Ví dụ</th><th>Mức độ quan trọng</th></tr>
+<tr><td>Đăng nhập/Đăng xuất</td><td>Login thành công/thất bại</td><td>Cao</td></tr>
+<tr><td>Thay đổi dữ liệu</td><td>INSERT, UPDATE, DELETE trên bảng nhạy cảm</td><td>Rất cao</td></tr>
+<tr><td>Thay đổi cấu trúc</td><td>ALTER TABLE, DROP TABLE</td><td>Rất cao</td></tr>
+<tr><td>Thay đổi quyền</td><td>GRANT, REVOKE, DENY</td><td>Cao</td></tr>
+<tr><td>Truy vấn dữ liệu</td><td>SELECT trên dữ liệu nhạy cảm</td><td>Trung bình</td></tr>
+<tr><td>Sao lưu/Phục hồi</td><td>BACKUP, RESTORE</td><td>Cao</td></tr>
 </table>
-
-<h3>2.2.4. Giáº£i phÃ¡p 4: Sao lÆ°u vÃ  Phá»¥c há»“i (Backup &amp; Recovery)</h3>
-<p><strong>Má»¥c tiÃªu:</strong> Äáº£m báº£o kháº£ nÄƒng phá»¥c há»“i dá»¯ liá»‡u nhanh chÃ³ng khi xáº£y ra sá»± cá»‘.</p>
+<h3>2.2.4. Giải pháp 4: Sao lưu và Phục hồi (Backup &amp; Recovery)</h3>
+<p><strong>Mục tiêu:</strong> Đảm bảo khả năng phục hồi dữ liệu nhanh chóng khi xảy ra sự cố.</p>
 <table>
-<tr><th>Loáº¡i sao lÆ°u</th><th>Táº§n suáº¥t</th><th>MÃ´ táº£</th><th>Recovery Point</th></tr>
-<tr><td><strong>Full Backup</strong></td><td>HÃ ng ngÃ y (tá»‘i)</td><td>Sao lÆ°u toÃ n bá»™ database</td><td>Äáº¿n thá»i Ä‘iá»ƒm backup</td></tr>
-<tr><td><strong>Differential Backup</strong></td><td>Má»—i 6 giá»</td><td>Sao lÆ°u pháº§n thay Ä‘á»•i tá»« Full gáº§n nháº¥t</td><td>Äáº¿n thá»i Ä‘iá»ƒm diff backup</td></tr>
-<tr><td><strong>Transaction Log Backup</strong></td><td>Má»—i 15-30 phÃºt</td><td>Sao lÆ°u log giao dá»‹ch</td><td>Äáº¿n thá»i Ä‘iá»ƒm cá»¥ thá»ƒ (point-in-time)</td></tr>
+<tr><th>Loại sao lưu</th><th>Tần suất</th><th>Mô tả</th><th>Recovery Point</th></tr>
+<tr><td><strong>Full Backup</strong></td><td>Hàng ngày (tối)</td><td>Sao lưu toàn bộ database</td><td>Đến thời điểm backup</td></tr>
+<tr><td><strong>Differential Backup</strong></td><td>Mỗi 6 giờ</td><td>Sao lưu phần thay đổi từ Full gần nhất</td><td>Đến thời điểm diff backup</td></tr>
+<tr><td><strong>Transaction Log Backup</strong></td><td>Mỗi 15-30 phút</td><td>Sao lưu log giao dịch</td><td>Đến thời điểm cụ thể (point-in-time)</td></tr>
 </table>
-<p><strong>NguyÃªn táº¯c 3-2-1:</strong> <strong>3</strong> báº£n sao lÆ°u, <strong>2</strong> loáº¡i phÆ°Æ¡ng tiá»‡n khÃ¡c nhau, <strong>1</strong> báº£n á»Ÿ vá»‹ trÃ­ khÃ¡c (offsite/cloud).</p>
-
+<p><strong>Nguyên tắc 3-2-1:</strong> <strong>3</strong> bản sao lưu, <strong>2</strong> loại phương tiện khác nhau, <strong>1</strong> bản ở vị trí khác (offsite/cloud).</p>
 <hr class="separator">
-<h2>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p</h2>
-<div class="diagram">                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                    â”‚   Báº¢O Máº¬T CSDL      â”‚
-                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-           â”‚                 â”‚                  â”‚
-    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”
-    â”‚ PHÃ’NG NGá»ªA  â”‚  â”‚  PHÃT HIá»†N  â”‚  â”‚  PHá»¤C Há»’I    â”‚
-    â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-           â”‚                â”‚                  â”‚
-    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”
-    â”‚ PhÃ¢n quyá»n  â”‚  â”‚ Kiá»ƒm toÃ¡n   â”‚  â”‚ Sao lÆ°u &amp;     â”‚
-    â”‚ MÃ£ hÃ³a      â”‚  â”‚ GiÃ¡m sÃ¡t    â”‚  â”‚ Phá»¥c há»“i      â”‚
-    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
-<p>Bá»‘n giáº£i phÃ¡p táº¡o thÃ nh há»‡ thá»‘ng báº£o máº­t toÃ n diá»‡n theo nguyÃªn táº¯c <strong>Defense in Depth</strong> (PhÃ²ng thá»§ nhiá»u lá»›p).</p>
+<h2>2.3. Tổng kết các giải pháp</h2>
+<p>Bốn giải pháp tạo thành hệ thống bảo mật toàn diện theo nguyên tắc <strong>Defense in Depth</strong> (Phòng thủ nhiều lớp).</p>
 </div>
-<!-- ===== CHÆ¯Æ NG 3 ===== -->
+
+<!-- ===== CHƯƠNG 3 ===== -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">14</span>
 </div>
-
-<h1 class="chapter">ChÆ°Æ¡ng 3. Demo CÃ¡c BÆ°á»›c Báº£o Máº­t TrÃªn SQL Server</h1>
-<blockquote><strong>MÃ´i trÆ°á»ng demo:</strong> Microsoft SQL Server 2019/2022, SQL Server Management Studio (SSMS)<br><strong>Database máº«u:</strong> <code>QuanLyNhanSu</code> â€” Há»‡ thá»‘ng quáº£n lÃ½ nhÃ¢n sá»±</blockquote>
-
-<h2>3.0. Chuáº©n bá»‹ mÃ´i trÆ°á»ng Demo</h2>
-<h3>Táº¡o Database vÃ  dá»¯ liá»‡u máº«u</h3>
-<pre>
--- Táº O DATABASE VÃ€ Dá»® LIá»†U MáºªU
-CREATE DATABASE QuanLyNhanSu;
+<h1 class="chapter">Chương 3. Demo Các Bước Bảo Mật Trên SQL Server</h1>
+<blockquote><strong>Môi trường demo:</strong> Microsoft SQL Server 2019/2022, SQL Server Management Studio (SSMS)<br><strong>Database mẫu:</strong> <code>QuanLyNhanSu</code> — Hệ thống quản lý nhân sự</blockquote>
+<h2>3.0. Chuẩn bị môi trường Demo</h2>
+<h3>Tạo Database và dữ liệu mẫu</h3>
+<pre>CREATE DATABASE QuanLyNhanSu;
 GO
 USE QuanLyNhanSu;
 GO
@@ -661,8 +836,8 @@ CREATE TABLE NhanVien (
     HoTen NVARCHAR(100) NOT NULL,
     Email VARCHAR(100),
     SoDienThoai VARCHAR(15),
-    CMND VARCHAR(20),           -- Dá»¯ liá»‡u nháº¡y cáº£m
-    Luong DECIMAL(18,2),        -- Dá»¯ liá»‡u nháº¡y cáº£m
+    CMND VARCHAR(20),           -- Du lieu nhay cam
+    Luong DECIMAL(18,2),        -- Du lieu nhay cam
     MaPB INT FOREIGN KEY REFERENCES PhongBan(MaPB),
     NgayVaoLam DATE,
     ChucVu NVARCHAR(50)
@@ -673,141 +848,113 @@ CREATE TABLE ChamCong (
     MaNV INT FOREIGN KEY REFERENCES NhanVien(MaNV),
     NgayChamCong DATE, GioVao TIME, GioRa TIME,
     TrangThai NVARCHAR(20)
-);
-</pre>
-<pre>
-INSERT INTO PhongBan (TenPB, MoTa) VALUES
-(N'PhÃ²ng Ká»¹ thuáº­t', N'Phá»¥ trÃ¡ch phÃ¡t triá»ƒn pháº§n má»m'),
-(N'PhÃ²ng NhÃ¢n sá»±', N'Quáº£n lÃ½ nhÃ¢n sá»± vÃ  tuyá»ƒn dá»¥ng'),
-(N'PhÃ²ng Káº¿ toÃ¡n', N'Quáº£n lÃ½ tÃ i chÃ­nh vÃ  lÆ°Æ¡ng');
+);</pre>
+<pre>INSERT INTO PhongBan (TenPB, MoTa) VALUES
+(N'Phong Ky thuat', N'Phu trach phat trien phan mem'),
+(N'Phong Nhan su', N'Quan ly nhan su va tuyen dung'),
+(N'Phong Ke toan', N'Quan ly tai chinh va luong');
 
-INSERT INTO NhanVien (HoTen,Email,SoDienThoai,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
-VALUES
-(N'Nguyá»…n VÄƒn An','an.nv@company.com','0901234567',
- '012345678901',25000000,1,'2020-01-15',N'TrÆ°á»Ÿng phÃ²ng'),
-(N'Tráº§n Thá»‹ BÃ¬nh','binh.tt@company.com','0912345678',
- '012345678902',18000000,1,'2021-03-20',N'NhÃ¢n viÃªn'),
-(N'LÃª VÄƒn CÆ°á»ng','cuong.lv@company.com','0923456789',
- '012345678903',22000000,2,'2019-06-10',N'TrÆ°á»Ÿng phÃ²ng'),
-(N'Pháº¡m Thá»‹ Dung','dung.pt@company.com','0934567890',
- '012345678904',20000000,3,'2020-09-01',N'Káº¿ toÃ¡n trÆ°á»Ÿng'),
-(N'HoÃ ng VÄƒn Em','em.hv@company.com','0945678901',
- '012345678905',15000000,1,'2022-01-10',N'NhÃ¢n viÃªn');
-GO
-</pre>
+INSERT INTO NhanVien (HoTen,Email,SoDienThoai,CMND,Luong,MaPB,NgayVaoLam,ChucVu) VALUES
+(N'Nguyen Van An','an.nv@company.com','0901234567','012345678901',25000000,1,'2020-01-15',N'Truong phong'),
+(N'Tran Thi Binh','binh.tt@company.com','0912345678','012345678902',18000000,1,'2021-03-20',N'Nhan vien'),
+(N'Le Van Cuong','cuong.lv@company.com','0923456789','012345678903',22000000,2,'2019-06-10',N'Truong phong'),
+(N'Pham Thi Dung','dung.pt@company.com','0934567890','012345678904',20000000,3,'2020-09-01',N'Ke toan truong'),
+(N'Hoang Van Em','em.hv@company.com','0945678901','012345678905',15000000,1,'2022-01-10',N'Nhan vien');
+GO</pre>
 </div>
 
-<!-- Demo PhÃ¢n quyá»n -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">16</span>
 </div>
-
-<h2>3.1. Demo PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</h2>
-<h3>BÆ°á»›c 1: Táº¡o Login</h3>
-<pre>
-CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!';
+<h2>3.1. Demo Phân quyền người dùng</h2>
+<h3>Bước 1: Tạo Login</h3>
+<pre>CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!';
 CREATE LOGIN manager_user WITH PASSWORD = 'Manager@2024!';
 CREATE LOGIN staff_user WITH PASSWORD = 'Staff@2024!';
 CREATE LOGIN accountant_user WITH PASSWORD = 'Accountant@2024!';
-GO
-</pre>
-<h3>BÆ°á»›c 2: Táº¡o User trong Database</h3>
-<pre>
-USE QuanLyNhanSu;
+GO</pre>
+<h3>Bước 2: Tạo User trong Database</h3>
+<pre>USE QuanLyNhanSu;
 GO
 CREATE USER admin_hr FOR LOGIN admin_hr;
 CREATE USER manager_user FOR LOGIN manager_user;
 CREATE USER staff_user FOR LOGIN staff_user;
 CREATE USER accountant_user FOR LOGIN accountant_user;
-GO
-</pre>
-<h3>BÆ°á»›c 3: Táº¡o cÃ¡c Role (vai trÃ²)</h3>
-<pre>
-CREATE ROLE Role_QuanTriNhanSu;    -- Quáº£n trá»‹ nhÃ¢n sá»±: toÃ n quyá»n
-CREATE ROLE Role_TruongPhong;      -- TrÆ°á»Ÿng phÃ²ng: xem NV phÃ²ng mÃ¬nh
-CREATE ROLE Role_NhanVien;         -- NhÃ¢n viÃªn: chá»‰ xem thÃ´ng tin cÃ¡ nhÃ¢n
-CREATE ROLE Role_KeToan;           -- Káº¿ toÃ¡n: truy cáº­p thÃ´ng tin lÆ°Æ¡ng
-GO
-</pre>
-<h3>BÆ°á»›c 4: GÃ¡n quyá»n cho cÃ¡c Role</h3>
-<pre>
--- Role Quáº£n trá»‹ NhÃ¢n sá»±: ToÃ n quyá»n
+GO</pre>
+<h3>Bước 3: Tạo các Role (vai trò)</h3>
+<pre>CREATE ROLE Role_QuanTriNhanSu;
+CREATE ROLE Role_TruongPhong;
+CREATE ROLE Role_NhanVien;
+CREATE ROLE Role_KeToan;
+GO</pre>
+<h3>Bước 4: Gán quyền cho các Role</h3>
+<pre>-- Role Quan tri Nhan su: Toan quyen
 GRANT SELECT, INSERT, UPDATE, DELETE ON NhanVien TO Role_QuanTriNhanSu;
 GRANT SELECT, INSERT, UPDATE, DELETE ON PhongBan TO Role_QuanTriNhanSu;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ChamCong TO Role_QuanTriNhanSu;
 
--- Role TrÆ°á»Ÿng phÃ²ng: Xem nhÃ¢n viÃªn vÃ  cháº¥m cÃ´ng, KHÃ”NG xem lÆ°Æ¡ng
-GRANT SELECT ON NhanVien (MaNV,HoTen,Email,SoDienThoai,MaPB,
-    NgayVaoLam,ChucVu) TO Role_TruongPhong;
+-- Role Truong phong: Xem nhan vien va cham cong, KHONG xem luong
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,SoDienThoai,MaPB,NgayVaoLam,ChucVu) TO Role_TruongPhong;
 GRANT SELECT ON ChamCong TO Role_TruongPhong;
 DENY SELECT ON NhanVien (Luong, CMND) TO Role_TruongPhong;
 
--- Role NhÃ¢n viÃªn: Chá»‰ xem thÃ´ng tin cÆ¡ báº£n
-GRANT SELECT ON NhanVien (MaNV,HoTen,Email,MaPB,ChucVu)
-    TO Role_NhanVien;
+-- Role Nhan vien: Chi xem thong tin co ban
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,MaPB,ChucVu) TO Role_NhanVien;
 DENY SELECT ON NhanVien (CMND,Luong,SoDienThoai) TO Role_NhanVien;
 
--- Role Káº¿ toÃ¡n: Xem lÆ°Æ¡ng nhÆ°ng khÃ´ng Ä‘Æ°á»£c sá»­a
+-- Role Ke toan: Xem luong nhung khong duoc sua
 GRANT SELECT ON NhanVien (MaNV,HoTen,Luong,MaPB) TO Role_KeToan;
 DENY INSERT, UPDATE, DELETE ON NhanVien TO Role_KeToan;
-GO
-</pre>
+GO</pre>
 </div>
 
-<!-- Demo PhÃ¢n quyá»n (tiáº¿p) -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">17</span>
 </div>
-
-<h3>BÆ°á»›c 5-6: GÃ¡n User vÃ o Role vÃ  Kiá»ƒm tra</h3>
-<pre>
-ALTER ROLE Role_QuanTriNhanSu ADD MEMBER admin_hr;
+<h3>Bước 5-6: Gán User vào Role và Kiểm tra</h3>
+<pre>ALTER ROLE Role_QuanTriNhanSu ADD MEMBER admin_hr;
 ALTER ROLE Role_TruongPhong ADD MEMBER manager_user;
 ALTER ROLE Role_NhanVien ADD MEMBER staff_user;
 ALTER ROLE Role_KeToan ADD MEMBER accountant_user;
 GO
 
--- KIá»‚M TRA: ÄÄƒng nháº­p báº±ng staff_user
+-- KIEM TRA: Dang nhap bang staff_user
 EXECUTE AS USER = 'staff_user';
-    SELECT MaNV, HoTen, Email, ChucVu FROM NhanVien;  -- âœ… THÃ€NH CÃ”NG
-    SELECT Luong FROM NhanVien;                         -- âŒ Bá»Š Tá»ª CHá»I
+    SELECT MaNV, HoTen, Email, ChucVu FROM NhanVien;  -- THANH CONG
+    SELECT Luong FROM NhanVien;                         -- BI TU CHOI
 REVERT;
 GO
 
--- KIá»‚M TRA: ÄÄƒng nháº­p báº±ng accountant_user
+-- KIEM TRA: Dang nhap bang accountant_user
 EXECUTE AS USER = 'accountant_user';
-    SELECT MaNV, HoTen, Luong FROM NhanVien;           -- âœ… THÃ€NH CÃ”NG
-    UPDATE NhanVien SET Luong = 30000000 WHERE MaNV=1;  -- âŒ Bá»Š Tá»ª CHá»I
+    SELECT MaNV, HoTen, Luong FROM NhanVien;           -- THANH CONG
+    UPDATE NhanVien SET Luong = 30000000 WHERE MaNV=1;  -- BI TU CHOI
 REVERT;
-GO
-</pre>
-
-<h3>Káº¿t quáº£ mong Ä‘á»£i</h3>
+GO</pre>
+<h3>Kết quả mong đợi</h3>
 <table class="result-table">
-<tr><th>User</th><th>Xem NV cÆ¡ báº£n</th><th>Xem LÆ°Æ¡ng</th><th>Sá»­a dá»¯ liá»‡u</th><th>Xem Cháº¥m cÃ´ng</th></tr>
-<tr><td>admin_hr</td><td>âœ…</td><td>âœ…</td><td>âœ…</td><td>âœ…</td></tr>
-<tr><td>manager_user</td><td>âœ…</td><td>âŒ</td><td>âŒ</td><td>âœ…</td></tr>
-<tr><td>staff_user</td><td>âœ… (háº¡n cháº¿)</td><td>âŒ</td><td>âŒ</td><td>âŒ</td></tr>
-<tr><td>accountant_user</td><td>âœ… (háº¡n cháº¿)</td><td>âœ…</td><td>âŒ</td><td>âŒ</td></tr>
+<tr><th>User</th><th>Xem NV cơ bản</th><th>Xem Lương</th><th>Sửa dữ liệu</th><th>Xem Chấm công</th></tr>
+<tr><td>admin_hr</td><td>&#9989;</td><td>&#9989;</td><td>&#9989;</td><td>&#9989;</td></tr>
+<tr><td>manager_user</td><td>&#9989;</td><td>&#10060;</td><td>&#10060;</td><td>&#9989;</td></tr>
+<tr><td>staff_user</td><td>&#9989; (hạn chế)</td><td>&#10060;</td><td>&#10060;</td><td>&#10060;</td></tr>
+<tr><td>accountant_user</td><td>&#9989; (hạn chế)</td><td>&#9989;</td><td>&#10060;</td><td>&#10060;</td></tr>
 </table>
-
 <hr class="separator">
-<h2>3.2. Demo MÃ£ hÃ³a dá»¯ liá»‡u</h2>
-<h3>3.2.1. MÃ£ hÃ³a cá»™t dá»¯ liá»‡u nháº¡y cáº£m (Column-Level Encryption)</h3>
-<pre>
--- BÆ°á»›c 1: Táº¡o Master Key vÃ  Certificate
+<h2>3.2. Demo Mã hóa dữ liệu</h2>
+<h3>3.2.1. Mã hóa cột dữ liệu nhạy cảm (Column-Level Encryption)</h3>
+<pre>-- Buoc 1: Tao Master Key va Certificate
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'MasterKey@2024!Secure';
 GO
 CREATE CERTIFICATE Cert_NhanVien
@@ -818,58 +965,45 @@ CREATE SYMMETRIC KEY Key_NhanVien
     ENCRYPTION BY CERTIFICATE Cert_NhanVien;
 GO
 
--- BÆ°á»›c 2: ThÃªm cá»™t mÃ£ hÃ³a
+-- Buoc 2: Them cot ma hoa
 ALTER TABLE NhanVien ADD CMND_Encrypted VARBINARY(256);
 ALTER TABLE NhanVien ADD Luong_Encrypted VARBINARY(256);
 GO
 
--- MÃ£ hÃ³a dá»¯ liá»‡u
-OPEN SYMMETRIC KEY Key_NhanVien
-    DECRYPTION BY CERTIFICATE Cert_NhanVien;
+-- Ma hoa du lieu
+OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
 UPDATE NhanVien SET
     CMND_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CMND),
-    Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'),
-        CAST(Luong AS VARCHAR(50)));
+    Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CAST(Luong AS VARCHAR(50)));
 CLOSE SYMMETRIC KEY Key_NhanVien;
-GO
-</pre>
+GO</pre>
 </div>
 
-<!-- Demo MÃ£ hÃ³a (tiáº¿p) + Audit -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">19</span>
 </div>
-
-<h3>Giáº£i mÃ£ dá»¯ liá»‡u khi cáº§n</h3>
-<pre>
-OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
+<h3>Giải mã dữ liệu khi cần</h3>
+<pre>OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
 SELECT MaNV, HoTen,
     CONVERT(VARCHAR(20), DecryptByKey(CMND_Encrypted)) AS CMND_GiaiMa,
-    CONVERT(DECIMAL(18,2),
-        CONVERT(VARCHAR(50), DecryptByKey(Luong_Encrypted))) AS Luong_GiaiMa
+    CONVERT(DECIMAL(18,2), CONVERT(VARCHAR(50), DecryptByKey(Luong_Encrypted))) AS Luong_GiaiMa
 FROM NhanVien;
 CLOSE SYMMETRIC KEY Key_NhanVien;
-GO
-</pre>
-
+GO</pre>
 <h3>3.2.2. Transparent Data Encryption (TDE)</h3>
-<pre>
--- Táº¡o Master Key vÃ  Certificate á»Ÿ má»©c Server
-USE master;
+<pre>USE master;
 GO
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'ServerMaster@2024!';
 GO
 CREATE CERTIFICATE Cert_TDE_QuanLyNhanSu
     WITH SUBJECT = 'TDE Certificate for QuanLyNhanSu';
 GO
-
--- Táº¡o Database Encryption Key vÃ  báº­t TDE
 USE QuanLyNhanSu;
 GO
 CREATE DATABASE ENCRYPTION KEY
@@ -877,49 +1011,30 @@ CREATE DATABASE ENCRYPTION KEY
     ENCRYPTION BY SERVER CERTIFICATE Cert_TDE_QuanLyNhanSu;
 GO
 ALTER DATABASE QuanLyNhanSu SET ENCRYPTION ON;
-GO
-
--- Kiá»ƒm tra tráº¡ng thÃ¡i mÃ£ hÃ³a
-SELECT db.name AS DatabaseName,
-    CASE dek.encryption_state
-        WHEN 3 THEN N'ÄÃ£ mÃ£ hÃ³a' ELSE N'ChÆ°a mÃ£ hÃ³a'
-    END AS TrangThai,
-    dek.key_algorithm AS ThuatToan,
-    dek.key_length AS DoRongKey
-FROM sys.dm_database_encryption_keys dek
-JOIN sys.databases db ON dek.database_id = db.database_id;
-GO
-</pre>
+GO</pre>
 </div>
 
-<!-- Demo Audit -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">21</span>
 </div>
-
-<h2>3.3. Demo Kiá»ƒm toÃ¡n (Audit)</h2>
-<pre>
--- BÆ°á»›c 1: Táº¡o Server Audit
+<h2>3.3. Demo Kiểm toán (Audit)</h2>
+<pre>-- Buoc 1: Tao Server Audit
 USE master;
 GO
 CREATE SERVER AUDIT Audit_QuanLyNhanSu
-TO FILE (
-    FILEPATH = 'C:\AuditLogs\',
-    MAXSIZE = 100 MB,
-    MAX_ROLLOVER_FILES = 10
-)
+TO FILE (FILEPATH = 'C:\AuditLogs\', MAXSIZE = 100 MB, MAX_ROLLOVER_FILES = 10)
 WITH (QUEUE_DELAY = 1000, ON_FAILURE = CONTINUE);
 GO
 ALTER SERVER AUDIT Audit_QuanLyNhanSu WITH (STATE = ON);
 GO
 
--- BÆ°á»›c 2: Táº¡o Database Audit Specification
+-- Buoc 2: Tao Database Audit Specification
 USE QuanLyNhanSu;
 GO
 CREATE DATABASE AUDIT SPECIFICATION AuditSpec_NhanVien
@@ -931,16 +1046,15 @@ ADD (DELETE ON OBJECT::dbo.NhanVien BY public)
 WITH (STATE = ON);
 GO
 
--- BÆ°á»›c 3: Thá»±c hiá»‡n thao tÃ¡c Ä‘á»ƒ táº¡o log
+-- Buoc 3: Thuc hien thao tac de tao log
 SELECT * FROM NhanVien;
-UPDATE NhanVien SET ChucVu = N'PhÃ³ phÃ²ng' WHERE MaNV = 2;
+UPDATE NhanVien SET ChucVu = N'Pho phong' WHERE MaNV = 2;
 INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
-VALUES (N'Äá»— VÄƒn PhÃºc','phuc.dv@company.com','012345678906',
-    16000000,2,'2024-02-01',N'NhÃ¢n viÃªn');
+VALUES (N'Do Van Phuc','phuc.dv@company.com','012345678906',16000000,2,'2024-02-01',N'Nhan vien');
 DELETE FROM NhanVien WHERE MaNV = 6;
 GO
 
--- BÆ°á»›c 4: Xem káº¿t quáº£ audit log
+-- Buoc 4: Xem ket qua audit log
 SELECT event_time AS ThoiGian,
     CASE action_id
         WHEN 'SL' THEN 'SELECT' WHEN 'IN' THEN 'INSERT'
@@ -954,43 +1068,35 @@ SELECT event_time AS ThoiGian,
 FROM sys.fn_get_audit_file('C:\AuditLogs\*.sqlaudit', DEFAULT, DEFAULT)
 WHERE database_name = 'QuanLyNhanSu'
 ORDER BY event_time DESC;
-GO
-</pre>
-
-<h3>Káº¿t quáº£ mong Ä‘á»£i</h3>
+GO</pre>
+<h3>Kết quả mong đợi</h3>
 <table class="result-table">
-<tr><th>Thá»i gian</th><th>HÃ nh Ä‘á»™ng</th><th>NgÆ°á»i dÃ¹ng</th><th>Báº£ng</th><th>Káº¿t quáº£</th></tr>
-<tr><td>2024-01-15 10:30</td><td>DELETE</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
-<tr><td>2024-01-15 10:29</td><td>INSERT</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
-<tr><td>2024-01-15 10:28</td><td>UPDATE</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
-<tr><td>2024-01-15 10:27</td><td>SELECT</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
+<tr><th>Thời gian</th><th>Hành động</th><th>Người dùng</th><th>Bảng</th><th>Kết quả</th></tr>
+<tr><td>2024-01-15 10:30</td><td>DELETE</td><td>sa</td><td>NhanVien</td><td>Thành công</td></tr>
+<tr><td>2024-01-15 10:29</td><td>INSERT</td><td>sa</td><td>NhanVien</td><td>Thành công</td></tr>
+<tr><td>2024-01-15 10:28</td><td>UPDATE</td><td>sa</td><td>NhanVien</td><td>Thành công</td></tr>
+<tr><td>2024-01-15 10:27</td><td>SELECT</td><td>sa</td><td>NhanVien</td><td>Thành công</td></tr>
 </table>
 </div>
-<!-- Demo Backup & Restore -->
+
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">23</span>
 </div>
-
-<h2>3.4. Demo Sao lÆ°u vÃ  Phá»¥c há»“i</h2>
-<h3>3.4.1. Sao lÆ°u (Backup)</h3>
-<pre>
--- Full Backup
+<h2>3.4. Demo Sao lưu và Phục hồi</h2>
+<h3>3.4.1. Sao lưu (Backup)</h3>
+<pre>-- Full Backup
 BACKUP DATABASE QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Full.bak'
 WITH FORMAT, INIT, NAME = N'Full Backup', COMPRESSION, STATS = 10;
 GO
 
--- ThÃªm dá»¯ liá»‡u má»›i rá»“i Differential Backup
-INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
-VALUES (N'VÅ© Thá»‹ Giang','giang.vt@company.com','012345678907',
-    17000000,3,'2024-03-01',N'NhÃ¢n viÃªn');
-GO
+-- Differential Backup
 BACKUP DATABASE QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Diff.bak'
 WITH DIFFERENTIAL, FORMAT, INIT, COMPRESSION, STATS = 10;
@@ -999,342 +1105,158 @@ GO
 -- Transaction Log Backup
 ALTER DATABASE QuanLyNhanSu SET RECOVERY FULL;
 GO
-UPDATE NhanVien SET Luong = Luong * 1.1 WHERE MaPB = 1;
-GO
 BACKUP LOG QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Log.trn'
 WITH FORMAT, INIT, COMPRESSION, STATS = 10;
-GO
-</pre>
-
-<h3>3.4.2. Phá»¥c há»“i sau khi xÃ³a nháº§m dá»¯ liá»‡u</h3>
-<pre>
--- Giáº£ láº­p sá»± cá»‘: XÃ³a nháº§m toÃ n bá»™ nhÃ¢n viÃªn!
+GO</pre>
+<h3>3.4.2. Phục hồi sau khi xóa nhầm dữ liệu</h3>
+<pre>-- Gia lap su co: Xoa nham toan bo nhan vien!
 DELETE FROM ChamCong;
 DELETE FROM NhanVien;
-SELECT COUNT(*) AS SoNhanVien FROM NhanVien;  -- Káº¿t quáº£: 0
+SELECT COUNT(*) AS SoNhanVien FROM NhanVien;  -- Ket qua: 0
 
--- PHá»¤C Há»’I Tá»ª BACKUP
+-- PHUC HOI TU BACKUP
 USE master;
 ALTER DATABASE QuanLyNhanSu SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
-
-RESTORE DATABASE QuanLyNhanSu
-    FROM DISK='C:\Backup\QuanLyNhanSu_Full.bak'
+RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Full.bak'
     WITH NORECOVERY, REPLACE, STATS=10;
-RESTORE DATABASE QuanLyNhanSu
-    FROM DISK='C:\Backup\QuanLyNhanSu_Diff.bak'
+RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Diff.bak'
     WITH NORECOVERY, STATS=10;
-RESTORE LOG QuanLyNhanSu
-    FROM DISK='C:\Backup\QuanLyNhanSu_Log.trn'
+RESTORE LOG QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Log.trn'
     WITH RECOVERY, STATS=10;
 GO
-
 ALTER DATABASE QuanLyNhanSu SET MULTI_USER;
 GO
 USE QuanLyNhanSu;
-SELECT COUNT(*) AS SoNhanVien FROM NhanVien; -- Káº¿t quáº£: 6 âœ…
-SELECT * FROM NhanVien;
-GO
-</pre>
-
-<h3>Káº¿t quáº£ phá»¥c há»“i</h3>
-<table class="result-table">
-<tr><th>BÆ°á»›c</th><th>Tráº¡ng thÃ¡i</th><th>MÃ´ táº£</th></tr>
-<tr><td>TrÆ°á»›c phá»¥c há»“i</td><td>0 nhÃ¢n viÃªn</td><td>Dá»¯ liá»‡u bá»‹ xÃ³a nháº§m</td></tr>
-<tr><td>Sau Restore Full</td><td>Äang restore...</td><td>DB á»Ÿ tráº¡ng thÃ¡i RESTORING</td></tr>
-<tr><td>Sau Restore Diff</td><td>Äang restore...</td><td>Ãp dá»¥ng thay Ä‘á»•i má»›i</td></tr>
-<tr><td>Sau Restore Log</td><td>âœ… DB Online</td><td>Dá»¯ liá»‡u phá»¥c há»“i hoÃ n toÃ n</td></tr>
-<tr><td>Kiá»ƒm tra cuá»‘i</td><td>6 nhÃ¢n viÃªn</td><td>ToÃ n bá»™ dá»¯ liá»‡u Ä‘Ã£ phá»¥c há»“i</td></tr>
-</table>
+SELECT COUNT(*) AS SoNhanVien FROM NhanVien; -- Ket qua: 6
+GO</pre>
 </div>
 
-<!-- Tá»•ng káº¿t Demo -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">25</span>
 </div>
-
-<h2>3.5. Tá»•ng káº¿t Demo</h2>
+<h2>3.5. Tổng kết Demo</h2>
 <table class="result-table">
-<tr><th>Giáº£i phÃ¡p</th><th>Má»¥c tiÃªu</th><th>Káº¿t quáº£ Demo</th></tr>
-<tr><td><strong>PhÃ¢n quyá»n</strong></td><td>Kiá»ƒm soÃ¡t truy cáº­p theo vai trÃ²</td><td>âœ… 4 role vá»›i quyá»n khÃ¡c nhau, kiá»ƒm tra deny thÃ nh cÃ´ng</td></tr>
-<tr><td><strong>MÃ£ hÃ³a</strong></td><td>Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m</td><td>âœ… Column encryption (AES-256) + TDE cho toÃ n DB</td></tr>
-<tr><td><strong>Kiá»ƒm toÃ¡n</strong></td><td>Ghi nháº­n má»i hoáº¡t Ä‘á»™ng</td><td>âœ… Server Audit + Database Audit Specification</td></tr>
-<tr><td><strong>Sao lÆ°u/Phá»¥c há»“i</strong></td><td>Äáº£m báº£o kháº£ nÄƒng phá»¥c há»“i</td><td>âœ… Full + Diff + Log backup, restore thÃ nh cÃ´ng</td></tr>
+<tr><th>Giải pháp</th><th>Mục tiêu</th><th>Kết quả Demo</th></tr>
+<tr><td><strong>Phân quyền</strong></td><td>Kiểm soát truy cập theo vai trò</td><td>&#9989; 4 role với quyền khác nhau, kiểm tra deny thành công</td></tr>
+<tr><td><strong>Mã hóa</strong></td><td>Bảo vệ dữ liệu nhạy cảm</td><td>&#9989; Column encryption (AES-256) + TDE cho toàn DB</td></tr>
+<tr><td><strong>Kiểm toán</strong></td><td>Ghi nhận mọi hoạt động</td><td>&#9989; Server Audit + Database Audit Specification</td></tr>
+<tr><td><strong>Sao lưu/Phục hồi</strong></td><td>Đảm bảo khả năng phục hồi</td><td>&#9989; Full + Diff + Log backup, restore thành công</td></tr>
 </table>
-
-<hr class="separator">
-
-<!-- Káº¾T LUáº¬N -->
-<h1 class="chapter">Káº¿t Luáº­n</h1>
-<h2>Tá»•ng káº¿t</h2>
-<p>Qua quÃ¡ trÃ¬nh nghiÃªn cá»©u vÃ  thá»±c hÃ nh, tÃ i liá»‡u Ä‘Ã£ trÃ¬nh bÃ y há»‡ thá»‘ng cÃ¡c váº¥n Ä‘á» vá» báº£o máº­t vÃ  an toÃ n thÃ´ng tin trong cÆ¡ sá»Ÿ dá»¯ liá»‡u:</p>
-<p><strong>ChÆ°Æ¡ng 1</strong> â€” Há»‡ thá»‘ng hÃ³a kiáº¿n thá»©c ná»n táº£ng vá» CSDL, HQTCSDL, vÃ  phÃ¢n tÃ­ch toÃ n diá»‡n Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a báº£o máº­t thÃ´ng tin.</p>
-<p><strong>ChÆ°Æ¡ng 2</strong> â€” PhÃ¢n tÃ­ch chi tiáº¿t cÃ¡c má»‘i Ä‘e dá»a, Ä‘á» xuáº¥t 4 giáº£i phÃ¡p theo nguyÃªn táº¯c Defense in Depth:</p>
-<table>
-<tr><th>STT</th><th>Giáº£i phÃ¡p</th><th>Vai trÃ²</th></tr>
-<tr><td>1</td><td>PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</td><td><strong>PhÃ²ng ngá»«a</strong> â€” Kiá»ƒm soÃ¡t ai Ä‘Æ°á»£c truy cáº­p gÃ¬</td></tr>
-<tr><td>2</td><td>MÃ£ hÃ³a dá»¯ liá»‡u</td><td><strong>PhÃ²ng ngá»«a</strong> â€” Báº£o vá»‡ dá»¯ liá»‡u khi bá»‹ xÃ¢m pháº¡m</td></tr>
-<tr><td>3</td><td>Kiá»ƒm toÃ¡n</td><td><strong>PhÃ¡t hiá»‡n</strong> â€” GiÃ¡m sÃ¡t vÃ  cáº£nh bÃ¡o báº¥t thÆ°á»ng</td></tr>
-<tr><td>4</td><td>Sao lÆ°u vÃ  phá»¥c há»“i</td><td><strong>Phá»¥c há»“i</strong> â€” Äáº£m báº£o kháº£ nÄƒng khÃ´i phá»¥c</td></tr>
-</table>
-<p><strong>ChÆ°Æ¡ng 3</strong> â€” Triá»ƒn khai thÃ nh cÃ´ng cáº£ 4 giáº£i phÃ¡p trÃªn SQL Server vá»›i database máº«u <code>QuanLyNhanSu</code>: phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä‘áº§y Ä‘á»§, sao lÆ°u 3 cáº¥p vÃ  phá»¥c há»“i thÃ nh cÃ´ng.</p>
 </div>
 
-<!-- Trang cuá»‘i - Háº¡n cháº¿ + TÃ i liá»‡u tham kháº£o -->
+<!-- ===== CHƯƠNG 4: OPDO.STORE ===== -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
-  <span class="page-number">27</span>
-</div>
-
-<h2>Háº¡n cháº¿ vÃ  hÆ°á»›ng phÃ¡t triá»ƒn</h2>
-<p><strong>Háº¡n cháº¿:</strong> Demo trÃªn mÃ´i trÆ°á»ng phÃ¡t triá»ƒn, chÆ°a Ä‘Ã¡nh giÃ¡ hiá»‡u nÄƒng thá»±c táº¿; chÆ°a triá»ƒn khai báº£o máº­t máº¡ng (firewall, IDS/IPS); chÆ°a Ä‘á» cáº­p báº£o máº­t á»©ng dá»¥ng.</p>
-<p><strong>HÆ°á»›ng phÃ¡t triá»ƒn:</strong> Má»Ÿ rá»™ng báº£o máº­t á»©ng dá»¥ng web; giÃ¡m sÃ¡t real-time vá»›i SIEM; báº£o máº­t CSDL trÃªn Ä‘Ã¡m mÃ¢y; Ã¡p dá»¥ng ML phÃ¡t hiá»‡n báº¥t thÆ°á»ng; quy trÃ¬nh DevSecOps.</p>
-
-<h2>Lá»i cáº£m Æ¡n</h2>
-<p>ChÃºng tÃ´i xin chÃ¢n thÃ nh cáº£m Æ¡n cÃ¡c tháº§y cÃ´ giÃ¡o trong chÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ© táº¡i Äáº¡i há»c HÃ²a BÃ¬nh Ä‘Ã£ hÆ°á»›ng dáº«n vÃ  táº¡o Ä‘iá»u kiá»‡n Ä‘á»ƒ hoÃ n thÃ nh tÃ i liá»‡u nghiÃªn cá»©u nÃ y.</p>
-<table>
-<tr><th>Há» vÃ  tÃªn</th><th>Vai trÃ²</th></tr>
-<tr><td><strong>Nguyá»…n Há»¯u Huy</strong></td><td>NghiÃªn cá»©u vÃ  biÃªn soáº¡n</td></tr>
-<tr><td><strong>Nguyá»…n Thá»‹ PhÆ°Æ¡ng</strong></td><td>NghiÃªn cá»©u vÃ  biÃªn soáº¡n</td></tr>
-</table>
-<p><strong>ChÆ°Æ¡ng trÃ¬nh:</strong> Tháº¡c sÄ© â€” Äáº¡i há»c HÃ²a BÃ¬nh</p>
-
-<hr class="separator">
-<h2>TÃ i liá»‡u tham kháº£o</h2>
-<ol class="ref">
-<li>E.F. Codd, "A Relational Model of Data for Large Shared Data Banks", <em>Communications of the ACM</em>, 1970.</li>
-<li>Ramez Elmasri, Shamkant B. Navathe, <em>"Fundamentals of Database Systems"</em>, 7th Edition, Pearson, 2015.</li>
-<li>Abraham Silberschatz, Henry F. Korth, <em>"Database System Concepts"</em>, 7th Edition, McGraw-Hill, 2019.</li>
-<li>IBM Security, <em>"Cost of a Data Breach Report 2023"</em>, IBM Corporation, 2023.</li>
-<li>Verizon, <em>"Data Breach Investigations Report (DBIR) 2023"</em>, Verizon Enterprise, 2023.</li>
-<li>OWASP Foundation, <em>"OWASP Top 10 â€” 2021"</em>, owasp.org.</li>
-<li>Microsoft, <em>"SQL Server Security Documentation"</em>, docs.microsoft.com.</li>
-<li>Microsoft, <em>"SQL Server Encryption"</em>, docs.microsoft.com.</li>
-<li>Microsoft, <em>"SQL Server Audit (Database Engine)"</em>, docs.microsoft.com.</li>
-<li>NIST, <em>"Framework for Improving Critical Infrastructure Cybersecurity"</em>, v1.1, 2018.</li>
-<li>Quá»‘c há»™i nÆ°á»›c CHXHCNVN, <em>"Luáº­t An ninh máº¡ng"</em>, Luáº­t sá»‘ 24/2018/QH14, 2018.</li>
-<li>ChÃ­nh phá»§ nÆ°á»›c CHXHCNVN, <em>"Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP vá» Báº£o vá»‡ dá»¯ liá»‡u cÃ¡ nhÃ¢n"</em>, 2023.</li>
-</ol>
-</div>
-
-
-<!-- ===== CHÆ¯Æ NG 4: OPDO.STORE ===== -->
-<div class="page">
-<div class="page-header">
-  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
-</div>
-<div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">26</span>
 </div>
-
-<h1 class="chapter">ChÆ°Æ¡ng 4. Ãp Dá»¥ng Báº£o Máº­t Cho Dá»± Ãn Thá»±c Tiá»…n â€” Opdo.store</h1>
-
-<h2>4.1. Giá»›i thiá»‡u dá»± Ã¡n Opdo.store</h2>
-<h3>4.1.1. Tá»•ng quan</h3>
-<p><strong>Opdo.store</strong> (<a href="https://opdo.store" target="_blank">https://opdo.store</a>) lÃ  sÃ n thÆ°Æ¡ng máº¡i Ä‘iá»‡n tá»­ chuyÃªn vá» phá»¥ tÃ¹ng Ã´ tÃ´ chÃ­nh hÃ£ng cho cÃ¡c dÃ²ng xe chÃ¢u Ã‚u (BMW, Mercedes-Benz, Audi, Volkswagen...). Há»‡ thá»‘ng káº¿t ná»‘i ngÆ°á»i bÃ¡n (verified sellers) vá»›i ngÆ°á»i mua, cung cáº¥p dá»‹ch vá»¥ tra cá»©u phá»¥ tÃ¹ng, Ä‘áº·t hÃ ng trá»±c tuyáº¿n, thanh toÃ¡n vÃ  váº­n chuyá»ƒn.</p>
-
-<h3>4.1.2. YÃªu cáº§u báº£o máº­t Ä‘áº·c thÃ¹ cá»§a E-commerce</h3>
-<p>Vá»›i Ä‘áº·c thÃ¹ lÃ  sÃ n thÆ°Æ¡ng máº¡i Ä‘iá»‡n tá»­, Opdo.store xá»­ lÃ½ nhiá»u loáº¡i dá»¯ liá»‡u nháº¡y cáº£m cáº§n Ä‘Æ°á»£c báº£o vá»‡ nghiÃªm ngáº·t:</p>
+<h1 class="chapter">Chương 4. Áp Dụng Bảo Mật Cho Dự Án Thực Tiễn — Opdo.store</h1>
+<h2>4.1. Giới thiệu dự án Opdo.store</h2>
+<h3>4.1.1. Tổng quan</h3>
+<p><strong>Opdo.store</strong> (<a href="https://opdo.store" target="_blank">https://opdo.store</a>) là sàn thương mại điện tử chuyên về phụ tùng ô tô chính hãng cho các dòng xe châu Âu (BMW, Mercedes-Benz, Audi, Volkswagen...). Hệ thống kết nối người bán (verified sellers) với người mua, cung cấp dịch vụ tra cứu phụ tùng, đặt hàng trực tuyến, thanh toán và vận chuyển.</p>
+<h3>4.1.2. Yêu cầu bảo mật đặc thù của E-commerce</h3>
 <table>
-<tr><th>Loáº¡i dá»¯ liá»‡u</th><th>Má»©c Ä‘á»™ nháº¡y cáº£m</th><th>YÃªu cáº§u báº£o máº­t</th></tr>
-<tr><td><strong>ThÃ´ng tin khÃ¡ch hÃ ng</strong></td><td>ðŸ”´ Ráº¥t cao</td><td>Há» tÃªn, email, SÄT, Ä‘á»‹a chá»‰ giao hÃ ng</td></tr>
-<tr><td><strong>ThÃ´ng tin thanh toÃ¡n</strong></td><td>ðŸ”´ Ráº¥t cao</td><td>Sá»‘ tháº», thÃ´ng tin ngÃ¢n hÃ ng, lá»‹ch sá»­ giao dá»‹ch</td></tr>
-<tr><td><strong>ThÃ´ng tin ngÆ°á»i bÃ¡n</strong></td><td>ðŸ”´ Ráº¥t cao</td><td>CMND/CCCD, giáº¥y phÃ©p kinh doanh, tÃ i khoáº£n bank</td></tr>
-<tr><td><strong>ÄÆ¡n hÃ ng &amp; Giao dá»‹ch</strong></td><td>ðŸŸ  Cao</td><td>Chi tiáº¿t Ä‘Æ¡n hÃ ng, tráº¡ng thÃ¡i, giÃ¡ bÃ¡n</td></tr>
-<tr><td><strong>Danh má»¥c sáº£n pháº©m</strong></td><td>ðŸŸ¡ Trung bÃ¬nh</td><td>ThÃ´ng tin phá»¥ tÃ¹ng, giÃ¡ nháº­p, giÃ¡ bÃ¡n</td></tr>
-<tr><td><strong>Dá»¯ liá»‡u váº­n hÃ nh</strong></td><td>ðŸŸ¡ Trung bÃ¬nh</td><td>Log há»‡ thá»‘ng, phÃ¢n tÃ­ch truy cáº­p</td></tr>
+<tr><th>Loại dữ liệu</th><th>Mức độ nhạy cảm</th><th>Yêu cầu bảo mật</th></tr>
+<tr><td><strong>Thông tin khách hàng</strong></td><td>&#128308; Rất cao</td><td>Họ tên, email, SĐT, địa chỉ giao hàng</td></tr>
+<tr><td><strong>Thông tin thanh toán</strong></td><td>&#128308; Rất cao</td><td>Số thẻ, thông tin ngân hàng, lịch sử giao dịch</td></tr>
+<tr><td><strong>Thông tin người bán</strong></td><td>&#128308; Rất cao</td><td>CMND/CCCD, giấy phép kinh doanh, tài khoản bank</td></tr>
+<tr><td><strong>Đơn hàng &amp; Giao dịch</strong></td><td>&#128992; Cao</td><td>Chi tiết đơn hàng, trạng thái, giá bán</td></tr>
+<tr><td><strong>Danh mục sản phẩm</strong></td><td>&#128993; Trung bình</td><td>Thông tin phụ tùng, giá nhập, giá bán</td></tr>
 </table>
-
-<h3>4.1.3. CÃ¡c má»‘i Ä‘e dá»a cá»¥ thá»ƒ vá»›i Opdo.store</h3>
+<h3>4.1.3. Các mối đe dọa cụ thể với Opdo.store</h3>
 <ul>
-<li><strong>SQL Injection:</strong> Táº¥n cÃ´ng qua form tÃ¬m kiáº¿m phá»¥ tÃ¹ng, Ä‘Äƒng nháº­p, Ä‘Äƒng kÃ½.</li>
-<li><strong>XSS (Cross-Site Scripting):</strong> ChÃ¨n mÃ£ Ä‘á»™c vÃ o mÃ´ táº£ sáº£n pháº©m, review.</li>
-<li><strong>CSRF (Cross-Site Request Forgery):</strong> Giáº£ máº¡o request Ä‘áº·t hÃ ng, thanh toÃ¡n.</li>
-<li><strong>Brute Force Login:</strong> Thá»­ máº­t kháº©u tÃ i khoáº£n admin, ngÆ°á»i bÃ¡n, khÃ¡ch hÃ ng.</li>
-<li><strong>Data Breach:</strong> RÃ² rá»‰ thÃ´ng tin thanh toÃ¡n, dá»¯ liá»‡u cÃ¡ nhÃ¢n khÃ¡ch hÃ ng.</li>
-<li><strong>Insider Threat:</strong> NhÃ¢n viÃªn truy cáº­p trÃ¡i phÃ©p dá»¯ liá»‡u khÃ¡ch hÃ ng, Ä‘Æ¡n hÃ ng.</li>
+<li><strong>SQL Injection:</strong> Tấn công qua form tìm kiếm phụ tùng, đăng nhập, đăng ký.</li>
+<li><strong>XSS (Cross-Site Scripting):</strong> Chèn mã độc vào mô tả sản phẩm, review.</li>
+<li><strong>CSRF (Cross-Site Request Forgery):</strong> Giả mạo request đặt hàng, thanh toán.</li>
+<li><strong>Brute Force Login:</strong> Thử mật khẩu tài khoản admin, người bán, khách hàng.</li>
+<li><strong>Data Breach:</strong> Rò rỉ thông tin thanh toán, dữ liệu cá nhân khách hàng.</li>
 </ul>
 </div>
 
-<!-- 4.2 Kiáº¿n trÃºc -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
-  <span class="page-number">27</span>
-</div>
-
-<h2>4.2. Kiáº¿n trÃºc há»‡ thá»‘ng vÃ  cÆ¡ sá»Ÿ dá»¯ liá»‡u</h2>
-<h3>4.2.1. Kiáº¿n trÃºc tá»•ng thá»ƒ</h3>
-<div class="diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                   INTERNET                           â”‚
-â”‚  KhÃ¡ch hÃ ng / NgÆ°á»i bÃ¡n truy cáº­p Opdo.store          â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                     â”‚ HTTPS (TLS 1.3)
-              â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-              â”‚  Cloudflare â”‚  WAF + DDoS Protection
-              â”‚    CDN      â”‚  + SSL Certificate
-              â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
-                     â”‚
-              â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-              â”‚  Web Server â”‚  Nginx / IIS
-              â”‚  (Frontend) â”‚  React.js / Next.js
-              â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
-                     â”‚ API Gateway
-              â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-              â”‚  App Server â”‚  Node.js / .NET Core
-              â”‚  (Backend)  â”‚  REST API + Auth
-              â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
-           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”     â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-    â”‚ SQL Server  â”‚     â”‚   Redis     â”‚
-    â”‚ (Primary)   â”‚     â”‚  (Cache)    â”‚
-    â”‚ + Firewall  â”‚     â”‚ + Session   â”‚
-    â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”
-    â”‚ SQL Server  â”‚  Backup Server
-    â”‚ (Replica)   â”‚  + Offsite Storage
-    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
-
-<h3>4.2.2. MÃ´ hÃ¬nh cÆ¡ sá»Ÿ dá»¯ liá»‡u chÃ­nh</h3>
-<table>
-<tr><th>Báº£ng</th><th>MÃ´ táº£</th><th>Dá»¯ liá»‡u nháº¡y cáº£m</th></tr>
-<tr><td><code>Users</code></td><td>TÃ i khoáº£n ngÆ°á»i dÃ¹ng (khÃ¡ch hÃ ng, ngÆ°á»i bÃ¡n, admin)</td><td>Password hash, Email, SÄT</td></tr>
-<tr><td><code>Sellers</code></td><td>ThÃ´ng tin chi tiáº¿t ngÆ°á»i bÃ¡n</td><td>CMND, Giáº¥y phÃ©p KD, TK ngÃ¢n hÃ ng</td></tr>
-<tr><td><code>Products</code></td><td>Danh má»¥c phá»¥ tÃ¹ng Ã´ tÃ´</td><td>GiÃ¡ nháº­p, giÃ¡ bÃ¡n</td></tr>
-<tr><td><code>Orders</code></td><td>ÄÆ¡n hÃ ng</td><td>Äá»‹a chá»‰ giao hÃ ng, tá»•ng tiá»n</td></tr>
-<tr><td><code>Payments</code></td><td>Giao dá»‹ch thanh toÃ¡n</td><td>Token tháº», mÃ£ giao dá»‹ch</td></tr>
-<tr><td><code>AuditLogs</code></td><td>Nháº­t kÃ½ hoáº¡t Ä‘á»™ng</td><td>ToÃ n bá»™ thao tÃ¡c há»‡ thá»‘ng</td></tr>
-</table>
-</div>
-
-<!-- 4.3 PhÃ¢n quyá»n -->
-<div class="page">
-<div class="page-header">
-  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
-</div>
-<div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">28</span>
 </div>
-
-<h2>4.3. Triá»ƒn khai phÃ¢n quyá»n ngÆ°á»i dÃ¹ng trÃªn Opdo.store</h2>
-<h3>4.3.1. MÃ´ hÃ¬nh phÃ¢n quyá»n RBAC</h3>
-<p>Ãp dá»¥ng mÃ´ hÃ¬nh <strong>Role-Based Access Control (RBAC)</strong> vá»›i 5 vai trÃ² chÃ­nh:</p>
+<h2>4.2. Kiến trúc hệ thống và cơ sở dữ liệu</h2>
 <table>
-<tr><th>Role</th><th>MÃ´ táº£</th><th>Quyá»n chÃ­nh</th></tr>
-<tr><td><strong>SuperAdmin</strong></td><td>Quáº£n trá»‹ viÃªn cao nháº¥t</td><td>ToÃ n quyá»n há»‡ thá»‘ng, quáº£n lÃ½ user, cáº¥u hÃ¬nh</td></tr>
-<tr><td><strong>Admin</strong></td><td>Quáº£n trá»‹ viÃªn</td><td>Quáº£n lÃ½ sáº£n pháº©m, Ä‘Æ¡n hÃ ng, duyá»‡t ngÆ°á»i bÃ¡n</td></tr>
-<tr><td><strong>Seller</strong></td><td>NgÆ°á»i bÃ¡n hÃ ng</td><td>CRUD sáº£n pháº©m cá»§a mÃ¬nh, xem Ä‘Æ¡n hÃ ng cá»§a mÃ¬nh</td></tr>
-<tr><td><strong>Customer</strong></td><td>KhÃ¡ch hÃ ng</td><td>Xem sáº£n pháº©m, Ä‘áº·t hÃ ng, xem Ä‘Æ¡n hÃ ng cÃ¡ nhÃ¢n</td></tr>
-<tr><td><strong>Support</strong></td><td>NhÃ¢n viÃªn há»— trá»£</td><td>Xem Ä‘Æ¡n hÃ ng, há»— trá»£ khÃ¡ch hÃ ng, KHÃ”NG xem thanh toÃ¡n</td></tr>
+<tr><th>Bảng</th><th>Mô tả</th><th>Dữ liệu nhạy cảm</th></tr>
+<tr><td><code>Users</code></td><td>Tài khoản người dùng</td><td>Password hash, Email, SĐT</td></tr>
+<tr><td><code>Sellers</code></td><td>Thông tin chi tiết người bán</td><td>CMND, Giấy phép KD, TK ngân hàng</td></tr>
+<tr><td><code>Products</code></td><td>Danh mục phụ tùng ô tô</td><td>Giá nhập, giá bán</td></tr>
+<tr><td><code>Orders</code></td><td>Đơn hàng</td><td>Địa chỉ giao hàng, tổng tiền</td></tr>
+<tr><td><code>Payments</code></td><td>Giao dịch thanh toán</td><td>Token thẻ, mã giao dịch</td></tr>
+<tr><td><code>AuditLogs</code></td><td>Nhật ký hoạt động</td><td>Toàn bộ thao tác hệ thống</td></tr>
 </table>
-
-<h3>4.3.2. Triá»ƒn khai trÃªn SQL Server</h3>
-<pre>
--- Táº¡o cÃ¡c Role cho Opdo.store
-CREATE ROLE Role_SuperAdmin;
+<h2>4.3. Triển khai phân quyền người dùng trên Opdo.store</h2>
+<h3>4.3.1. Mô hình phân quyền RBAC</h3>
+<table>
+<tr><th>Role</th><th>Mô tả</th><th>Quyền chính</th></tr>
+<tr><td><strong>SuperAdmin</strong></td><td>Quản trị viên cao nhất</td><td>Toàn quyền hệ thống, quản lý user, cấu hình</td></tr>
+<tr><td><strong>Admin</strong></td><td>Quản trị viên</td><td>Quản lý sản phẩm, đơn hàng, duyệt người bán</td></tr>
+<tr><td><strong>Seller</strong></td><td>Người bán hàng</td><td>CRUD sản phẩm của mình, xem đơn hàng của mình</td></tr>
+<tr><td><strong>Customer</strong></td><td>Khách hàng</td><td>Xem sản phẩm, đặt hàng, xem đơn hàng cá nhân</td></tr>
+<tr><td><strong>Support</strong></td><td>Nhân viên hỗ trợ</td><td>Xem đơn hàng, hỗ trợ KH, KHÔNG xem thanh toán</td></tr>
+</table>
+<h3>4.3.2. Triển khai trên SQL Server</h3>
+<pre>CREATE ROLE Role_SuperAdmin;
 CREATE ROLE Role_Admin;
 CREATE ROLE Role_Seller;
 CREATE ROLE Role_Customer;
 CREATE ROLE Role_Support;
 GO
 
--- SuperAdmin: ToÃ n quyá»n
 GRANT CONTROL ON DATABASE::OpdoStore TO Role_SuperAdmin;
 
--- Admin: Quáº£n lÃ½ sáº£n pháº©m, Ä‘Æ¡n hÃ ng, duyá»‡t seller
 GRANT SELECT, INSERT, UPDATE ON Products TO Role_Admin;
 GRANT SELECT, UPDATE ON Orders TO Role_Admin;
-GRANT SELECT, UPDATE ON Sellers TO Role_Admin;
-DENY DELETE ON Users TO Role_Admin;             -- KhÃ´ng Ä‘Æ°á»£c xÃ³a user
-DENY SELECT ON Payments (CardToken) TO Role_Admin; -- KhÃ´ng xem tháº»
+DENY DELETE ON Users TO Role_Admin;
+DENY SELECT ON Payments (CardToken) TO Role_Admin;
 
--- Seller: Chá»‰ quáº£n lÃ½ sáº£n pháº©m cá»§a mÃ¬nh (Row-Level Security)
 GRANT SELECT, INSERT, UPDATE ON Products TO Role_Seller;
 GRANT SELECT ON Orders TO Role_Seller;
-DENY SELECT ON Users TO Role_Seller;
 DENY SELECT ON Payments TO Role_Seller;
 
--- Customer: Chá»‰ Ä‘á»c sáº£n pháº©m, quáº£n lÃ½ Ä‘Æ¡n hÃ ng cÃ¡ nhÃ¢n
 GRANT SELECT ON Products TO Role_Customer;
 GRANT SELECT, INSERT ON Orders TO Role_Customer;
-DENY SELECT ON Sellers (CMND, BankAccount) TO Role_Customer;
 DENY SELECT ON Payments TO Role_Customer;
 
--- Support: Xem Ä‘Æ¡n hÃ ng Ä‘á»ƒ há»— trá»£, khÃ´ng xem thanh toÃ¡n
 GRANT SELECT ON Orders TO Role_Support;
-GRANT SELECT ON Products TO Role_Support;
 GRANT SELECT ON Users (UserID, HoTen, Email) TO Role_Support;
 DENY SELECT ON Payments TO Role_Support;
-DENY UPDATE, DELETE ON Users TO Role_Support;
-GO
-</pre>
-
-<h3>4.3.3. Row-Level Security cho Seller</h3>
-<pre>
--- Má»—i Seller chá»‰ xem/sá»­a sáº£n pháº©m cá»§a mÃ¬nh
-CREATE FUNCTION fn_SellerFilter(@SellerID INT)
-RETURNS TABLE WITH SCHEMABINDING
-AS RETURN
-    SELECT 1 AS result
-    WHERE @SellerID = CAST(SESSION_CONTEXT(N'SellerID') AS INT)
-       OR IS_MEMBER('Role_Admin') = 1
-       OR IS_MEMBER('Role_SuperAdmin') = 1;
-GO
-
-CREATE SECURITY POLICY SellerProductPolicy
-ADD FILTER PREDICATE dbo.fn_SellerFilter(SellerID) ON dbo.Products
-WITH (STATE = ON);
-GO
-</pre>
+GO</pre>
 </div>
 
-<!-- 4.4 MÃ£ hÃ³a -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">30</span>
 </div>
-
-<h2>4.4. Triá»ƒn khai mÃ£ hÃ³a dá»¯ liá»‡u</h2>
-<h3>4.4.1. MÃ£ hÃ³a máº­t kháº©u (Password Hashing)</h3>
-<p>Sá»­ dá»¥ng thuáº­t toÃ¡n <strong>bcrypt</strong> vá»›i salt Ä‘á»ƒ hash máº­t kháº©u ngÆ°á»i dÃ¹ng. Máº­t kháº©u KHÃ”NG Ä‘Æ°á»£c lÆ°u dÆ°á»›i dáº¡ng plain text.</p>
-<pre>
--- á»ž táº§ng á»©ng dá»¥ng (Node.js / .NET), máº­t kháº©u Ä‘Æ°á»£c hash trÆ°á»›c khi lÆ°u:
--- const hashedPassword = await bcrypt.hash(password, 12);
--- Trong DB chá»‰ lÆ°u hash value:
-ALTER TABLE Users ADD PasswordHash VARCHAR(255) NOT NULL;
-ALTER TABLE Users DROP COLUMN Password;  -- XÃ³a cá»™t plain text cÅ©
-GO
-</pre>
-
-<h3>4.4.2. MÃ£ hÃ³a dá»¯ liá»‡u nháº¡y cáº£m (Column-Level Encryption)</h3>
-<pre>
--- MÃ£ hÃ³a thÃ´ng tin thanh toÃ¡n vÃ  CMND ngÆ°á»i bÃ¡n
-CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'OpdoStore@Master2025!';
+<h2>4.4. Triển khai mã hóa dữ liệu</h2>
+<h3>4.4.1. Mã hóa mật khẩu (Password Hashing)</h3>
+<p>Sử dụng thuật toán <strong>bcrypt</strong> với salt để hash mật khẩu. Mật khẩu KHÔNG lưu dưới dạng plain text.</p>
+<h3>4.4.2. Mã hóa dữ liệu nhạy cảm (Column-Level Encryption)</h3>
+<pre>CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'OpdoStore@Master2025!';
 GO
 CREATE CERTIFICATE Cert_OpdoStore
     WITH SUBJECT = 'Opdo.store Sensitive Data Encryption';
@@ -1344,31 +1266,15 @@ CREATE SYMMETRIC KEY Key_OpdoPayment
     ENCRYPTION BY CERTIFICATE Cert_OpdoStore;
 GO
 
--- MÃ£ hÃ³a CardToken trong báº£ng Payments
 ALTER TABLE Payments ADD CardToken_Encrypted VARBINARY(512);
 GO
 OPEN SYMMETRIC KEY Key_OpdoPayment DECRYPTION BY CERTIFICATE Cert_OpdoStore;
 UPDATE Payments SET CardToken_Encrypted =
     EncryptByKey(Key_GUID('Key_OpdoPayment'), CardToken);
 CLOSE SYMMETRIC KEY Key_OpdoPayment;
-GO
-
--- MÃ£ hÃ³a CMND vÃ  BankAccount cá»§a Seller
-ALTER TABLE Sellers ADD CMND_Encrypted VARBINARY(256);
-ALTER TABLE Sellers ADD BankAccount_Encrypted VARBINARY(256);
-GO
-OPEN SYMMETRIC KEY Key_OpdoPayment DECRYPTION BY CERTIFICATE Cert_OpdoStore;
-UPDATE Sellers SET
-    CMND_Encrypted = EncryptByKey(Key_GUID('Key_OpdoPayment'), CMND),
-    BankAccount_Encrypted = EncryptByKey(Key_GUID('Key_OpdoPayment'), BankAccount);
-CLOSE SYMMETRIC KEY Key_OpdoPayment;
-GO
-</pre>
-
-<h3>4.4.3. Transparent Data Encryption (TDE) cho toÃ n bá»™ DB</h3>
-<pre>
--- Báº­t TDE cho database OpdoStore
-USE master;
+GO</pre>
+<h3>4.4.3. Transparent Data Encryption (TDE) cho toàn bộ DB</h3>
+<pre>USE master;
 GO
 CREATE CERTIFICATE Cert_TDE_OpdoStore
     WITH SUBJECT = 'TDE Certificate for OpdoStore Production';
@@ -1380,143 +1286,167 @@ CREATE DATABASE ENCRYPTION KEY
     ENCRYPTION BY SERVER CERTIFICATE Cert_TDE_OpdoStore;
 GO
 ALTER DATABASE OpdoStore SET ENCRYPTION ON;
-GO
-</pre>
-
-<h3>4.4.4. HTTPS/TLS cho truyá»n táº£i</h3>
-<p>ToÃ n bá»™ káº¿t ná»‘i tá»›i Opdo.store sá»­ dá»¥ng <strong>TLS 1.3</strong> qua Cloudflare SSL, Ä‘áº£m báº£o dá»¯ liá»‡u truyá»n giá»¯a trÃ¬nh duyá»‡t khÃ¡ch hÃ ng vÃ  server Ä‘Æ°á»£c mÃ£ hÃ³a hoÃ n toÃ n.</p>
+GO</pre>
+<h3>4.4.4. HTTPS/TLS cho truyền tải</h3>
+<p>Toàn bộ kết nối tới Opdo.store sử dụng <strong>TLS 1.3</strong> qua Cloudflare SSL, đảm bảo dữ liệu truyền giữa trình duyệt khách hàng và server được mã hóa hoàn toàn.</p>
 </div>
 
-<!-- 4.5 Kiá»ƒm toÃ¡n + 4.6 Sao lÆ°u -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">31</span>
 </div>
-
-<h2>4.5. Triá»ƒn khai kiá»ƒm toÃ¡n vÃ  giÃ¡m sÃ¡t</h2>
-<h3>4.5.1. Database Audit cho Opdo.store</h3>
-<pre>
--- Táº¡o Server Audit cho Opdo.store
-CREATE SERVER AUDIT Audit_OpdoStore
-TO FILE (FILEPATH = 'D:\OpdoAuditLogs\', MAXSIZE = 200 MB,
-    MAX_ROLLOVER_FILES = 20)
+<h2>4.5. Triển khai kiểm toán và giám sát</h2>
+<pre>CREATE SERVER AUDIT Audit_OpdoStore
+TO FILE (FILEPATH = 'D:\OpdoAuditLogs\', MAXSIZE = 200 MB, MAX_ROLLOVER_FILES = 20)
 WITH (QUEUE_DELAY = 1000, ON_FAILURE = CONTINUE);
 GO
 ALTER SERVER AUDIT Audit_OpdoStore WITH (STATE = ON);
 GO
 
--- Audit táº¥t cáº£ thao tÃ¡c trÃªn báº£ng nháº¡y cáº£m
 USE OpdoStore;
 GO
 CREATE DATABASE AUDIT SPECIFICATION AuditSpec_OpdoStore
 FOR SERVER AUDIT Audit_OpdoStore
-ADD (SELECT, INSERT, UPDATE, DELETE
-    ON OBJECT::dbo.Users BY public),
-ADD (SELECT, INSERT, UPDATE, DELETE
-    ON OBJECT::dbo.Payments BY public),
-ADD (SELECT, INSERT, UPDATE, DELETE
-    ON OBJECT::dbo.Sellers BY public),
-ADD (SELECT, INSERT, UPDATE, DELETE
-    ON OBJECT::dbo.Orders BY public)
+ADD (SELECT, INSERT, UPDATE, DELETE ON OBJECT::dbo.Users BY public),
+ADD (SELECT, INSERT, UPDATE, DELETE ON OBJECT::dbo.Payments BY public),
+ADD (SELECT, INSERT, UPDATE, DELETE ON OBJECT::dbo.Sellers BY public),
+ADD (SELECT, INSERT, UPDATE, DELETE ON OBJECT::dbo.Orders BY public)
 WITH (STATE = ON);
-GO
-</pre>
-
-<h3>4.5.2. Application-Level Logging</h3>
-<p>NgoÃ i Database Audit, Opdo.store triá»ƒn khai logging á»Ÿ táº§ng á»©ng dá»¥ng:</p>
+GO</pre>
+<h3>Application-Level Logging</h3>
 <table>
-<tr><th>Sá»± kiá»‡n</th><th>ThÃ´ng tin ghi nháº­n</th><th>Má»©c Ä‘á»™</th></tr>
-<tr><td>ÄÄƒng nháº­p thÃ nh cÃ´ng/tháº¥t báº¡i</td><td>User, IP, UserAgent, Timestamp</td><td>INFO / WARNING</td></tr>
-<tr><td>Thay Ä‘á»•i máº­t kháº©u</td><td>User, IP, Timestamp</td><td>WARNING</td></tr>
-<tr><td>Äáº·t hÃ ng / Thanh toÃ¡n</td><td>OrderID, UserID, Amount, Status</td><td>INFO</td></tr>
-<tr><td>Truy cáº­p admin panel</td><td>AdminID, Action, Target, IP</td><td>WARNING</td></tr>
-<tr><td>Export dá»¯ liá»‡u</td><td>UserID, DataType, RecordCount</td><td>CRITICAL</td></tr>
-<tr><td>ThÃªm/Sá»­a sáº£n pháº©m</td><td>SellerID, ProductID, Changes</td><td>INFO</td></tr>
+<tr><th>Sự kiện</th><th>Thông tin ghi nhận</th><th>Mức độ</th></tr>
+<tr><td>Đăng nhập thành công/thất bại</td><td>User, IP, UserAgent, Timestamp</td><td>INFO / WARNING</td></tr>
+<tr><td>Thay đổi mật khẩu</td><td>User, IP, Timestamp</td><td>WARNING</td></tr>
+<tr><td>Đặt hàng / Thanh toán</td><td>OrderID, UserID, Amount, Status</td><td>INFO</td></tr>
+<tr><td>Truy cập admin panel</td><td>AdminID, Action, Target, IP</td><td>WARNING</td></tr>
+<tr><td>Export dữ liệu</td><td>UserID, DataType, RecordCount</td><td>CRITICAL</td></tr>
 </table>
-
 <hr class="separator">
-<h2>4.6. Triá»ƒn khai sao lÆ°u vÃ  phá»¥c há»“i</h2>
-<h3>4.6.1. Chiáº¿n lÆ°á»£c sao lÆ°u cho Opdo.store</h3>
+<h2>4.6. Triển khai sao lưu và phục hồi</h2>
 <table>
-<tr><th>Loáº¡i</th><th>Táº§n suáº¥t</th><th>LÆ°u trá»¯</th><th>Retention</th></tr>
-<tr><td><strong>Full Backup</strong></td><td>HÃ ng Ä‘Ãªm 2:00 AM</td><td>Local + Azure Blob</td><td>30 ngÃ y</td></tr>
-<tr><td><strong>Differential</strong></td><td>Má»—i 4 giá»</td><td>Local SSD</td><td>7 ngÃ y</td></tr>
-<tr><td><strong>Transaction Log</strong></td><td>Má»—i 15 phÃºt</td><td>Local SSD</td><td>3 ngÃ y</td></tr>
-<tr><td><strong>Offsite Copy</strong></td><td>HÃ ng tuáº§n</td><td>Azure Blob (Geo-redundant)</td><td>90 ngÃ y</td></tr>
+<tr><th>Loại</th><th>Tần suất</th><th>Lưu trữ</th><th>Retention</th></tr>
+<tr><td><strong>Full Backup</strong></td><td>Hàng đêm 2:00 AM</td><td>Local + Azure Blob</td><td>30 ngày</td></tr>
+<tr><td><strong>Differential</strong></td><td>Mỗi 4 giờ</td><td>Local SSD</td><td>7 ngày</td></tr>
+<tr><td><strong>Transaction Log</strong></td><td>Mỗi 15 phút</td><td>Local SSD</td><td>3 ngày</td></tr>
+<tr><td><strong>Offsite Copy</strong></td><td>Hàng tuần</td><td>Azure Blob (Geo-redundant)</td><td>90 ngày</td></tr>
 </table>
-<pre>
--- Automated Full Backup hÃ ng Ä‘Ãªm
-BACKUP DATABASE OpdoStore
-TO DISK = 'D:\Backup\OpdoStore_Full_20260224.bak'
-WITH FORMAT, INIT, COMPRESSION, CHECKSUM,
-    NAME = N'OpdoStore Full Backup',
-    STATS = 10;
-GO
-
--- Transaction Log Backup má»—i 15 phÃºt (SQL Agent Job)
-BACKUP LOG OpdoStore
-TO DISK = 'D:\Backup\Logs\OpdoStore_Log_.trn'
-WITH COMPRESSION, CHECKSUM, STATS = 5;
-GO
-</pre>
 </div>
 
-<!-- 4.7 Biá»‡n phÃ¡p bá»• sung + 4.8 Tá»•ng káº¿t -->
 <div class="page">
 <div class="page-header">
   <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
 </div>
 <div class="page-footer">
-  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
   <span class="page-number">33</span>
 </div>
-
-<h2>4.7. CÃ¡c biá»‡n phÃ¡p báº£o máº­t bá»• sung</h2>
-<h3>4.7.1. Báº£o máº­t táº§ng á»©ng dá»¥ng</h3>
+<h2>4.7. Các biện pháp bảo mật bổ sung</h2>
+<h3>4.7.1. Bảo mật tầng ứng dụng</h3>
 <table>
-<tr><th>Biá»‡n phÃ¡p</th><th>MÃ´ táº£</th><th>CÃ´ng cá»¥/ThÆ° viá»‡n</th></tr>
-<tr><td><strong>Parameterized Queries</strong></td><td>Chá»‘ng SQL Injection báº±ng tham sá»‘ hÃ³a truy váº¥n</td><td>Entity Framework / Sequelize ORM</td></tr>
-<tr><td><strong>Input Validation</strong></td><td>Kiá»ƒm tra vÃ  sanitize má»i dá»¯ liá»‡u Ä‘áº§u vÃ o</td><td>Joi / FluentValidation</td></tr>
-<tr><td><strong>CSRF Token</strong></td><td>Token chá»‘ng giáº£ máº¡o request</td><td>csurf middleware</td></tr>
-<tr><td><strong>Content Security Policy</strong></td><td>Chá»‘ng XSS báº±ng CSP headers</td><td>Helmet.js</td></tr>
-<tr><td><strong>Rate Limiting</strong></td><td>Giá»›i háº¡n sá»‘ request/phÃºt chá»‘ng brute force</td><td>express-rate-limit</td></tr>
-<tr><td><strong>JWT + Refresh Token</strong></td><td>XÃ¡c thá»±c stateless vá»›i token cÃ³ thá»i háº¡n</td><td>jsonwebtoken</td></tr>
+<tr><th>Biện pháp</th><th>Mô tả</th><th>Công cụ/Thư viện</th></tr>
+<tr><td><strong>Parameterized Queries</strong></td><td>Chống SQL Injection bằng tham số hóa truy vấn</td><td>Entity Framework / Sequelize ORM</td></tr>
+<tr><td><strong>Input Validation</strong></td><td>Kiểm tra và sanitize mọi dữ liệu đầu vào</td><td>Joi / FluentValidation</td></tr>
+<tr><td><strong>CSRF Token</strong></td><td>Token chống giả mạo request</td><td>csurf middleware</td></tr>
+<tr><td><strong>Content Security Policy</strong></td><td>Chống XSS bằng CSP headers</td><td>Helmet.js</td></tr>
+<tr><td><strong>Rate Limiting</strong></td><td>Giới hạn số request/phút chống brute force</td><td>express-rate-limit</td></tr>
+<tr><td><strong>JWT + Refresh Token</strong></td><td>Xác thực stateless với token có thời hạn</td><td>jsonwebtoken</td></tr>
 </table>
-
-<h3>4.7.2. Báº£o máº­t háº¡ táº§ng</h3>
+<h3>4.7.2. Bảo mật hạ tầng</h3>
 <ul>
-<li><strong>Cloudflare WAF:</strong> Web Application Firewall lá»c traffic Ä‘á»™c háº¡i, chá»‘ng DDoS.</li>
-<li><strong>Network Segmentation:</strong> TÃ¡ch biá»‡t máº¡ng web server, app server vÃ  database server.</li>
-<li><strong>SQL Server Firewall:</strong> Chá»‰ cho phÃ©p káº¿t ná»‘i tá»« app server, cháº·n truy cáº­p trá»±c tiáº¿p.</li>
-<li><strong>SSH Key Authentication:</strong> Truy cáº­p server qua SSH key, khÃ´ng dÃ¹ng password.</li>
-<li><strong>Automated Security Scanning:</strong> QuÃ©t lá»— há»•ng Ä‘á»‹nh ká»³ vá»›i OWASP ZAP.</li>
+<li><strong>Cloudflare WAF:</strong> Web Application Firewall lọc traffic độc hại, chống DDoS.</li>
+<li><strong>Network Segmentation:</strong> Tách biệt mạng web server, app server và database server.</li>
+<li><strong>SQL Server Firewall:</strong> Chỉ cho phép kết nối từ app server, chặn truy cập trực tiếp.</li>
+<li><strong>SSH Key Authentication:</strong> Truy cập server qua SSH key, không dùng password.</li>
 </ul>
-
-<h3>4.7.3. TuÃ¢n thá»§ quy Ä‘á»‹nh</h3>
+<h3>4.7.3. Tuân thủ quy định</h3>
 <ul>
-<li><strong>PCI DSS:</strong> TuÃ¢n thá»§ tiÃªu chuáº©n báº£o máº­t thanh toÃ¡n â€” Opdo.store sá»­ dá»¥ng payment gateway (Stripe/VNPay) Ä‘á»ƒ khÃ´ng lÆ°u trá»¯ trá»±c tiáº¿p sá»‘ tháº» tÃ­n dá»¥ng.</li>
-<li><strong>Luáº­t An ninh máº¡ng VN (24/2018):</strong> LÆ°u trá»¯ dá»¯ liá»‡u ngÆ°á»i dÃ¹ng Viá»‡t Nam trÃªn server táº¡i Viá»‡t Nam.</li>
-<li><strong>Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP:</strong> Báº£o vá»‡ dá»¯ liá»‡u cÃ¡ nhÃ¢n â€” thÃ´ng bÃ¡o má»¥c Ä‘Ã­ch thu tháº­p, cho phÃ©p ngÆ°á»i dÃ¹ng yÃªu cáº§u xÃ³a dá»¯ liá»‡u.</li>
+<li><strong>PCI DSS:</strong> Tuân thủ tiêu chuẩn bảo mật thanh toán — sử dụng payment gateway (Stripe/VNPay).</li>
+<li><strong>Luật An ninh mạng VN (24/2018):</strong> Lưu trữ dữ liệu người dùng Việt Nam trên server tại Việt Nam.</li>
+<li><strong>Nghị định 13/2023/NĐ-CP:</strong> Bảo vệ dữ liệu cá nhân — thông báo mục đích thu thập, cho phép xóa dữ liệu.</li>
 </ul>
-
 <hr class="separator">
-<h2>4.8. Tá»•ng káº¿t triá»ƒn khai thá»±c tiá»…n</h2>
+<h2>4.8. Tổng kết triển khai thực tiễn</h2>
 <table class="result-table">
-<tr><th>Giáº£i phÃ¡p</th><th>LÃ½ thuyáº¿t (Ch.2)</th><th>Triá»ƒn khai trÃªn Opdo.store</th><th>Tráº¡ng thÃ¡i</th></tr>
-<tr><td><strong>PhÃ¢n quyá»n</strong></td><td>RBAC, Least Privilege</td><td>5 role, Row-Level Security cho Seller, Column-level DENY</td><td>âœ… HoÃ n thÃ nh</td></tr>
-<tr><td><strong>MÃ£ hÃ³a</strong></td><td>AES-256, TDE</td><td>Password bcrypt, Column encryption (CMND, Card), TDE, TLS 1.3</td><td>âœ… HoÃ n thÃ nh</td></tr>
-<tr><td><strong>Kiá»ƒm toÃ¡n</strong></td><td>Server Audit</td><td>DB Audit + App-level logging + Cloudflare logs</td><td>âœ… HoÃ n thÃ nh</td></tr>
-<tr><td><strong>Sao lÆ°u</strong></td><td>Full + Diff + Log</td><td>Automated backup, Azure Blob offsite, 3-2-1 rule</td><td>âœ… HoÃ n thÃ nh</td></tr>
-<tr><td><strong>Báº£o máº­t á»©ng dá»¥ng</strong></td><td>(Má»Ÿ rá»™ng)</td><td>ORM, CSRF, CSP, Rate Limit, JWT</td><td>âœ… HoÃ n thÃ nh</td></tr>
-<tr><td><strong>Báº£o máº­t háº¡ táº§ng</strong></td><td>(Má»Ÿ rá»™ng)</td><td>Cloudflare WAF, Firewall, Network segmentation</td><td>âœ… HoÃ n thÃ nh</td></tr>
+<tr><th>Giải pháp</th><th>Lý thuyết (Ch.2)</th><th>Triển khai trên Opdo.store</th><th>Trạng thái</th></tr>
+<tr><td><strong>Phân quyền</strong></td><td>RBAC, Least Privilege</td><td>5 role, Row-Level Security, Column-level DENY</td><td>&#9989; Hoàn thành</td></tr>
+<tr><td><strong>Mã hóa</strong></td><td>AES-256, TDE</td><td>Password bcrypt, Column encryption, TDE, TLS 1.3</td><td>&#9989; Hoàn thành</td></tr>
+<tr><td><strong>Kiểm toán</strong></td><td>Server Audit</td><td>DB Audit + App-level logging + Cloudflare logs</td><td>&#9989; Hoàn thành</td></tr>
+<tr><td><strong>Sao lưu</strong></td><td>Full + Diff + Log</td><td>Automated backup, Azure Blob offsite, 3-2-1 rule</td><td>&#9989; Hoàn thành</td></tr>
+<tr><td><strong>Bảo mật ứng dụng</strong></td><td>(Mở rộng)</td><td>ORM, CSRF, CSP, Rate Limit, JWT</td><td>&#9989; Hoàn thành</td></tr>
+<tr><td><strong>Bảo mật hạ tầng</strong></td><td>(Mở rộng)</td><td>Cloudflare WAF, Firewall, Network segmentation</td><td>&#9989; Hoàn thành</td></tr>
 </table>
-<blockquote>Viá»‡c triá»ƒn khai thá»±c tiá»…n trÃªn Opdo.store cho tháº¥y cÃ¡c giáº£i phÃ¡p báº£o máº­t Ä‘á» xuáº¥t á»Ÿ ChÆ°Æ¡ng 2 hoÃ n toÃ n kháº£ thi vÃ  hiá»‡u quáº£ khi Ã¡p dá»¥ng vÃ o dá»± Ã¡n thÆ°Æ¡ng máº¡i Ä‘iá»‡n tá»­ thá»±c táº¿. Há»‡ thá»‘ng báº£o máº­t Ä‘a lá»›p (Defense in Depth) Ä‘áº£m báº£o dá»¯ liá»‡u khÃ¡ch hÃ ng, ngÆ°á»i bÃ¡n vÃ  giao dá»‹ch Ä‘Æ°á»£c báº£o vá»‡ toÃ n diá»‡n.</blockquote>
+<blockquote>Việc triển khai thực tiễn trên Opdo.store cho thấy các giải pháp bảo mật đề xuất ở Chương 2 hoàn toàn khả thi và hiệu quả khi áp dụng vào dự án thương mại điện tử thực tế.</blockquote>
 </div>
+
+<!-- KẾT LUẬN -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
+  <span class="page-number">35</span>
+</div>
+<h1 class="chapter">Kết Luận</h1>
+<h2>Tổng kết</h2>
+<p>Qua quá trình nghiên cứu và thực hành, tài liệu đã trình bày hệ thống các vấn đề về bảo mật và an toàn thông tin trong cơ sở dữ liệu:</p>
+<p><strong>Chương 1</strong> — Hệ thống hóa kiến thức nền tảng về CSDL, HQTCSDL, và phân tích toàn diện ưu nhược điểm của bảo mật thông tin.</p>
+<p><strong>Chương 2</strong> — Phân tích chi tiết các mối đe dọa, đề xuất 4 giải pháp theo nguyên tắc Defense in Depth.</p>
+<p><strong>Chương 3</strong> — Triển khai thành công cả 4 giải pháp trên SQL Server với database mẫu <code>QuanLyNhanSu</code>.</p>
+<p><strong>Chương 4</strong> — Áp dụng thành công các giải pháp bảo mật vào dự án thực tiễn Opdo.store — sàn thương mại điện tử phụ tùng ô tô, chứng minh tính khả thi và hiệu quả trong thực tế.</p>
+<table>
+<tr><th>STT</th><th>Giải pháp</th><th>Vai trò</th></tr>
+<tr><td>1</td><td>Phân quyền người dùng</td><td><strong>Phòng ngừa</strong> — Kiểm soát ai được truy cập gì</td></tr>
+<tr><td>2</td><td>Mã hóa dữ liệu</td><td><strong>Phòng ngừa</strong> — Bảo vệ dữ liệu khi bị xâm phạm</td></tr>
+<tr><td>3</td><td>Kiểm toán</td><td><strong>Phát hiện</strong> — Giám sát và cảnh báo bất thường</td></tr>
+<tr><td>4</td><td>Sao lưu và phục hồi</td><td><strong>Phục hồi</strong> — Đảm bảo khả năng khôi phục</td></tr>
+</table>
+<h2>Hạn chế và hướng phát triển</h2>
+<p><strong>Hạn chế:</strong> Demo trên môi trường phát triển, chưa đánh giá hiệu năng thực tế; chưa triển khai bảo mật mạng (firewall, IDS/IPS); chưa đề cập bảo mật ứng dụng.</p>
+<p><strong>Hướng phát triển:</strong> Mở rộng bảo mật ứng dụng web; giám sát real-time với SIEM; bảo mật CSDL trên đám mây; áp dụng ML phát hiện bất thường; quy trình DevSecOps.</p>
+<h2>Lời cảm ơn</h2>
+<p>Chúng tôi xin chân thành cảm ơn các thầy cô giáo trong chương trình đào tạo Thạc sĩ tại Đại học Hòa Bình đã hướng dẫn và tạo điều kiện để hoàn thành tài liệu nghiên cứu này.</p>
+<table>
+<tr><th>Họ và tên</th><th>Vai trò</th></tr>
+<tr><td><strong>Nguyễn Hữu Huy</strong></td><td>Nghiên cứu và biên soạn</td></tr>
+<tr><td><strong>Nguyễn Thị Phương</strong></td><td>Nghiên cứu và biên soạn</td></tr>
+</table>
+<p><strong>Chương trình:</strong> Thạc sĩ — Đại học Hòa Bình</p>
+</div>
+
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRƯỜNG ĐẠI HỌC HÒA BÌNH<span>Chương trình Thạc sĩ — Bài tập môn học</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</span>
+  <span class="page-number">37</span>
+</div>
+<h2>Tài liệu tham khảo</h2>
+<ol class="ref">
+<li>E.F. Codd, "A Relational Model of Data for Large Shared Data Banks", <em>Communications of the ACM</em>, 1970.</li>
+<li>Ramez Elmasri, Shamkant B. Navathe, <em>"Fundamentals of Database Systems"</em>, 7th Edition, Pearson, 2015.</li>
+<li>Abraham Silberschatz, Henry F. Korth, <em>"Database System Concepts"</em>, 7th Edition, McGraw-Hill, 2019.</li>
+<li>IBM Security, <em>"Cost of a Data Breach Report 2023"</em>, IBM Corporation, 2023.</li>
+<li>Verizon, <em>"Data Breach Investigations Report (DBIR) 2023"</em>, Verizon Enterprise, 2023.</li>
+<li>OWASP Foundation, <em>"OWASP Top 10 — 2021"</em>, owasp.org.</li>
+<li>Microsoft, <em>"SQL Server Security Documentation"</em>, docs.microsoft.com.</li>
+<li>Microsoft, <em>"SQL Server Encryption"</em>, docs.microsoft.com.</li>
+<li>Microsoft, <em>"SQL Server Audit (Database Engine)"</em>, docs.microsoft.com.</li>
+<li>NIST, <em>"Framework for Improving Critical Infrastructure Cybersecurity"</em>, v1.1, 2018.</li>
+<li>Quốc hội nước CHXHCNVN, <em>"Luật An ninh mạng"</em>, Luật số 24/2018/QH14, 2018.</li>
+<li>Chính phủ nước CHXHCNVN, <em>"Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân"</em>, 2023.</li>
+</ol>
+</div>
+
 </body>
 </html>

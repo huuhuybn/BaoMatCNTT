@@ -8,8 +8,6 @@ $part1 = @'
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bảo mật và An toàn Thông tin trong Cơ sở Dữ liệu</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 :root {
   --page-w: 210mm;
@@ -28,7 +26,7 @@ $part1 = @'
 
 /* ===== SCREEN VIEW: show A4 pages ===== */
 body {
-  font-family: 'Roboto', 'Times New Roman', serif;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 13pt;
   line-height: 1.8;
   color: #1a1a1a;
@@ -175,7 +173,7 @@ pre {
   color: #cdd6f4;
   padding: 12px 14px;
   border-radius: 6px;
-  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-family: Consolas, 'Courier New', monospace;
   font-size: 9.5pt;
   line-height: 1.5;
   overflow-x: auto;
@@ -183,12 +181,12 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-code { font-family: 'Roboto Mono', monospace; font-size: 10pt; }
+code { font-family: Consolas, 'Courier New', monospace; font-size: 10pt; }
 p code { background: #e8eaf6; padding: 1px 4px; border-radius: 3px; color: var(--primary); }
 
 blockquote { border-left: 4px solid var(--primary); padding: 8px 14px; background: #e8eaf6; margin: 10px 0; font-size: 11pt; }
 
-.diagram { background: #eceff1; border: 1px solid #b0bec5; padding: 12px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 10pt; white-space: pre; margin: 10px 0; line-height: 1.4; overflow-x: auto; }
+.diagram { background: #eceff1; border: 1px solid #b0bec5; padding: 12px; border-radius: 4px; font-family: Consolas, 'Courier New', monospace; font-size: 10pt; white-space: pre; margin: 10px 0; line-height: 1.4; overflow-x: auto; }
 
 .result-table th { background: #2e7d32; }
 .threat-table td:last-child { font-weight: 500; }

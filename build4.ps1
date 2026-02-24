@@ -167,5 +167,5 @@ $headerBlock
 </html>
 "@
 
-Add-Content -Path $outputFile -Value $part4 -Encoding UTF8 -NoNewline
+[System.IO.File]::AppendAllText($outputFile, $part4, [System.Text.UTF8Encoding]::new($false))
 Write-Host "Part 4 done (Backup, Conclusion, References). BUILD COMPLETE!"

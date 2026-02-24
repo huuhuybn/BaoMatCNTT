@@ -156,5 +156,5 @@ $headerBlock
 </div>
 "@
 
-Add-Content -Path $outputFile -Value $part2 -Encoding UTF8 -NoNewline
+[System.IO.File]::AppendAllText($outputFile, $part2, [System.Text.UTF8Encoding]::new($false))
 Write-Host "Part 2 done (Chapter 2)"

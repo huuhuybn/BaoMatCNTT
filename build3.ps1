@@ -335,5 +335,5 @@ GO
 </div>
 "@
 
-Add-Content -Path $outputFile -Value $part3 -Encoding UTF8 -NoNewline
+[System.IO.File]::AppendAllText($outputFile, $part3, [System.Text.UTF8Encoding]::new($false))
 Write-Host "Part 3 done (Chapter 3 - Demo)"
