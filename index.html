@@ -1,0 +1,761 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Roboto',sans-serif;font-size:13px;line-height:1.7;color:#1a1a1a;background:#fff}
+@media print{
+  body{font-size:12px;line-height:1.6}
+  .page-break{page-break-before:always}
+  .no-break{page-break-inside:avoid}
+  @page{margin:2cm 1.5cm;size:A4}
+  pre{white-space:pre-wrap!important;word-wrap:break-word!important}
+}
+.cover{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;text-align:center;border:3px double #1a237e;padding:40px;margin:20px}
+.cover h1{font-size:28px;color:#1a237e;margin:30px 0 10px;text-transform:uppercase;letter-spacing:2px}
+.cover h2{font-size:18px;color:#333;font-weight:400;margin-bottom:40px}
+.cover .info{margin-top:40px;font-size:15px}
+.cover .info p{margin:6px 0}
+.cover .university{font-size:20px;color:#1a237e;font-weight:700;margin-bottom:10px;text-transform:uppercase}
+.cover .logo-text{font-size:60px;color:#1a237e;margin:20px 0}
+h1{font-size:22px;color:#1a237e;border-bottom:3px solid #1a237e;padding-bottom:8px;margin:30px 0 15px}
+h2{font-size:18px;color:#283593;margin:25px 0 12px;border-left:4px solid #283593;padding-left:12px}
+h3{font-size:15px;color:#303f9f;margin:20px 0 10px}
+h4{font-size:14px;color:#3949ab;margin:15px 0 8px}
+.content{max-width:210mm;margin:0 auto;padding:15px 30px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+th{background:#1a237e;color:#fff;padding:8px 10px;text-align:left;font-weight:500}
+td{padding:7px 10px;border:1px solid #ddd}
+tr:nth-child(even){background:#f5f5f5}
+tr:hover{background:#e8eaf6}
+pre{background:#263238;color:#eeffff;padding:14px;border-radius:6px;overflow-x:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;margin:10px 0;line-height:1.5}
+code{font-family:'Roboto Mono',monospace;font-size:12px}
+p code{background:#e8eaf6;padding:2px 5px;border-radius:3px;color:#1a237e}
+ul,ol{margin:8px 0 8px 25px}
+li{margin:4px 0}
+blockquote{border-left:4px solid #1a237e;padding:10px 15px;background:#e8eaf6;margin:12px 0;font-style:italic}
+.diagram{background:#eceff1;border:1px solid #b0bec5;padding:14px;border-radius:6px;font-family:'Roboto Mono',monospace;font-size:12px;white-space:pre;margin:12px 0;line-height:1.4}
+.result-table th{background:#2e7d32}
+.threat-table td:last-child{font-weight:500}
+strong{color:#1a237e}
+.comment{color:#546e7a}
+.keyword{color:#c792ea}
+.string{color:#c3e88d}
+.separator{border:none;border-top:2px solid #1a237e;margin:25px 0}
+.toc{background:#f5f5f5;padding:20px 30px;border-radius:8px;margin:20px 0}
+.toc h2{border:none;padding:0;margin:0 0 12px}
+.toc ol{counter-reset:toc}
+.toc>ol>li{margin:6px 0;font-weight:500}
+.toc ol ol li{font-weight:400;font-size:12px;margin:3px 0}
+.stars{color:#f9a825;letter-spacing:1px}
+.ref{font-size:12px;color:#555}
+.ref li{margin:3px 0}
+</style>
+</head>
+<body>
+
+<!-- TRANG BÃŒA -->
+<div class="cover">
+<p class="university">Äáº¡i há»c HÃ²a BÃ¬nh</p>
+<p style="font-size:16px;color:#555">ChÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ©</p>
+<div class="logo-text">ðŸ›¡ï¸</div>
+<h1>Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin<br>trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</h1>
+<h2>NghiÃªn cá»©u cÃ¡c giáº£i phÃ¡p báº£o máº­t cÆ¡ sá»Ÿ dá»¯ liá»‡u<br>vÃ  demo thá»±c hÃ nh trÃªn Microsoft SQL Server</h2>
+<div class="info">
+<p><strong>NgÆ°á»i thá»±c hiá»‡n:</strong></p>
+<p>Nguyá»…n Há»¯u Huy</p>
+<p>Nguyá»…n Thá»‹ PhÆ°Æ¡ng</p>
+<br>
+<p><strong>NÄƒm 2025</strong></p>
+</div>
+</div>
+
+<!-- Má»¤C Lá»¤C -->
+<div class="page-break"></div>
+<div class="content">
+<div class="toc">
+<h2>Má»¤C Lá»¤C</h2>
+<ol>
+<li>ChÆ°Æ¡ng 1. CÆ¡ sá»Ÿ lÃ½ thuyáº¿t
+  <ol>
+    <li>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
+    <li>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
+    <li>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a tÃ­nh báº£o máº­t thÃ´ng tin</li>
+  </ol>
+</li>
+<li>ChÆ°Æ¡ng 2. Váº¥n Ä‘á» nghiÃªn cá»©u vÃ  giáº£i phÃ¡p an toÃ n
+  <ol>
+    <li>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
+    <li>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin</li>
+    <li>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p</li>
+  </ol>
+</li>
+<li>ChÆ°Æ¡ng 3. Demo cÃ¡c bÆ°á»›c báº£o máº­t trÃªn SQL Server
+  <ol>
+    <li>3.1. PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</li>
+    <li>3.2. MÃ£ hÃ³a dá»¯ liá»‡u</li>
+    <li>3.3. Kiá»ƒm toÃ¡n (Audit)</li>
+    <li>3.4. Sao lÆ°u vÃ  phá»¥c há»“i</li>
+  </ol>
+</li>
+<li>Káº¿t luáº­n</li>
+<li>TÃ i liá»‡u tham kháº£o</li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- CHÆ¯Æ NG 1 -->
+<!-- ============================================================ -->
+<div class="page-break"></div>
+<h1>CHÆ¯Æ NG 1. CÆ  Sá»ž LÃ THUYáº¾T</h1>
+
+<h2>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u (Database)</h2>
+<h3>1.1.1. KhÃ¡i niá»‡m</h3>
+<p>CÆ¡ sá»Ÿ dá»¯ liá»‡u (CSDL) lÃ  má»™t táº­p há»£p cÃ³ tá»• chá»©c cá»§a cÃ¡c dá»¯ liá»‡u cÃ³ liÃªn quan vá»›i nhau, Ä‘Æ°á»£c lÆ°u trá»¯ trÃªn cÃ¡c thiáº¿t bá»‹ lÆ°u trá»¯ mÃ¡y tÃ­nh, Ä‘Æ°á»£c thiáº¿t káº¿ vÃ  xÃ¢y dá»±ng sao cho viá»‡c cáº­p nháº­t, tÃ¬m kiáº¿m vÃ  khai thÃ¡c dá»¯ liá»‡u phá»¥c vá»¥ cho cÃ¡c má»¥c Ä‘Ã­ch khÃ¡c nhau cá»§a nhiá»u ngÆ°á»i dÃ¹ng má»™t cÃ¡ch dá»… dÃ ng vÃ  hiá»‡u quáº£.</p>
+<p>Má»™t CSDL cÃ³ cÃ¡c Ä‘áº·c Ä‘iá»ƒm cÆ¡ báº£n sau:</p>
+<ul>
+<li><strong>TÃ­nh cáº¥u trÃºc (Structured):</strong> Dá»¯ liá»‡u Ä‘Æ°á»£c tá»• chá»©c theo má»™t cáº¥u trÃºc nháº¥t Ä‘á»‹nh, thÆ°á»ng lÃ  dáº¡ng báº£ng (table) vá»›i cÃ¡c hÃ ng (row) vÃ  cá»™t (column).</li>
+<li><strong>TÃ­nh chia sáº» (Shared):</strong> Nhiá»u ngÆ°á»i dÃ¹ng vÃ  á»©ng dá»¥ng khÃ¡c nhau cÃ³ thá»ƒ truy cáº­p vÃ  sá»­ dá»¥ng cÃ¹ng má»™t CSDL.</li>
+<li><strong>TÃ­nh toÃ n váº¹n (Integrity):</strong> Dá»¯ liá»‡u pháº£i Ä‘áº£m báº£o tÃ­nh chÃ­nh xÃ¡c, nháº¥t quÃ¡n vÃ  Ä‘Ã¡ng tin cáº­y.</li>
+<li><strong>TÃ­nh Ä‘á»™c láº­p (Independence):</strong> Dá»¯ liá»‡u Ä‘Æ°á»£c quáº£n lÃ½ Ä‘á»™c láº­p vá»›i cÃ¡c chÆ°Æ¡ng trÃ¬nh á»©ng dá»¥ng sá»­ dá»¥ng chÃºng.</li>
+</ul>
+
+<h3>1.1.2. PhÃ¢n loáº¡i cÆ¡ sá»Ÿ dá»¯ liá»‡u</h3>
+<table>
+<tr><th>Loáº¡i CSDL</th><th>Äáº·c Ä‘iá»ƒm</th><th>VÃ­ dá»¥</th></tr>
+<tr><td><strong>CSDL quan há»‡ (Relational)</strong></td><td>Dá»¯ liá»‡u tá»• chá»©c dáº¡ng báº£ng, liÃªn káº¿t qua khÃ³a ngoáº¡i</td><td>SQL Server, MySQL, PostgreSQL, Oracle</td></tr>
+<tr><td><strong>CSDL NoSQL</strong></td><td>Linh hoáº¡t vá» cáº¥u trÃºc, phÃ¹ há»£p dá»¯ liá»‡u phi cáº¥u trÃºc</td><td>MongoDB, Cassandra, Redis</td></tr>
+<tr><td><strong>CSDL phÃ¢n tÃ¡n (Distributed)</strong></td><td>Dá»¯ liá»‡u phÃ¢n tÃ¡n trÃªn nhiá»u mÃ¡y chá»§</td><td>Google Spanner, CockroachDB</td></tr>
+<tr><td><strong>CSDL Ä‘Ã¡m mÃ¢y (Cloud)</strong></td><td>Hosted trÃªn ná»n táº£ng Ä‘Ã¡m mÃ¢y</td><td>Azure SQL, Amazon RDS, Google Cloud SQL</td></tr>
+<tr><td><strong>CSDL hÆ°á»›ng Ä‘á»‘i tÆ°á»£ng</strong></td><td>LÆ°u trá»¯ dá»¯ liá»‡u dÆ°á»›i dáº¡ng Ä‘á»‘i tÆ°á»£ng</td><td>ObjectDB, db4o</td></tr>
+</table>
+
+<h3>1.1.3. MÃ´ hÃ¬nh dá»¯ liá»‡u quan há»‡</h3>
+<p>MÃ´ hÃ¬nh dá»¯ liá»‡u quan há»‡ (Relational Data Model) do E.F. Codd Ä‘á» xuáº¥t nÄƒm 1970, lÃ  mÃ´ hÃ¬nh phá»• biáº¿n nháº¥t hiá»‡n nay. Trong mÃ´ hÃ¬nh nÃ y:</p>
+<ul>
+<li><strong>Quan há»‡ (Relation):</strong> ÄÆ°á»£c biá»ƒu diá»…n dÆ°á»›i dáº¡ng báº£ng hai chiá»u.</li>
+<li><strong>Thuá»™c tÃ­nh (Attribute):</strong> TÃªn cÃ¡c cá»™t trong báº£ng, mÃ´ táº£ Ä‘áº·c Ä‘iá»ƒm cá»§a thá»±c thá»ƒ.</li>
+<li><strong>Bá»™ (Tuple):</strong> Má»—i hÃ ng trong báº£ng, biá»ƒu diá»…n má»™t báº£n ghi cá»¥ thá»ƒ.</li>
+<li><strong>KhÃ³a chÃ­nh (Primary Key):</strong> Thuá»™c tÃ­nh hoáº·c táº­p thuá»™c tÃ­nh xÃ¡c Ä‘á»‹nh duy nháº¥t má»—i bá»™.</li>
+<li><strong>KhÃ³a ngoáº¡i (Foreign Key):</strong> Thuá»™c tÃ­nh tham chiáº¿u Ä‘áº¿n khÃ³a chÃ­nh cá»§a báº£ng khÃ¡c, táº¡o liÃªn káº¿t giá»¯a cÃ¡c báº£ng.</li>
+</ul>
+
+<h3>1.1.4. CÃ¡c rÃ ng buá»™c toÃ n váº¹n dá»¯ liá»‡u</h3>
+<ul>
+<li><strong>RÃ ng buá»™c miá»n giÃ¡ trá»‹ (Domain Constraint):</strong> Giá»›i háº¡n táº­p giÃ¡ trá»‹ há»£p lá»‡ cho má»™t thuá»™c tÃ­nh.</li>
+<li><strong>RÃ ng buá»™c khÃ³a (Key Constraint):</strong> Äáº£m báº£o tÃ­nh duy nháº¥t cá»§a khÃ³a chÃ­nh.</li>
+<li><strong>RÃ ng buá»™c toÃ n váº¹n thá»±c thá»ƒ (Entity Integrity):</strong> KhÃ³a chÃ­nh khÃ´ng Ä‘Æ°á»£c chá»©a giÃ¡ trá»‹ NULL.</li>
+<li><strong>RÃ ng buá»™c toÃ n váº¹n tham chiáº¿u (Referential Integrity):</strong> GiÃ¡ trá»‹ khÃ³a ngoáº¡i pháº£i tá»“n táº¡i trong báº£ng tham chiáº¿u hoáº·c lÃ  NULL.</li>
+</ul>
+
+<hr class="separator">
+
+<h2>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u (DBMS)</h2>
+<h3>1.2.1. KhÃ¡i niá»‡m</h3>
+<p>Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u (HQTCSDL - Database Management System) lÃ  pháº§n má»m há»‡ thá»‘ng cho phÃ©p ngÆ°á»i dÃ¹ng Ä‘á»‹nh nghÄ©a, táº¡o láº­p, duy trÃ¬ vÃ  kiá»ƒm soÃ¡t truy cáº­p Ä‘áº¿n cÆ¡ sá»Ÿ dá»¯ liá»‡u. HQTCSDL Ä‘Ã³ng vai trÃ² trung gian giá»¯a ngÆ°á»i dÃ¹ng/á»©ng dá»¥ng vÃ  dá»¯ liá»‡u váº­t lÃ½ Ä‘Æ°á»£c lÆ°u trá»¯.</p>
+
+<h3>1.2.2. CÃ¡c chá»©c nÄƒng chÃ­nh cá»§a HQTCSDL</h3>
+<ol>
+<li><strong>Äá»‹nh nghÄ©a dá»¯ liá»‡u (Data Definition):</strong> Cho phÃ©p táº¡o, sá»­a Ä‘á»•i, xÃ³a cÃ¡c cáº¥u trÃºc dá»¯ liá»‡u báº±ng ngÃ´n ngá»¯ DDL.</li>
+<li><strong>Thao tÃ¡c dá»¯ liá»‡u (Data Manipulation):</strong> Cho phÃ©p thÃªm, sá»­a, xÃ³a, truy váº¥n dá»¯ liá»‡u báº±ng ngÃ´n ngá»¯ DML.</li>
+<li><strong>Kiá»ƒm soÃ¡t truy cáº­p (Access Control):</strong> Quáº£n lÃ½ quyá»n truy cáº­p cá»§a ngÆ°á»i dÃ¹ng, Ä‘áº£m báº£o báº£o máº­t.</li>
+<li><strong>Quáº£n lÃ½ giao dá»‹ch (Transaction Management):</strong> Äáº£m báº£o tÃ­nh ACID (Atomicity, Consistency, Isolation, Durability).</li>
+<li><strong>Sao lÆ°u vÃ  phá»¥c há»“i (Backup &amp; Recovery):</strong> Cung cáº¥p cÆ¡ cháº¿ báº£o vá»‡ dá»¯ liá»‡u khá»i há»ng hÃ³c.</li>
+<li><strong>Tá»‘i Æ°u hÃ³a truy váº¥n (Query Optimization):</strong> Tá»± Ä‘á»™ng chá»n phÆ°Æ¡ng Ã¡n thá»±c thi tá»‘i Æ°u.</li>
+</ol>
+
+<h3>1.2.3. Kiáº¿n trÃºc 3 má»©c cá»§a HQTCSDL (ANSI/SPARC)</h3>
+<div class="diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚      Má»©c ngoÃ i (External Level)     â”‚
+â”‚   CÃ¡c khung nhÃ¬n (Views) cá»§a        â”‚
+â”‚   tá»«ng nhÃ³m ngÆ°á»i dÃ¹ng              â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚      Má»©c khÃ¡i niá»‡m (Conceptual)     â”‚
+â”‚   MÃ´ táº£ toÃ n bá»™ cáº¥u trÃºc logic     â”‚
+â”‚   cá»§a CSDL                          â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚      Má»©c trong (Internal Level)      â”‚
+â”‚   Cáº¥u trÃºc lÆ°u trá»¯ váº­t lÃ½          â”‚
+â”‚   trÃªn Ä‘Ä©a                          â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
+
+<h3>1.2.4. CÃ¡c HQTCSDL phá»• biáº¿n</h3>
+<table>
+<tr><th>HQTCSDL</th><th>NhÃ  phÃ¡t triá»ƒn</th><th>Äáº·c Ä‘iá»ƒm ná»•i báº­t</th></tr>
+<tr><td><strong>Microsoft SQL Server</strong></td><td>Microsoft</td><td>TÃ­ch há»£p tá»‘t vá»›i há»‡ sinh thÃ¡i Microsoft, báº£o máº­t máº¡nh máº½</td></tr>
+<tr><td><strong>Oracle Database</strong></td><td>Oracle Corp.</td><td>Hiá»‡u nÄƒng cao, báº£o máº­t enterprise, há»— trá»£ multi-tenant</td></tr>
+<tr><td><strong>MySQL</strong></td><td>Oracle Corp.</td><td>MÃ£ nguá»“n má»Ÿ, phá»• biáº¿n cho web, hiá»‡u suáº¥t tá»‘t</td></tr>
+<tr><td><strong>PostgreSQL</strong></td><td>Cá»™ng Ä‘á»“ng</td><td>MÃ£ nguá»“n má»Ÿ, tuÃ¢n thá»§ chuáº©n SQL, há»— trá»£ JSON</td></tr>
+<tr><td><strong>MongoDB</strong></td><td>MongoDB Inc.</td><td>NoSQL, linh hoáº¡t schema, phÃ¹ há»£p big data</td></tr>
+</table>
+
+<hr class="separator">
+
+<h2>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a tÃ­nh báº£o máº­t thÃ´ng tin</h2>
+<h3>1.3.1. Tá»•ng quan vá» báº£o máº­t thÃ´ng tin</h3>
+<p>Báº£o máº­t thÃ´ng tin (Information Security) lÃ  táº­p há»£p cÃ¡c biá»‡n phÃ¡p nháº±m báº£o vá»‡ thÃ´ng tin khá»i cÃ¡c truy cáº­p, sá»­ dá»¥ng, tiáº¿t lá»™, sá»­a Ä‘á»•i hoáº·c phÃ¡ há»§y trÃ¡i phÃ©p. Ba trá»¥ cá»™t cÆ¡ báº£n cá»§a báº£o máº­t thÃ´ng tin Ä‘Æ°á»£c gá»i lÃ  <strong>bá»™ ba CIA</strong>:</p>
+<ul>
+<li><strong>TÃ­nh báº£o máº­t (Confidentiality):</strong> Äáº£m báº£o thÃ´ng tin chá»‰ Ä‘Æ°á»£c truy cáº­p bá»Ÿi nhá»¯ng ngÆ°á»i Ä‘Æ°á»£c á»§y quyá»n.</li>
+<li><strong>TÃ­nh toÃ n váº¹n (Integrity):</strong> Äáº£m báº£o thÃ´ng tin khÃ´ng bá»‹ sá»­a Ä‘á»•i trÃ¡i phÃ©p.</li>
+<li><strong>TÃ­nh sáºµn sÃ ng (Availability):</strong> Äáº£m báº£o thÃ´ng tin luÃ´n sáºµn sÃ ng khi cáº§n thiáº¿t.</li>
+</ul>
+
+<h3>1.3.2. Æ¯u Ä‘iá»ƒm cá»§a viá»‡c triá»ƒn khai báº£o máº­t thÃ´ng tin</h3>
+<table>
+<tr><th>STT</th><th>Æ¯u Ä‘iá»ƒm</th><th>MÃ´ táº£ chi tiáº¿t</th></tr>
+<tr><td>1</td><td><strong>Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m</strong></td><td>NgÄƒn cháº·n rÃ² rá»‰ thÃ´ng tin cÃ¡ nhÃ¢n, tÃ i chÃ­nh, bÃ­ máº­t kinh doanh</td></tr>
+<tr><td>2</td><td><strong>Kiá»ƒm soÃ¡t truy cáº­p hiá»‡u quáº£</strong></td><td>PhÃ¢n quyá»n rÃµ rÃ ng theo nguyÃªn táº¯c least privilege</td></tr>
+<tr><td>3</td><td><strong>PhÃ¡t hiá»‡n vÃ  ngÄƒn cháº·n táº¥n cÃ´ng</strong></td><td>Há»‡ thá»‘ng giÃ¡m sÃ¡t giÃºp phÃ¡t hiá»‡n sá»›m hÃ nh vi báº¥t thÆ°á»ng</td></tr>
+<tr><td>4</td><td><strong>Äáº£m báº£o tÃ­nh toÃ n váº¹n dá»¯ liá»‡u</strong></td><td>MÃ£ hÃ³a vÃ  chá»¯ kÃ½ sá»‘ báº£o vá»‡ dá»¯ liá»‡u khá»i thay Ä‘á»•i trÃ¡i phÃ©p</td></tr>
+<tr><td>5</td><td><strong>Kháº£ nÄƒng phá»¥c há»“i sau sá»± cá»‘</strong></td><td>Sao lÆ°u Ä‘á»‹nh ká»³ giÃºp giáº£m thiá»ƒu thá»i gian giÃ¡n Ä‘oáº¡n</td></tr>
+<tr><td>6</td><td><strong>TÄƒng uy tÃ­n tá»• chá»©c</strong></td><td>Há»‡ thá»‘ng báº£o máº­t tá»‘t táº¡o niá»m tin cho khÃ¡ch hÃ ng, Ä‘á»‘i tÃ¡c</td></tr>
+<tr><td>7</td><td><strong>TuÃ¢n thá»§ quy Ä‘á»‹nh phÃ¡p luáº­t</strong></td><td>ÄÃ¡p á»©ng Luáº­t An ninh máº¡ng, GDPR vÃ  cÃ¡c tiÃªu chuáº©n quá»‘c táº¿</td></tr>
+</table>
+
+<h3>1.3.3. NhÆ°á»£c Ä‘iá»ƒm vÃ  thÃ¡ch thá»©c</h3>
+<table>
+<tr><th>STT</th><th>NhÆ°á»£c Ä‘iá»ƒm</th><th>MÃ´ táº£ chi tiáº¿t</th></tr>
+<tr><td>1</td><td><strong>Chi phÃ­ triá»ƒn khai cao</strong></td><td>Äáº§u tÆ° pháº§n cá»©ng, pháº§n má»m vÃ  nhÃ¢n sá»± chuyÃªn mÃ´n Ä‘Ã²i há»i ngÃ¢n sÃ¡ch lá»›n</td></tr>
+<tr><td>2</td><td><strong>Giáº£m hiá»‡u nÄƒng há»‡ thá»‘ng</strong></td><td>MÃ£ hÃ³a, kiá»ƒm toÃ¡n táº¡o thÃªm táº£i cho há»‡ thá»‘ng</td></tr>
+<tr><td>3</td><td><strong>Phá»©c táº¡p trong quáº£n trá»‹</strong></td><td>Quáº£n lÃ½ chÃ­nh sÃ¡ch báº£o máº­t Ä‘Ã²i há»i kiáº¿n thá»©c chuyÃªn sÃ¢u</td></tr>
+<tr><td>4</td><td><strong>áº¢nh hÆ°á»Ÿng tráº£i nghiá»‡m ngÆ°á»i dÃ¹ng</strong></td><td>XÃ¡c thá»±c Ä‘a yáº¿u tá»‘ cÃ³ thá»ƒ gÃ¢y báº¥t tiá»‡n</td></tr>
+<tr><td>5</td><td><strong>KhÃ³ cÃ¢n báº±ng báº£o máº­t vÃ  tiá»‡n dá»¥ng</strong></td><td>Báº£o máº­t quÃ¡ cháº·t cáº£n trá»Ÿ nÄƒng suáº¥t; quÃ¡ lá»ng dá»… bá»‹ táº¥n cÃ´ng</td></tr>
+<tr><td>6</td><td><strong>KhÃ´ng cÃ³ giáº£i phÃ¡p hoÃ n háº£o</strong></td><td>LuÃ´n tá»“n táº¡i lá»— há»•ng zero-day vÃ  rá»§i ro tá»« con ngÆ°á»i</td></tr>
+<tr><td>7</td><td><strong>YÃªu cáº§u cáº­p nháº­t liÃªn tá»¥c</strong></td><td>Má»‘i Ä‘e dá»a tiáº¿n hÃ³a, Ä‘Ã²i há»i cáº­p nháº­t vÃ  Ä‘Ã o táº¡o thÆ°á»ng xuyÃªn</td></tr>
+</table>
+
+<h3>1.3.4. Ma tráº­n Ä‘Ã¡nh giÃ¡ cÃ¡c phÆ°Æ¡ng phÃ¡p báº£o máº­t</h3>
+<table>
+<tr><th>PhÆ°Æ¡ng phÃ¡p</th><th>Báº£o máº­t</th><th>Hiá»‡u nÄƒng</th><th>Chi phÃ­</th><th>Äá»™ phá»©c táº¡p</th></tr>
+<tr><td>PhÃ¢n quyá»n (Authorization)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
+<tr><td>MÃ£ hÃ³a dá»¯ liá»‡u (Encryption)</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
+<tr><td>Kiá»ƒm toÃ¡n (Auditing)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
+<tr><td>Sao lÆ°u &amp; Phá»¥c há»“i</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td></tr>
+<tr><td>TÆ°á»ng lá»­a (Firewall)</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
+<tr><td>XÃ¡c thá»±c Ä‘a yáº¿u tá»‘ (MFA)</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
+</table>
+<blockquote>â˜…â˜…â˜…â˜…â˜… = Xuáº¥t sáº¯c &nbsp;|&nbsp; â˜…â˜…â˜…â˜…â˜† = Tá»‘t &nbsp;|&nbsp; â˜…â˜…â˜…â˜†â˜† = Trung bÃ¬nh</blockquote>
+
+<!-- ============================================================ -->
+<!-- CHÆ¯Æ NG 2 -->
+<!-- ============================================================ -->
+<div class="page-break"></div>
+<h1>CHÆ¯Æ NG 2. Váº¤N Äá»€ NGHIÃŠN Cá»¨U VÃ€ GIáº¢I PHÃP AN TOÃ€N</h1>
+
+<h2>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u</h2>
+<h3>2.1.1. Tá»•ng quan tÃ¬nh hÃ¬nh an ninh máº¡ng</h3>
+<p>Trong bá»‘i cáº£nh chuyá»ƒn Ä‘á»•i sá»‘ toÃ n cáº§u, cÃ¡c cuá»™c táº¥n cÃ´ng máº¡ng ngÃ y cÃ ng gia tÄƒng cáº£ vá» sá»‘ lÆ°á»£ng láº«n má»©c Ä‘á»™ tinh vi:</p>
+<ul>
+<li>Sá»‘ lÆ°á»£ng cuá»™c táº¥n cÃ´ng ransomware tÄƒng trung bÃ¬nh 13% má»—i nÄƒm.</li>
+<li>Chi phÃ­ trung bÃ¬nh cho má»™t vá»¥ rÃ² rá»‰ dá»¯ liá»‡u lÃªn Ä‘áº¿n 4.45 triá»‡u USD (IBM, 2023).</li>
+<li>82% cÃ¡c vá»¥ vi pháº¡m dá»¯ liá»‡u liÃªn quan Ä‘áº¿n yáº¿u tá»‘ con ngÆ°á»i (Verizon DBIR, 2023).</li>
+<li>Táº¡i Viá»‡t Nam, Luáº­t An ninh máº¡ng 2018 vÃ  Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP Ä‘áº·t ra yÃªu cáº§u nghiÃªm ngáº·t vá» báº£o máº­t.</li>
+</ul>
+
+<h3>2.1.2. PhÃ¢n loáº¡i cÃ¡c má»‘i Ä‘e dá»a</h3>
+<h4>A. Táº¥n cÃ´ng tá»« bÃªn ngoÃ i</h4>
+<table class="threat-table">
+<tr><th>Loáº¡i táº¥n cÃ´ng</th><th>MÃ´ táº£</th><th>Má»©c Ä‘á»™</th></tr>
+<tr><td><strong>SQL Injection</strong></td><td>ChÃ¨n mÃ£ SQL Ä‘á»™c háº¡i qua input Ä‘á»ƒ truy cáº­p/sá»­a Ä‘á»•i CSDL trÃ¡i phÃ©p</td><td>ðŸ”´ Ráº¥t cao</td></tr>
+<tr><td><strong>Brute Force</strong></td><td>Thá»­ táº¥t cáº£ tá»• há»£p máº­t kháº©u Ä‘á»ƒ Ä‘Äƒng nháº­p trÃ¡i phÃ©p</td><td>ðŸŸ  Cao</td></tr>
+<tr><td><strong>Man-in-the-Middle</strong></td><td>Cháº·n báº¯t vÃ  sá»­a Ä‘á»•i dá»¯ liá»‡u truyá»n giá»¯a client vÃ  server</td><td>ðŸ”´ Ráº¥t cao</td></tr>
+<tr><td><strong>Ransomware</strong></td><td>MÃ£ hÃ³a dá»¯ liá»‡u Ä‘Ã²i tiá»n chuá»™c</td><td>ðŸ”´ Ráº¥t cao</td></tr>
+<tr><td><strong>DDoS</strong></td><td>Táº¥n cÃ´ng tá»« chá»‘i dá»‹ch vá»¥ lÃ m tÃª liá»‡t há»‡ thá»‘ng</td><td>ðŸŸ  Cao</td></tr>
+<tr><td><strong>Phishing</strong></td><td>Lá»«a Ä‘áº£o ngÆ°á»i dÃ¹ng Ä‘á»ƒ láº¥y thÃ´ng tin Ä‘Äƒng nháº­p</td><td>ðŸŸ  Cao</td></tr>
+</table>
+
+<h4>B. Má»‘i Ä‘e dá»a tá»« bÃªn trong</h4>
+<table class="threat-table">
+<tr><th>Loáº¡i má»‘i Ä‘e dá»a</th><th>MÃ´ táº£</th><th>Má»©c Ä‘á»™</th></tr>
+<tr><td><strong>NhÃ¢n viÃªn cá»‘ Ã½</strong></td><td>NhÃ¢n viÃªn cÃ³ quyá»n truy cáº­p cá»‘ tÃ¬nh láº¥y cáº¯p hoáº·c phÃ¡ hoáº¡i dá»¯ liá»‡u</td><td>ðŸ”´ Ráº¥t cao</td></tr>
+<tr><td><strong>Sai sÃ³t vÃ´ Ã½</strong></td><td>XÃ³a nháº§m dá»¯ liá»‡u, cáº¥u hÃ¬nh sai, chia sáº» quyá»n khÃ´ng Ä‘Ãºng</td><td>ðŸŸ  Cao</td></tr>
+<tr><td><strong>TÃ i khoáº£n bá»‹ chiáº¿m</strong></td><td>TÃ i khoáº£n há»£p lá»‡ bá»‹ káº» táº¥n cÃ´ng kiá»ƒm soÃ¡t</td><td>ðŸ”´ Ráº¥t cao</td></tr>
+<tr><td><strong>Quyá»n truy cáº­p dÆ° thá»«a</strong></td><td>Cáº¥p quyá»n nhiá»u hÆ¡n má»©c cáº§n thiáº¿t</td><td>ðŸŸ¡ Trung bÃ¬nh</td></tr>
+</table>
+
+<h4>C. Lá»— há»•ng ká»¹ thuáº­t</h4>
+<ul>
+<li><strong>Cáº¥u hÃ¬nh máº·c Ä‘á»‹nh:</strong> Sá»­ dá»¥ng tÃ i khoáº£n <code>sa</code> vá»›i máº­t kháº©u yáº¿u hoáº·c rá»—ng.</li>
+<li><strong>Pháº§n má»m lá»—i thá»i:</strong> KhÃ´ng cáº­p nháº­t báº£n vÃ¡ báº£o máº­t cho HQTCSDL.</li>
+<li><strong>Dá»¯ liá»‡u khÃ´ng mÃ£ hÃ³a:</strong> LÆ°u trá»¯ máº­t kháº©u dáº¡ng plain text.</li>
+<li><strong>Thiáº¿u kiá»ƒm toÃ¡n:</strong> KhÃ´ng ghi nháº­n log hoáº¡t Ä‘á»™ng.</li>
+<li><strong>Thiáº¿u sao lÆ°u:</strong> KhÃ´ng cÃ³ káº¿ hoáº¡ch sao lÆ°u Ä‘á»‹nh ká»³.</li>
+</ul>
+
+<hr class="separator">
+<h2>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin</h2>
+<p>Dá»±a trÃªn phÃ¢n tÃ­ch cÃ¡c má»‘i Ä‘e dá»a, chÃºng tÃ´i Ä‘á» xuáº¥t <strong>4 giáº£i phÃ¡p chÃ­nh</strong> triá»ƒn khai trÃªn SQL Server:</p>
+
+<h3>2.2.1. Giáº£i phÃ¡p 1: PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng (Authorization &amp; Access Control)</h3>
+<p><strong>Má»¥c tiÃªu:</strong> Äáº£m báº£o má»—i ngÆ°á»i dÃ¹ng chá»‰ cÃ³ quyá»n truy cáº­p tá»‘i thiá»ƒu cáº§n thiáº¿t.</p>
+<p><strong>NguyÃªn táº¯c:</strong> Principle of Least Privilege (PoLP), Separation of Duties (SoD), Role-Based Access Control (RBAC).</p>
+<table>
+<tr><th>Biá»‡n phÃ¡p</th><th>MÃ´ táº£</th><th>CÃ´ng cá»¥ SQL Server</th></tr>
+<tr><td>Táº¡o Login &amp; User</td><td>PhÃ¢n biá»‡t tÃ i khoáº£n Ä‘Äƒng nháº­p vÃ  tÃ i khoáº£n CSDL</td><td><code>CREATE LOGIN</code>, <code>CREATE USER</code></td></tr>
+<tr><td>Táº¡o Role</td><td>NhÃ³m quyá»n theo vai trÃ² nghiá»‡p vá»¥</td><td><code>CREATE ROLE</code>, <code>ALTER ROLE</code></td></tr>
+<tr><td>Cáº¥p/Thu há»“i quyá»n</td><td>GÃ¡n quyá»n cá»¥ thá»ƒ cho tá»«ng role/user</td><td><code>GRANT</code>, <code>DENY</code>, <code>REVOKE</code></td></tr>
+<tr><td>Schema separation</td><td>TÃ¡ch biá»‡t dá»¯ liá»‡u theo schema</td><td><code>CREATE SCHEMA</code></td></tr>
+<tr><td>Row-Level Security</td><td>Kiá»ƒm soÃ¡t truy cáº­p á»Ÿ má»©c dÃ²ng dá»¯ liá»‡u</td><td>Security Policy, Filter Predicate</td></tr>
+</table>
+
+<h3>2.2.2. Giáº£i phÃ¡p 2: MÃ£ hÃ³a dá»¯ liá»‡u (Data Encryption)</h3>
+<p><strong>Má»¥c tiÃªu:</strong> Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m cáº£ khi lÆ°u trá»¯ (at rest) vÃ  khi truyá»n táº£i (in transit).</p>
+<div class="diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚     Transparent Data Encryption (TDE)       â”‚
+â”‚     MÃ£ hÃ³a toÃ n bá»™ database file            â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚     Column-Level Encryption                  â”‚
+â”‚     MÃ£ hÃ³a tá»«ng cá»™t dá»¯ liá»‡u nháº¡y cáº£m      â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚     Always Encrypted                         â”‚
+â”‚     MÃ£ hÃ³a end-to-end, server khÃ´ng cÃ³ key  â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚     Transport Layer Security (TLS/SSL)       â”‚
+â”‚     MÃ£ hÃ³a dá»¯ liá»‡u truyá»n trÃªn máº¡ng       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
+<table>
+<tr><th>PhÆ°Æ¡ng phÃ¡p</th><th>Pháº¡m vi</th><th>Hiá»‡u nÄƒng</th><th>Äá»™ báº£o máº­t</th><th>PhÃ¹ há»£p</th></tr>
+<tr><td><strong>TDE</strong></td><td>ToÃ n bá»™ DB</td><td>áº¢nh hÆ°á»Ÿng Ã­t</td><td>Cao</td><td>Báº£o vá»‡ file backup</td></tr>
+<tr><td><strong>Column Encryption</strong></td><td>Tá»«ng cá»™t</td><td>áº¢nh hÆ°á»Ÿng vá»«a</td><td>Ráº¥t cao</td><td>Dá»¯ liá»‡u nháº¡y cáº£m cá»¥ thá»ƒ</td></tr>
+<tr><td><strong>Always Encrypted</strong></td><td>Tá»«ng cá»™t</td><td>áº¢nh hÆ°á»Ÿng nhiá»u</td><td>Cá»±c cao</td><td>YÃªu cáº§u end-to-end</td></tr>
+<tr><td><strong>TLS/SSL</strong></td><td>Truyá»n táº£i</td><td>áº¢nh hÆ°á»Ÿng Ã­t</td><td>Cao</td><td>Má»i káº¿t ná»‘i</td></tr>
+</table>
+
+<h3>2.2.3. Giáº£i phÃ¡p 3: Kiá»ƒm toÃ¡n (Database Auditing)</h3>
+<p><strong>Má»¥c tiÃªu:</strong> Ghi nháº­n vÃ  giÃ¡m sÃ¡t má»i hoáº¡t Ä‘á»™ng trÃªn CSDL Ä‘á»ƒ phÃ¡t hiá»‡n báº¥t thÆ°á»ng.</p>
+<table>
+<tr><th>Loáº¡i sá»± kiá»‡n</th><th>VÃ­ dá»¥</th><th>Má»©c Ä‘á»™ quan trá»ng</th></tr>
+<tr><td>ÄÄƒng nháº­p/ÄÄƒng xuáº¥t</td><td>Login thÃ nh cÃ´ng/tháº¥t báº¡i</td><td>Cao</td></tr>
+<tr><td>Thay Ä‘á»•i dá»¯ liá»‡u</td><td>INSERT, UPDATE, DELETE trÃªn báº£ng nháº¡y cáº£m</td><td>Ráº¥t cao</td></tr>
+<tr><td>Thay Ä‘á»•i cáº¥u trÃºc</td><td>ALTER TABLE, DROP TABLE</td><td>Ráº¥t cao</td></tr>
+<tr><td>Thay Ä‘á»•i quyá»n</td><td>GRANT, REVOKE, DENY</td><td>Cao</td></tr>
+<tr><td>Truy váº¥n dá»¯ liá»‡u</td><td>SELECT trÃªn dá»¯ liá»‡u nháº¡y cáº£m</td><td>Trung bÃ¬nh</td></tr>
+<tr><td>Sao lÆ°u/Phá»¥c há»“i</td><td>BACKUP, RESTORE</td><td>Cao</td></tr>
+</table>
+
+<h3>2.2.4. Giáº£i phÃ¡p 4: Sao lÆ°u vÃ  Phá»¥c há»“i (Backup &amp; Recovery)</h3>
+<p><strong>Má»¥c tiÃªu:</strong> Äáº£m báº£o kháº£ nÄƒng phá»¥c há»“i dá»¯ liá»‡u nhanh chÃ³ng khi xáº£y ra sá»± cá»‘.</p>
+<table>
+<tr><th>Loáº¡i sao lÆ°u</th><th>Táº§n suáº¥t</th><th>MÃ´ táº£</th><th>Recovery Point</th></tr>
+<tr><td><strong>Full Backup</strong></td><td>HÃ ng ngÃ y (tá»‘i)</td><td>Sao lÆ°u toÃ n bá»™ database</td><td>Äáº¿n thá»i Ä‘iá»ƒm backup</td></tr>
+<tr><td><strong>Differential Backup</strong></td><td>Má»—i 6 giá»</td><td>Sao lÆ°u pháº§n thay Ä‘á»•i tá»« Full gáº§n nháº¥t</td><td>Äáº¿n thá»i Ä‘iá»ƒm diff backup</td></tr>
+<tr><td><strong>Transaction Log Backup</strong></td><td>Má»—i 15-30 phÃºt</td><td>Sao lÆ°u log giao dá»‹ch</td><td>Äáº¿n thá»i Ä‘iá»ƒm cá»¥ thá»ƒ (point-in-time)</td></tr>
+</table>
+<p><strong>NguyÃªn táº¯c 3-2-1:</strong> <strong>3</strong> báº£n sao lÆ°u, <strong>2</strong> loáº¡i phÆ°Æ¡ng tiá»‡n khÃ¡c nhau, <strong>1</strong> báº£n á»Ÿ vá»‹ trÃ­ khÃ¡c (offsite/cloud).</p>
+
+<hr class="separator">
+<h2>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p</h2>
+<div class="diagram">                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚   Báº¢O Máº¬T CSDL      â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+           â”‚                 â”‚                  â”‚
+    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚ PHÃ’NG NGá»ªA  â”‚  â”‚  PHÃT HIá»†N  â”‚  â”‚  PHá»¤C Há»’I    â”‚
+    â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+           â”‚                â”‚                  â”‚
+    â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚ PhÃ¢n quyá»n  â”‚  â”‚ Kiá»ƒm toÃ¡n   â”‚  â”‚ Sao lÆ°u &amp;     â”‚
+    â”‚ MÃ£ hÃ³a      â”‚  â”‚ GiÃ¡m sÃ¡t    â”‚  â”‚ Phá»¥c há»“i      â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
+<p>Bá»‘n giáº£i phÃ¡p táº¡o thÃ nh há»‡ thá»‘ng báº£o máº­t toÃ n diá»‡n theo nguyÃªn táº¯c <strong>Defense in Depth</strong> (PhÃ²ng thá»§ nhiá»u lá»›p).</p>
+
+<!-- ============================================================ -->
+<!-- CHÆ¯Æ NG 3 -->
+<!-- ============================================================ -->
+<div class="page-break"></div>
+<h1>CHÆ¯Æ NG 3. DEMO CÃC BÆ¯á»šC Báº¢O Máº¬T TRÃŠN SQL SERVER</h1>
+<blockquote><strong>MÃ´i trÆ°á»ng demo:</strong> Microsoft SQL Server 2019/2022, SQL Server Management Studio (SSMS)<br><strong>Database máº«u:</strong> <code>QuanLyNhanSu</code> - Há»‡ thá»‘ng quáº£n lÃ½ nhÃ¢n sá»±</blockquote>
+
+<h2>3.0. Chuáº©n bá»‹ mÃ´i trÆ°á»ng Demo</h2>
+<h3>Táº¡o Database vÃ  dá»¯ liá»‡u máº«u</h3>
+<pre>
+-- Táº O DATABASE VÃ€ Dá»® LIá»†U MáºªU
+CREATE DATABASE QuanLyNhanSu;
+GO
+USE QuanLyNhanSu;
+GO
+
+CREATE TABLE PhongBan (
+    MaPB INT PRIMARY KEY IDENTITY(1,1),
+    TenPB NVARCHAR(100) NOT NULL,
+    MoTa NVARCHAR(500)
+);
+
+CREATE TABLE NhanVien (
+    MaNV INT PRIMARY KEY IDENTITY(1,1),
+    HoTen NVARCHAR(100) NOT NULL,
+    Email VARCHAR(100),
+    SoDienThoai VARCHAR(15),
+    CMND VARCHAR(20),           -- Dá»¯ liá»‡u nháº¡y cáº£m
+    Luong DECIMAL(18,2),        -- Dá»¯ liá»‡u nháº¡y cáº£m
+    MaPB INT FOREIGN KEY REFERENCES PhongBan(MaPB),
+    NgayVaoLam DATE,
+    ChucVu NVARCHAR(50)
+);
+
+CREATE TABLE ChamCong (
+    MaCC INT PRIMARY KEY IDENTITY(1,1),
+    MaNV INT FOREIGN KEY REFERENCES NhanVien(MaNV),
+    NgayChamCong DATE, GioVao TIME, GioRa TIME,
+    TrangThai NVARCHAR(20)
+);
+
+INSERT INTO PhongBan (TenPB, MoTa) VALUES
+(N'PhÃ²ng Ká»¹ thuáº­t', N'Phá»¥ trÃ¡ch phÃ¡t triá»ƒn pháº§n má»m'),
+(N'PhÃ²ng NhÃ¢n sá»±', N'Quáº£n lÃ½ nhÃ¢n sá»± vÃ  tuyá»ƒn dá»¥ng'),
+(N'PhÃ²ng Káº¿ toÃ¡n', N'Quáº£n lÃ½ tÃ i chÃ­nh vÃ  lÆ°Æ¡ng');
+
+INSERT INTO NhanVien (HoTen, Email, SoDienThoai, CMND, Luong, MaPB, NgayVaoLam, ChucVu) VALUES
+(N'Nguyá»…n VÄƒn An','an.nv@company.com','0901234567','012345678901',25000000,1,'2020-01-15',N'TrÆ°á»Ÿng phÃ²ng'),
+(N'Tráº§n Thá»‹ BÃ¬nh','binh.tt@company.com','0912345678','012345678902',18000000,1,'2021-03-20',N'NhÃ¢n viÃªn'),
+(N'LÃª VÄƒn CÆ°á»ng','cuong.lv@company.com','0923456789','012345678903',22000000,2,'2019-06-10',N'TrÆ°á»Ÿng phÃ²ng'),
+(N'Pháº¡m Thá»‹ Dung','dung.pt@company.com','0934567890','012345678904',20000000,3,'2020-09-01',N'Káº¿ toÃ¡n trÆ°á»Ÿng'),
+(N'HoÃ ng VÄƒn Em','em.hv@company.com','0945678901','012345678905',15000000,1,'2022-01-10',N'NhÃ¢n viÃªn');
+GO
+</pre>
+
+<hr class="separator">
+<h2>3.1. Demo PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</h2>
+
+<h3>BÆ°á»›c 1: Táº¡o Login</h3>
+<pre>
+CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!';
+CREATE LOGIN manager_user WITH PASSWORD = 'Manager@2024!';
+CREATE LOGIN staff_user WITH PASSWORD = 'Staff@2024!';
+CREATE LOGIN accountant_user WITH PASSWORD = 'Accountant@2024!';
+GO
+</pre>
+
+<h3>BÆ°á»›c 2: Táº¡o User trong Database</h3>
+<pre>
+USE QuanLyNhanSu;
+GO
+CREATE USER admin_hr FOR LOGIN admin_hr;
+CREATE USER manager_user FOR LOGIN manager_user;
+CREATE USER staff_user FOR LOGIN staff_user;
+CREATE USER accountant_user FOR LOGIN accountant_user;
+GO
+</pre>
+
+<h3>BÆ°á»›c 3: Táº¡o cÃ¡c Role (vai trÃ²)</h3>
+<pre>
+CREATE ROLE Role_QuanTriNhanSu;    -- Quáº£n trá»‹ nhÃ¢n sá»±: toÃ n quyá»n
+CREATE ROLE Role_TruongPhong;      -- TrÆ°á»Ÿng phÃ²ng: xem NV phÃ²ng mÃ¬nh
+CREATE ROLE Role_NhanVien;         -- NhÃ¢n viÃªn: chá»‰ xem thÃ´ng tin cÃ¡ nhÃ¢n
+CREATE ROLE Role_KeToan;           -- Káº¿ toÃ¡n: truy cáº­p thÃ´ng tin lÆ°Æ¡ng
+GO
+</pre>
+
+<h3>BÆ°á»›c 4: GÃ¡n quyá»n cho cÃ¡c Role</h3>
+<pre>
+-- Role Quáº£n trá»‹ NhÃ¢n sá»±: ToÃ n quyá»n
+GRANT SELECT, INSERT, UPDATE, DELETE ON NhanVien TO Role_QuanTriNhanSu;
+GRANT SELECT, INSERT, UPDATE, DELETE ON PhongBan TO Role_QuanTriNhanSu;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ChamCong TO Role_QuanTriNhanSu;
+
+-- Role TrÆ°á»Ÿng phÃ²ng: Xem nhÃ¢n viÃªn vÃ  cháº¥m cÃ´ng, KHÃ”NG xem lÆ°Æ¡ng
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,SoDienThoai,MaPB,NgayVaoLam,ChucVu) TO Role_TruongPhong;
+GRANT SELECT ON ChamCong TO Role_TruongPhong;
+DENY SELECT ON NhanVien (Luong, CMND) TO Role_TruongPhong;
+
+-- Role NhÃ¢n viÃªn: Chá»‰ xem thÃ´ng tin cÆ¡ báº£n
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,MaPB,ChucVu) TO Role_NhanVien;
+DENY SELECT ON NhanVien (CMND, Luong, SoDienThoai) TO Role_NhanVien;
+
+-- Role Káº¿ toÃ¡n: Xem lÆ°Æ¡ng nhÆ°ng khÃ´ng Ä‘Æ°á»£c sá»­a
+GRANT SELECT ON NhanVien (MaNV,HoTen,Luong,MaPB) TO Role_KeToan;
+DENY INSERT, UPDATE, DELETE ON NhanVien TO Role_KeToan;
+GO
+</pre>
+
+<h3>BÆ°á»›c 5-6: GÃ¡n User vÃ o Role vÃ  Kiá»ƒm tra</h3>
+<pre>
+ALTER ROLE Role_QuanTriNhanSu ADD MEMBER admin_hr;
+ALTER ROLE Role_TruongPhong ADD MEMBER manager_user;
+ALTER ROLE Role_NhanVien ADD MEMBER staff_user;
+ALTER ROLE Role_KeToan ADD MEMBER accountant_user;
+GO
+
+-- KIá»‚M TRA: ÄÄƒng nháº­p báº±ng staff_user
+EXECUTE AS USER = 'staff_user';
+    SELECT MaNV, HoTen, Email, ChucVu FROM NhanVien;  -- âœ… THÃ€NH CÃ”NG
+    SELECT Luong FROM NhanVien;                         -- âŒ Bá»Š Tá»ª CHá»I
+REVERT;
+GO
+
+-- KIá»‚M TRA: ÄÄƒng nháº­p báº±ng accountant_user
+EXECUTE AS USER = 'accountant_user';
+    SELECT MaNV, HoTen, Luong FROM NhanVien;           -- âœ… THÃ€NH CÃ”NG
+    UPDATE NhanVien SET Luong = 30000000 WHERE MaNV=1;  -- âŒ Bá»Š Tá»ª CHá»I
+REVERT;
+GO
+</pre>
+
+<h3>Káº¿t quáº£ mong Ä‘á»£i</h3>
+<table class="result-table">
+<tr><th>User</th><th>Xem NV cÆ¡ báº£n</th><th>Xem LÆ°Æ¡ng</th><th>Sá»­a dá»¯ liá»‡u</th><th>Xem Cháº¥m cÃ´ng</th></tr>
+<tr><td>admin_hr</td><td>âœ…</td><td>âœ…</td><td>âœ…</td><td>âœ…</td></tr>
+<tr><td>manager_user</td><td>âœ…</td><td>âŒ</td><td>âŒ</td><td>âœ…</td></tr>
+<tr><td>staff_user</td><td>âœ… (háº¡n cháº¿)</td><td>âŒ</td><td>âŒ</td><td>âŒ</td></tr>
+<tr><td>accountant_user</td><td>âœ… (háº¡n cháº¿)</td><td>âœ…</td><td>âŒ</td><td>âŒ</td></tr>
+</table>
+
+<hr class="separator">
+<h2>3.2. Demo MÃ£ hÃ³a dá»¯ liá»‡u</h2>
+
+<h3>3.2.1. MÃ£ hÃ³a cá»™t dá»¯ liá»‡u nháº¡y cáº£m (Column-Level Encryption)</h3>
+<pre>
+-- BÆ°á»›c 1: Táº¡o Master Key vÃ  Certificate
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'MasterKey@2024!Secure';
+GO
+CREATE CERTIFICATE Cert_NhanVien
+    WITH SUBJECT = 'Certificate for NhanVien sensitive data encryption';
+GO
+CREATE SYMMETRIC KEY Key_NhanVien
+    WITH ALGORITHM = AES_256
+    ENCRYPTION BY CERTIFICATE Cert_NhanVien;
+GO
+
+-- BÆ°á»›c 2: ThÃªm cá»™t mÃ£ hÃ³a vÃ  mÃ£ hÃ³a dá»¯ liá»‡u
+ALTER TABLE NhanVien ADD CMND_Encrypted VARBINARY(256);
+ALTER TABLE NhanVien ADD Luong_Encrypted VARBINARY(256);
+GO
+
+OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
+UPDATE NhanVien SET CMND_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CMND);
+UPDATE NhanVien SET Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CAST(Luong AS VARCHAR(50)));
+CLOSE SYMMETRIC KEY Key_NhanVien;
+GO
+
+-- BÆ°á»›c 3: Giáº£i mÃ£ dá»¯ liá»‡u khi cáº§n
+OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
+SELECT MaNV, HoTen,
+    CONVERT(VARCHAR(20), DecryptByKey(CMND_Encrypted)) AS CMND_GiaiMa,
+    CONVERT(DECIMAL(18,2), CONVERT(VARCHAR(50), DecryptByKey(Luong_Encrypted))) AS Luong_GiaiMa
+FROM NhanVien;
+CLOSE SYMMETRIC KEY Key_NhanVien;
+GO
+</pre>
+
+<h3>3.2.2. Transparent Data Encryption (TDE)</h3>
+<pre>
+-- BÆ°á»›c 1: Táº¡o Master Key vÃ  Certificate á»Ÿ má»©c Server
+USE master;
+GO
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'ServerMaster@2024!';
+GO
+CREATE CERTIFICATE Cert_TDE_QuanLyNhanSu
+    WITH SUBJECT = 'TDE Certificate for QuanLyNhanSu';
+GO
+
+-- BÆ°á»›c 2: Táº¡o Database Encryption Key vÃ  báº­t TDE
+USE QuanLyNhanSu;
+GO
+CREATE DATABASE ENCRYPTION KEY
+    WITH ALGORITHM = AES_256
+    ENCRYPTION BY SERVER CERTIFICATE Cert_TDE_QuanLyNhanSu;
+GO
+ALTER DATABASE QuanLyNhanSu SET ENCRYPTION ON;
+GO
+
+-- Kiá»ƒm tra tráº¡ng thÃ¡i mÃ£ hÃ³a
+SELECT db.name AS DatabaseName,
+    CASE dek.encryption_state
+        WHEN 3 THEN N'ÄÃ£ mÃ£ hÃ³a' ELSE N'ChÆ°a mÃ£ hÃ³a'
+    END AS TrangThai,
+    dek.key_algorithm AS ThuatToan, dek.key_length AS DoRongKey
+FROM sys.dm_database_encryption_keys dek
+JOIN sys.databases db ON dek.database_id = db.database_id;
+GO
+</pre>
+
+<hr class="separator">
+<h2>3.3. Demo Kiá»ƒm toÃ¡n (Audit)</h2>
+<pre>
+-- BÆ°á»›c 1: Táº¡o Server Audit
+USE master;
+GO
+CREATE SERVER AUDIT Audit_QuanLyNhanSu
+TO FILE (FILEPATH = 'C:\AuditLogs\', MAXSIZE = 100 MB, MAX_ROLLOVER_FILES = 10)
+WITH (QUEUE_DELAY = 1000, ON_FAILURE = CONTINUE);
+GO
+ALTER SERVER AUDIT Audit_QuanLyNhanSu WITH (STATE = ON);
+GO
+
+-- BÆ°á»›c 2: Táº¡o Database Audit Specification
+USE QuanLyNhanSu;
+GO
+CREATE DATABASE AUDIT SPECIFICATION AuditSpec_NhanVien
+FOR SERVER AUDIT Audit_QuanLyNhanSu
+ADD (SELECT ON OBJECT::dbo.NhanVien BY public),
+ADD (INSERT ON OBJECT::dbo.NhanVien BY public),
+ADD (UPDATE ON OBJECT::dbo.NhanVien BY public),
+ADD (DELETE ON OBJECT::dbo.NhanVien BY public)
+WITH (STATE = ON);
+GO
+
+-- BÆ°á»›c 3: Thá»±c hiá»‡n thao tÃ¡c Ä‘á»ƒ táº¡o log
+SELECT * FROM NhanVien;
+UPDATE NhanVien SET ChucVu = N'PhÃ³ phÃ²ng' WHERE MaNV = 2;
+INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
+VALUES (N'Äá»— VÄƒn PhÃºc','phuc.dv@company.com','012345678906',16000000,2,'2024-02-01',N'NhÃ¢n viÃªn');
+DELETE FROM NhanVien WHERE MaNV = 6;
+GO
+
+-- BÆ°á»›c 4: Xem káº¿t quáº£ audit log
+SELECT event_time AS ThoiGian,
+    CASE action_id WHEN 'SL' THEN 'SELECT' WHEN 'IN' THEN 'INSERT'
+        WHEN 'UP' THEN 'UPDATE' WHEN 'DL' THEN 'DELETE' ELSE action_id END AS HanhDong,
+    server_principal_name AS NguoiDung, object_name AS TenBang,
+    statement AS CauLenhSQL, succeeded AS KetQua
+FROM sys.fn_get_audit_file('C:\AuditLogs\*.sqlaudit', DEFAULT, DEFAULT)
+WHERE database_name = 'QuanLyNhanSu' ORDER BY event_time DESC;
+GO
+</pre>
+
+<h3>Káº¿t quáº£ mong Ä‘á»£i</h3>
+<table class="result-table">
+<tr><th>Thá»i gian</th><th>HÃ nh Ä‘á»™ng</th><th>NgÆ°á»i dÃ¹ng</th><th>Báº£ng</th><th>Káº¿t quáº£</th></tr>
+<tr><td>2024-01-15 10:30</td><td>DELETE</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
+<tr><td>2024-01-15 10:29</td><td>INSERT</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
+<tr><td>2024-01-15 10:28</td><td>UPDATE</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
+<tr><td>2024-01-15 10:27</td><td>SELECT</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
+</table>
+
+<hr class="separator">
+<h2>3.4. Demo Sao lÆ°u vÃ  Phá»¥c há»“i</h2>
+
+<h3>3.4.1. Sao lÆ°u (Backup)</h3>
+<pre>
+-- Full Backup
+BACKUP DATABASE QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Full.bak'
+WITH FORMAT, INIT, NAME = N'Full Backup', COMPRESSION, STATS = 10;
+GO
+
+-- ThÃªm dá»¯ liá»‡u má»›i rá»“i Differential Backup
+INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
+VALUES (N'VÅ© Thá»‹ Giang','giang.vt@company.com','012345678907',17000000,3,'2024-03-01',N'NhÃ¢n viÃªn');
+GO
+BACKUP DATABASE QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Diff.bak'
+WITH DIFFERENTIAL, FORMAT, INIT, COMPRESSION, STATS = 10;
+GO
+
+-- Transaction Log Backup
+ALTER DATABASE QuanLyNhanSu SET RECOVERY FULL;
+GO
+UPDATE NhanVien SET Luong = Luong * 1.1 WHERE MaPB = 1;
+GO
+BACKUP LOG QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Log.trn'
+WITH FORMAT, INIT, COMPRESSION, STATS = 10;
+GO
+</pre>
+
+<h3>3.4.2. Phá»¥c há»“i sau khi xÃ³a nháº§m dá»¯ liá»‡u</h3>
+<pre>
+-- Giáº£ láº­p sá»± cá»‘: XÃ³a nháº§m toÃ n bá»™ nhÃ¢n viÃªn!
+DELETE FROM ChamCong;
+DELETE FROM NhanVien;
+SELECT COUNT(*) AS SoNhanVien FROM NhanVien;  -- Káº¿t quáº£: 0
+
+-- PHá»¤C Há»’I Tá»ª BACKUP
+USE master;
+ALTER DATABASE QuanLyNhanSu SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+
+RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Full.bak'
+    WITH NORECOVERY, REPLACE, STATS=10;
+RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Diff.bak'
+    WITH NORECOVERY, STATS=10;
+RESTORE LOG QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Log.trn'
+    WITH RECOVERY, STATS=10;
+GO
+
+ALTER DATABASE QuanLyNhanSu SET MULTI_USER;
+GO
+USE QuanLyNhanSu;
+SELECT COUNT(*) AS SoNhanVien FROM NhanVien;   -- Káº¿t quáº£: 6 âœ…
+SELECT * FROM NhanVien;
+GO
+</pre>
+
+<h3>Káº¿t quáº£ phá»¥c há»“i</h3>
+<table class="result-table">
+<tr><th>BÆ°á»›c</th><th>Tráº¡ng thÃ¡i</th><th>MÃ´ táº£</th></tr>
+<tr><td>TrÆ°á»›c phá»¥c há»“i</td><td>0 nhÃ¢n viÃªn</td><td>Dá»¯ liá»‡u bá»‹ xÃ³a nháº§m</td></tr>
+<tr><td>Sau Restore Full</td><td>Äang restore...</td><td>DB á»Ÿ tráº¡ng thÃ¡i RESTORING</td></tr>
+<tr><td>Sau Restore Diff</td><td>Äang restore...</td><td>Ãp dá»¥ng thay Ä‘á»•i má»›i</td></tr>
+<tr><td>Sau Restore Log</td><td>âœ… DB Online</td><td>Dá»¯ liá»‡u phá»¥c há»“i hoÃ n toÃ n</td></tr>
+<tr><td>Kiá»ƒm tra cuá»‘i</td><td>6 nhÃ¢n viÃªn</td><td>ToÃ n bá»™ dá»¯ liá»‡u Ä‘Ã£ phá»¥c há»“i</td></tr>
+</table>
+
+<hr class="separator">
+<h2>3.5. Tá»•ng káº¿t Demo</h2>
+<table class="result-table">
+<tr><th>Giáº£i phÃ¡p</th><th>Má»¥c tiÃªu</th><th>Káº¿t quáº£ Demo</th></tr>
+<tr><td><strong>PhÃ¢n quyá»n</strong></td><td>Kiá»ƒm soÃ¡t truy cáº­p theo vai trÃ²</td><td>âœ… 4 role vá»›i quyá»n khÃ¡c nhau, kiá»ƒm tra deny thÃ nh cÃ´ng</td></tr>
+<tr><td><strong>MÃ£ hÃ³a</strong></td><td>Báº£o vá»‡ dá»¯ liá»‡u nháº¡y cáº£m</td><td>âœ… Column encryption (AES-256) + TDE cho toÃ n DB</td></tr>
+<tr><td><strong>Kiá»ƒm toÃ¡n</strong></td><td>Ghi nháº­n má»i hoáº¡t Ä‘á»™ng</td><td>âœ… Server Audit + Database Audit Specification</td></tr>
+<tr><td><strong>Sao lÆ°u/Phá»¥c há»“i</strong></td><td>Äáº£m báº£o kháº£ nÄƒng phá»¥c há»“i</td><td>âœ… Full + Diff + Log backup, restore thÃ nh cÃ´ng</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- Káº¾T LUáº¬N -->
+<!-- ============================================================ -->
+<div class="page-break"></div>
+<h1>Káº¾T LUáº¬N</h1>
+
+<h2>Tá»•ng káº¿t</h2>
+<p>Qua quÃ¡ trÃ¬nh nghiÃªn cá»©u vÃ  thá»±c hÃ nh, tÃ i liá»‡u Ä‘Ã£ trÃ¬nh bÃ y há»‡ thá»‘ng cÃ¡c váº¥n Ä‘á» vá» báº£o máº­t vÃ  an toÃ n thÃ´ng tin trong cÆ¡ sá»Ÿ dá»¯ liá»‡u:</p>
+
+<p><strong>ChÆ°Æ¡ng 1</strong> â€” Há»‡ thá»‘ng hÃ³a kiáº¿n thá»©c ná»n táº£ng vá» CSDL, HQTCSDL, vÃ  phÃ¢n tÃ­ch toÃ n diá»‡n Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a báº£o máº­t thÃ´ng tin.</p>
+<p><strong>ChÆ°Æ¡ng 2</strong> â€” PhÃ¢n tÃ­ch chi tiáº¿t cÃ¡c má»‘i Ä‘e dá»a, Ä‘á» xuáº¥t 4 giáº£i phÃ¡p theo nguyÃªn táº¯c Defense in Depth:</p>
+<table>
+<tr><th>STT</th><th>Giáº£i phÃ¡p</th><th>Vai trÃ²</th></tr>
+<tr><td>1</td><td>PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</td><td><strong>PhÃ²ng ngá»«a</strong> â€” Kiá»ƒm soÃ¡t ai Ä‘Æ°á»£c truy cáº­p gÃ¬</td></tr>
+<tr><td>2</td><td>MÃ£ hÃ³a dá»¯ liá»‡u</td><td><strong>PhÃ²ng ngá»«a</strong> â€” Báº£o vá»‡ dá»¯ liá»‡u khi bá»‹ xÃ¢m pháº¡m</td></tr>
+<tr><td>3</td><td>Kiá»ƒm toÃ¡n</td><td><strong>PhÃ¡t hiá»‡n</strong> â€” GiÃ¡m sÃ¡t vÃ  cáº£nh bÃ¡o báº¥t thÆ°á»ng</td></tr>
+<tr><td>4</td><td>Sao lÆ°u vÃ  phá»¥c há»“i</td><td><strong>Phá»¥c há»“i</strong> â€” Äáº£m báº£o kháº£ nÄƒng khÃ´i phá»¥c</td></tr>
+</table>
+
+<p><strong>ChÆ°Æ¡ng 3</strong> â€” Triá»ƒn khai thÃ nh cÃ´ng cáº£ 4 giáº£i phÃ¡p trÃªn SQL Server vá»›i database máº«u <code>QuanLyNhanSu</code>:
+phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä‘áº§y Ä‘á»§, sao lÆ°u 3 cáº¥p vÃ  phá»¥c há»“i thÃ nh cÃ´ng.</p>
+
+<h2>Háº¡n cháº¿ vÃ  hÆ°á»›ng phÃ¡t triá»ƒn</h2>
+<p><strong>Háº¡n cháº¿:</strong> Demo trÃªn mÃ´i trÆ°á»ng phÃ¡t triá»ƒn, chÆ°a Ä‘Ã¡nh giÃ¡ hiá»‡u nÄƒng thá»±c táº¿; chÆ°a triá»ƒn khai báº£o máº­t máº¡ng (firewall, IDS/IPS); chÆ°a Ä‘á» cáº­p báº£o máº­t á»©ng dá»¥ng.</p>
+<p><strong>HÆ°á»›ng phÃ¡t triá»ƒn:</strong> Má»Ÿ rá»™ng báº£o máº­t á»©ng dá»¥ng web; giÃ¡m sÃ¡t real-time vá»›i SIEM; báº£o máº­t CSDL trÃªn Ä‘Ã¡m mÃ¢y; Ã¡p dá»¥ng ML phÃ¡t hiá»‡n báº¥t thÆ°á»ng; quy trÃ¬nh DevSecOps.</p>
+
+<h2>Lá»i cáº£m Æ¡n</h2>
+<p>ChÃºng tÃ´i xin chÃ¢n thÃ nh cáº£m Æ¡n cÃ¡c tháº§y cÃ´ giÃ¡o trong chÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ© táº¡i Äáº¡i há»c HÃ²a BÃ¬nh Ä‘Ã£ hÆ°á»›ng dáº«n vÃ  táº¡o Ä‘iá»u kiá»‡n Ä‘á»ƒ hoÃ n thÃ nh tÃ i liá»‡u nghiÃªn cá»©u nÃ y.</p>
+
+<table>
+<tr><th>Há» vÃ  tÃªn</th><th>Vai trÃ²</th></tr>
+<tr><td><strong>Nguyá»…n Há»¯u Huy</strong></td><td>NghiÃªn cá»©u vÃ  biÃªn soáº¡n</td></tr>
+<tr><td><strong>Nguyá»…n Thá»‹ PhÆ°Æ¡ng</strong></td><td>NghiÃªn cá»©u vÃ  biÃªn soáº¡n</td></tr>
+</table>
+<p><strong>ChÆ°Æ¡ng trÃ¬nh:</strong> Tháº¡c sÄ© â€” Äáº¡i há»c HÃ²a BÃ¬nh</p>
+
+<hr class="separator">
+<h2>TÃ i liá»‡u tham kháº£o</h2>
+<ol class="ref">
+<li>E.F. Codd, "A Relational Model of Data for Large Shared Data Banks", Communications of the ACM, 1970.</li>
+<li>Ramez Elmasri, Shamkant B. Navathe, <em>"Fundamentals of Database Systems"</em>, 7th Edition, Pearson, 2015.</li>
+<li>Abraham Silberschatz, Henry F. Korth, <em>"Database System Concepts"</em>, 7th Edition, McGraw-Hill, 2019.</li>
+<li>IBM Security, <em>"Cost of a Data Breach Report 2023"</em>, IBM Corporation, 2023.</li>
+<li>Verizon, <em>"Data Breach Investigations Report (DBIR) 2023"</em>, Verizon Enterprise, 2023.</li>
+<li>OWASP Foundation, <em>"OWASP Top 10 â€” 2021"</em>, owasp.org.</li>
+<li>Microsoft, <em>"SQL Server Security Documentation"</em>, docs.microsoft.com.</li>
+<li>Microsoft, <em>"SQL Server Encryption"</em>, docs.microsoft.com.</li>
+<li>Microsoft, <em>"SQL Server Audit (Database Engine)"</em>, docs.microsoft.com.</li>
+<li>NIST, <em>"Framework for Improving Critical Infrastructure Cybersecurity"</em>, v1.1, 2018.</li>
+<li>Quá»‘c há»™i nÆ°á»›c CHXHCNVN, <em>"Luáº­t An ninh máº¡ng"</em>, Luáº­t sá»‘ 24/2018/QH14, 2018.</li>
+<li>ChÃ­nh phá»§ nÆ°á»›c CHXHCNVN, <em>"Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP vá» Báº£o vá»‡ dá»¯ liá»‡u cÃ¡ nhÃ¢n"</em>, 2023.</li>
+</ol>
+
+</div>
+</body>
+</html>
