@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -6,112 +6,314 @@
 <title>Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Roboto',sans-serif;font-size:13px;line-height:1.7;color:#1a1a1a;background:#fff}
-@media print{
-  body{font-size:12px;line-height:1.6}
-  .page-break{page-break-before:always}
-  .no-break{page-break-inside:avoid}
-  @page{margin:2cm 1.5cm;size:A4}
-  pre{white-space:pre-wrap!important;word-wrap:break-word!important}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+:root {
+  --page-w: 210mm;
+  --page-h: 297mm;
+  --margin-top: 25mm;
+  --margin-bottom: 20mm;
+  --margin-left: 30mm;
+  --margin-right: 20mm;
+  --primary: #1a237e;
+  --primary-light: #3949ab;
+  --accent: #c62828;
+  --bg-light: #f5f7fa;
 }
-.cover{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;text-align:center;border:3px double #1a237e;padding:40px;margin:20px}
-.cover h1{font-size:28px;color:#1a237e;margin:30px 0 10px;text-transform:uppercase;letter-spacing:2px}
-.cover h2{font-size:18px;color:#333;font-weight:400;margin-bottom:40px}
-.cover .info{margin-top:40px;font-size:15px}
-.cover .info p{margin:6px 0}
-.cover .university{font-size:20px;color:#1a237e;font-weight:700;margin-bottom:10px;text-transform:uppercase}
-.cover .logo-text{font-size:60px;color:#1a237e;margin:20px 0}
-h1{font-size:22px;color:#1a237e;border-bottom:3px solid #1a237e;padding-bottom:8px;margin:30px 0 15px}
-h2{font-size:18px;color:#283593;margin:25px 0 12px;border-left:4px solid #283593;padding-left:12px}
-h3{font-size:15px;color:#303f9f;margin:20px 0 10px}
-h4{font-size:14px;color:#3949ab;margin:15px 0 8px}
-.content{max-width:210mm;margin:0 auto;padding:15px 30px}
-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
-th{background:#1a237e;color:#fff;padding:8px 10px;text-align:left;font-weight:500}
-td{padding:7px 10px;border:1px solid #ddd}
-tr:nth-child(even){background:#f5f5f5}
-tr:hover{background:#e8eaf6}
-pre{background:#263238;color:#eeffff;padding:14px;border-radius:6px;overflow-x:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;margin:10px 0;line-height:1.5}
-code{font-family:'Roboto Mono',monospace;font-size:12px}
-p code{background:#e8eaf6;padding:2px 5px;border-radius:3px;color:#1a237e}
-ul,ol{margin:8px 0 8px 25px}
-li{margin:4px 0}
-blockquote{border-left:4px solid #1a237e;padding:10px 15px;background:#e8eaf6;margin:12px 0;font-style:italic}
-.diagram{background:#eceff1;border:1px solid #b0bec5;padding:14px;border-radius:6px;font-family:'Roboto Mono',monospace;font-size:12px;white-space:pre;margin:12px 0;line-height:1.4}
-.result-table th{background:#2e7d32}
-.threat-table td:last-child{font-weight:500}
-strong{color:#1a237e}
-.comment{color:#546e7a}
-.keyword{color:#c792ea}
-.string{color:#c3e88d}
-.separator{border:none;border-top:2px solid #1a237e;margin:25px 0}
-.toc{background:#f5f5f5;padding:20px 30px;border-radius:8px;margin:20px 0}
-.toc h2{border:none;padding:0;margin:0 0 12px}
-.toc ol{counter-reset:toc}
-.toc>ol>li{margin:6px 0;font-weight:500}
-.toc ol ol li{font-weight:400;font-size:12px;margin:3px 0}
-.stars{color:#f9a825;letter-spacing:1px}
-.ref{font-size:12px;color:#555}
-.ref li{margin:3px 0}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* ===== SCREEN VIEW: show A4 pages ===== */
+body {
+  font-family: 'Roboto', 'Times New Roman', serif;
+  font-size: 13pt;
+  line-height: 1.8;
+  color: #1a1a1a;
+  background: #e0e0e0;
+}
+
+.page {
+  width: var(--page-w);
+  min-height: var(--page-h);
+  background: #fff;
+  margin: 20px auto;
+  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header bar */
+.page-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 18mm;
+  display: flex;
+  align-items: center;
+  padding: 3mm var(--margin-right) 3mm var(--margin-left);
+  border-bottom: 2px solid var(--primary);
+  background: #fff;
+}
+.page-header .logo-img {
+  height: 12mm;
+  margin-right: 8px;
+}
+.page-header .header-text {
+  font-size: 9pt;
+  color: var(--primary);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.page-header .header-text span {
+  display: block;
+  font-size: 8pt;
+  color: #555;
+  font-weight: 400;
+}
+
+/* Footer bar */
+.page-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 12mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2mm var(--margin-right) 2mm var(--margin-left);
+  border-top: 1.5px solid var(--primary);
+  background: #fff;
+  font-size: 9pt;
+  color: #555;
+}
+.page-footer .footer-title {
+  font-style: italic;
+}
+.page-footer .page-number {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ===== COVER PAGE ===== */
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--page-h) - 10mm);
+  text-align: center;
+  padding: 0;
+}
+.cover-page .page-header,
+.cover-page .page-footer { display: none; }
+.page.cover-container { padding: 0; }
+.page.cover-container .page-header,
+.page.cover-container .page-footer { display: none; }
+
+.cover-border {
+  border: 3px double var(--primary);
+  margin: 15mm;
+  padding: 20mm 15mm;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--page-h) - 40mm);
+}
+.cover-university { font-size: 16pt; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+.cover-program { font-size: 12pt; color: #555; margin-top: 4px; }
+.cover-logo { width: 80px; height: 80px; margin: 25px 0; }
+.cover-logo img { width: 100%; height: 100%; object-fit: contain; }
+.cover-divider { width: 60%; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin: 15px 0; }
+.cover-subject { font-size: 12pt; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; margin: 15px 0 5px; }
+.cover-title { font-size: 24pt; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; line-height: 1.4; margin: 10px 0; }
+.cover-subtitle { font-size: 13pt; color: #333; font-weight: 400; margin: 5px 0 30px; line-height: 1.5; }
+.cover-info { margin-top: 30px; font-size: 12pt; }
+.cover-info p { margin: 5px 0; }
+.cover-info .label { color: #555; }
+.cover-info .value { font-weight: 600; color: #1a1a1a; }
+.cover-year { font-size: 14pt; font-weight: 700; color: var(--primary); margin-top: 30px; letter-spacing: 3px; }
+
+/* ===== TOC PAGE ===== */
+.toc { padding-top: 5mm; }
+.toc-title { font-size: 18pt; color: var(--primary); text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
+.toc-list { list-style: none; padding: 0; }
+.toc-list > li { margin: 8px 0; font-size: 12pt; font-weight: 600; color: var(--primary); display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #ccc; padding-bottom: 4px; }
+.toc-list > li > .toc-page { font-weight: 400; color: #555; min-width: 25px; text-align: right; }
+.toc-sub { list-style: none; padding-left: 20px; margin: 3px 0; }
+.toc-sub li { font-weight: 400; font-size: 11pt; color: #333; display: flex; justify-content: space-between; border-bottom: 1px dotted #eee; padding: 2px 0; }
+.toc-sub li .toc-page { color: #777; }
+
+/* ===== CONTENT STYLES ===== */
+h1.chapter {
+  font-size: 18pt;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+  padding: 8px 0 12px;
+  border-bottom: 3px solid var(--primary);
+  margin: 0 0 20px;
+}
+h2 { font-size: 14pt; color: #283593; margin: 22px 0 10px; border-left: 4px solid #283593; padding-left: 12px; }
+h3 { font-size: 12pt; color: #303f9f; margin: 16px 0 8px; }
+h4 { font-size: 11pt; color: #3949ab; margin: 12px 0 6px; }
+p { margin: 6px 0; text-align: justify; }
+ul, ol { margin: 6px 0 6px 22px; }
+li { margin: 3px 0; }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11pt; }
+th { background: var(--primary); color: #fff; padding: 7px 8px; text-align: left; font-weight: 500; font-size: 10.5pt; }
+td { padding: 6px 8px; border: 1px solid #ddd; }
+tr:nth-child(even) { background: #f5f5f5; }
+
+pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 8px 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+code { font-family: 'Roboto Mono', monospace; font-size: 10pt; }
+p code { background: #e8eaf6; padding: 1px 4px; border-radius: 3px; color: var(--primary); }
+
+blockquote { border-left: 4px solid var(--primary); padding: 8px 14px; background: #e8eaf6; margin: 10px 0; font-size: 11pt; }
+
+.diagram { background: #eceff1; border: 1px solid #b0bec5; padding: 12px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 10pt; white-space: pre; margin: 10px 0; line-height: 1.4; overflow-x: auto; }
+
+.result-table th { background: #2e7d32; }
+.threat-table td:last-child { font-weight: 500; }
+strong { color: var(--primary); }
+.separator { border: none; border-top: 2px solid var(--primary); margin: 20px 0; }
+.stars { color: #f9a825; letter-spacing: 1px; }
+.ref { font-size: 10.5pt; color: #444; }
+.ref li { margin: 4px 0; }
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  body { background: #fff; }
+  .page {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+  .page-header, .page-footer { display: none !important; }
+  
+  @page {
+    size: A4;
+    margin: 20mm 20mm 18mm 30mm;
+    @top-center {
+      content: "Äáº I Há»ŒC HÃ’A BÃŒNH";
+      font-size: 9pt;
+      color: #1a237e;
+    }
+    @bottom-left {
+      content: "Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CSDL";
+      font-size: 8pt;
+      font-style: italic;
+      color: #555;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-size: 9pt;
+      font-weight: bold;
+      color: #1a237e;
+    }
+  }
+  @page :first { @top-center { content: none; } @bottom-left { content: none; } @bottom-right { content: none; } }
+
+  pre { white-space: pre-wrap !important; word-wrap: break-word !important; font-size: 9pt; }
+  table { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
 </style>
 </head>
 <body>
 
-<!-- TRANG BÃŒA -->
-<div class="cover">
-<p class="university">Äáº¡i há»c HÃ²a BÃ¬nh</p>
-<p style="font-size:16px;color:#555">ChÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ©</p>
-<div class="logo-text">ðŸ›¡ï¸</div>
-<h1>Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin<br>trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</h1>
-<h2>NghiÃªn cá»©u cÃ¡c giáº£i phÃ¡p báº£o máº­t cÆ¡ sá»Ÿ dá»¯ liá»‡u<br>vÃ  demo thá»±c hÃ nh trÃªn Microsoft SQL Server</h2>
-<div class="info">
-<p><strong>NgÆ°á»i thá»±c hiá»‡n:</strong></p>
-<p>Nguyá»…n Há»¯u Huy</p>
-<p>Nguyá»…n Thá»‹ PhÆ°Æ¡ng</p>
-<br>
-<p><strong>NÄƒm 2025</strong></p>
+<!-- ===== TRANG BÃŒA ===== -->
+<div class="page cover-container">
+<div class="cover-border">
+  <p class="cover-university">TrÆ°á»ng Äáº¡i há»c HÃ²a BÃ¬nh</p>
+  <p class="cover-program">ChÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ©</p>
+  <div class="cover-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo Äáº¡i há»c HÃ²a BÃ¬nh" onerror="this.outerHTML='<div style=&quot;font-size:48pt;color:#1a237e&quot;>ðŸ›¡ï¸</div>'">
+  </div>
+  <div class="cover-divider"></div>
+  <p class="cover-subject">BÃ i táº­p mÃ´n há»c</p>
+  <h1 class="cover-title">Báº£o máº­t vÃ  An toÃ n<br>ThÃ´ng tin trong<br>CÆ¡ sá»Ÿ Dá»¯ liá»‡u</h1>
+  <p class="cover-subtitle">NghiÃªn cá»©u cÃ¡c giáº£i phÃ¡p báº£o máº­t cÆ¡ sá»Ÿ dá»¯ liá»‡u<br>vÃ  demo thá»±c hÃ nh trÃªn Microsoft SQL Server</p>
+  <div class="cover-divider"></div>
+  <div class="cover-info">
+    <p><span class="label">NgÆ°á»i thá»±c hiá»‡n:</span></p>
+    <p><span class="value">Nguyá»…n Há»¯u Huy</span></p>
+    <p><span class="value">Nguyá»…n Thá»‹ PhÆ°Æ¡ng</span></p>
+  </div>
+  <p class="cover-year">â€” 2025 â€”</p>
 </div>
 </div>
 
-<!-- Má»¤C Lá»¤C -->
-<div class="page-break"></div>
-<div class="content">
+<!-- ===== Má»¤C Lá»¤C ===== -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">i</span>
+</div>
 <div class="toc">
-<h2>Má»¤C Lá»¤C</h2>
-<ol>
-<li>ChÆ°Æ¡ng 1. CÆ¡ sá»Ÿ lÃ½ thuyáº¿t
-  <ol>
-    <li>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
-    <li>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
-    <li>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a tÃ­nh báº£o máº­t thÃ´ng tin</li>
-  </ol>
-</li>
-<li>ChÆ°Æ¡ng 2. Váº¥n Ä‘á» nghiÃªn cá»©u vÃ  giáº£i phÃ¡p an toÃ n
-  <ol>
-    <li>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u</li>
-    <li>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin</li>
-    <li>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p</li>
-  </ol>
-</li>
-<li>ChÆ°Æ¡ng 3. Demo cÃ¡c bÆ°á»›c báº£o máº­t trÃªn SQL Server
-  <ol>
-    <li>3.1. PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</li>
-    <li>3.2. MÃ£ hÃ³a dá»¯ liá»‡u</li>
-    <li>3.3. Kiá»ƒm toÃ¡n (Audit)</li>
-    <li>3.4. Sao lÆ°u vÃ  phá»¥c há»“i</li>
-  </ol>
-</li>
-<li>Káº¿t luáº­n</li>
-<li>TÃ i liá»‡u tham kháº£o</li>
-</ol>
+<h2 class="toc-title">Má»¥c Lá»¥c</h2>
+<ul class="toc-list">
+  <li>ChÆ°Æ¡ng 1. CÆ¡ sá»Ÿ lÃ½ thuyáº¿t <span class="toc-page">1</span></li>
+  <ul class="toc-sub">
+    <li>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">1</span></li>
+    <li>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">3</span></li>
+    <li>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a báº£o máº­t thÃ´ng tin <span class="toc-page">5</span></li>
+  </ul>
+  <li>ChÆ°Æ¡ng 2. Váº¥n Ä‘á» nghiÃªn cá»©u vÃ  giáº£i phÃ¡p an toÃ n <span class="toc-page">7</span></li>
+  <ul class="toc-sub">
+    <li>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u <span class="toc-page">7</span></li>
+    <li>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin <span class="toc-page">9</span></li>
+    <li>2.3. Tá»•ng káº¿t cÃ¡c giáº£i phÃ¡p <span class="toc-page">13</span></li>
+  </ul>
+  <li>ChÆ°Æ¡ng 3. Demo cÃ¡c bÆ°á»›c báº£o máº­t trÃªn SQL Server <span class="toc-page">14</span></li>
+  <ul class="toc-sub">
+    <li>3.0. Chuáº©n bá»‹ mÃ´i trÆ°á»ng Demo <span class="toc-page">14</span></li>
+    <li>3.1. Demo PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng <span class="toc-page">16</span></li>
+    <li>3.2. Demo MÃ£ hÃ³a dá»¯ liá»‡u <span class="toc-page">19</span></li>
+    <li>3.3. Demo Kiá»ƒm toÃ¡n (Audit) <span class="toc-page">21</span></li>
+    <li>3.4. Demo Sao lÆ°u vÃ  Phá»¥c há»“i <span class="toc-page">23</span></li>
+    <li>3.5. Tá»•ng káº¿t Demo <span class="toc-page">25</span></li>
+  </ul>
+  <li>Káº¿t luáº­n <span class="toc-page">26</span></li>
+  <li>TÃ i liá»‡u tham kháº£o <span class="toc-page">28</span></li>
+</ul>
+</div>
 </div>
 
-<!-- ============================================================ -->
-<!-- CHÆ¯Æ NG 1 -->
-<!-- ============================================================ -->
-<div class="page-break"></div>
-<h1>CHÆ¯Æ NG 1. CÆ  Sá»ž LÃ THUYáº¾T</h1>
+<!-- ===== CHÆ¯Æ NG 1 ===== -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">1</span>
+</div>
+
+<h1 class="chapter">ChÆ°Æ¡ng 1. CÆ¡ Sá»Ÿ LÃ½ Thuyáº¿t</h1>
 
 <h2>1.1. CÆ¡ sá»Ÿ dá»¯ liá»‡u (Database)</h2>
 <h3>1.1.1. KhÃ¡i niá»‡m</h3>
@@ -151,8 +353,18 @@ strong{color:#1a237e}
 <li><strong>RÃ ng buá»™c toÃ n váº¹n thá»±c thá»ƒ (Entity Integrity):</strong> KhÃ³a chÃ­nh khÃ´ng Ä‘Æ°á»£c chá»©a giÃ¡ trá»‹ NULL.</li>
 <li><strong>RÃ ng buá»™c toÃ n váº¹n tham chiáº¿u (Referential Integrity):</strong> GiÃ¡ trá»‹ khÃ³a ngoáº¡i pháº£i tá»“n táº¡i trong báº£ng tham chiáº¿u hoáº·c lÃ  NULL.</li>
 </ul>
+</div>
 
-<hr class="separator">
+<!-- Trang tiáº¿p - HQTCSDL -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">3</span>
+</div>
 
 <h2>1.2. Há»‡ quáº£n trá»‹ cÆ¡ sá»Ÿ dá»¯ liá»‡u (DBMS)</h2>
 <h3>1.2.1. KhÃ¡i niá»‡m</h3>
@@ -192,8 +404,18 @@ strong{color:#1a237e}
 <tr><td><strong>PostgreSQL</strong></td><td>Cá»™ng Ä‘á»“ng</td><td>MÃ£ nguá»“n má»Ÿ, tuÃ¢n thá»§ chuáº©n SQL, há»— trá»£ JSON</td></tr>
 <tr><td><strong>MongoDB</strong></td><td>MongoDB Inc.</td><td>NoSQL, linh hoáº¡t schema, phÃ¹ há»£p big data</td></tr>
 </table>
+</div>
 
-<hr class="separator">
+<!-- Trang tiáº¿p - PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">5</span>
+</div>
 
 <h2>1.3. PhÃ¢n tÃ­ch Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a tÃ­nh báº£o máº­t thÃ´ng tin</h2>
 <h3>1.3.1. Tá»•ng quan vá» báº£o máº­t thÃ´ng tin</h3>
@@ -239,12 +461,19 @@ strong{color:#1a237e}
 <tr><td>XÃ¡c thá»±c Ä‘a yáº¿u tá»‘ (MFA)</td><td class="stars">â˜…â˜…â˜…â˜…â˜…</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td><td class="stars">â˜…â˜…â˜…â˜†â˜†</td><td class="stars">â˜…â˜…â˜…â˜…â˜†</td></tr>
 </table>
 <blockquote>â˜…â˜…â˜…â˜…â˜… = Xuáº¥t sáº¯c &nbsp;|&nbsp; â˜…â˜…â˜…â˜…â˜† = Tá»‘t &nbsp;|&nbsp; â˜…â˜…â˜…â˜†â˜† = Trung bÃ¬nh</blockquote>
+</div>
+<!-- ===== CHÆ¯Æ NG 2 ===== -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">7</span>
+</div>
 
-<!-- ============================================================ -->
-<!-- CHÆ¯Æ NG 2 -->
-<!-- ============================================================ -->
-<div class="page-break"></div>
-<h1>CHÆ¯Æ NG 2. Váº¤N Äá»€ NGHIÃŠN Cá»¨U VÃ€ GIáº¢I PHÃP AN TOÃ€N</h1>
+<h1 class="chapter">ChÆ°Æ¡ng 2. Váº¥n Äá» NghiÃªn Cá»©u vÃ  Giáº£i PhÃ¡p An ToÃ n</h1>
 
 <h2>2.1. CÃ¡c má»‘i Ä‘e dá»a Ä‘á»‘i vá»›i cÆ¡ sá»Ÿ dá»¯ liá»‡u</h2>
 <h3>2.1.1. Tá»•ng quan tÃ¬nh hÃ¬nh an ninh máº¡ng</h3>
@@ -285,8 +514,19 @@ strong{color:#1a237e}
 <li><strong>Thiáº¿u kiá»ƒm toÃ¡n:</strong> KhÃ´ng ghi nháº­n log hoáº¡t Ä‘á»™ng.</li>
 <li><strong>Thiáº¿u sao lÆ°u:</strong> KhÃ´ng cÃ³ káº¿ hoáº¡ch sao lÆ°u Ä‘á»‹nh ká»³.</li>
 </ul>
+</div>
 
-<hr class="separator">
+<!-- Trang tiáº¿p - Giáº£i phÃ¡p -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">9</span>
+</div>
+
 <h2>2.2. CÃ¡c giáº£i phÃ¡p báº£o máº­t vÃ  an toÃ n thÃ´ng tin</h2>
 <p>Dá»±a trÃªn phÃ¢n tÃ­ch cÃ¡c má»‘i Ä‘e dá»a, chÃºng tÃ´i Ä‘á» xuáº¥t <strong>4 giáº£i phÃ¡p chÃ­nh</strong> triá»ƒn khai trÃªn SQL Server:</p>
 
@@ -324,6 +564,18 @@ strong{color:#1a237e}
 <tr><td><strong>Always Encrypted</strong></td><td>Tá»«ng cá»™t</td><td>áº¢nh hÆ°á»Ÿng nhiá»u</td><td>Cá»±c cao</td><td>YÃªu cáº§u end-to-end</td></tr>
 <tr><td><strong>TLS/SSL</strong></td><td>Truyá»n táº£i</td><td>áº¢nh hÆ°á»Ÿng Ã­t</td><td>Cao</td><td>Má»i káº¿t ná»‘i</td></tr>
 </table>
+</div>
+
+<!-- Trang tiáº¿p - Giáº£i phÃ¡p (tiáº¿p) -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">11</span>
+</div>
 
 <h3>2.2.3. Giáº£i phÃ¡p 3: Kiá»ƒm toÃ¡n (Database Auditing)</h3>
 <p><strong>Má»¥c tiÃªu:</strong> Ghi nháº­n vÃ  giÃ¡m sÃ¡t má»i hoáº¡t Ä‘á»™ng trÃªn CSDL Ä‘á»ƒ phÃ¡t hiá»‡n báº¥t thÆ°á»ng.</p>
@@ -363,13 +615,20 @@ strong{color:#1a237e}
     â”‚ MÃ£ hÃ³a      â”‚  â”‚ GiÃ¡m sÃ¡t    â”‚  â”‚ Phá»¥c há»“i      â”‚
     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
 <p>Bá»‘n giáº£i phÃ¡p táº¡o thÃ nh há»‡ thá»‘ng báº£o máº­t toÃ n diá»‡n theo nguyÃªn táº¯c <strong>Defense in Depth</strong> (PhÃ²ng thá»§ nhiá»u lá»›p).</p>
+</div>
+<!-- ===== CHÆ¯Æ NG 3 ===== -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">14</span>
+</div>
 
-<!-- ============================================================ -->
-<!-- CHÆ¯Æ NG 3 -->
-<!-- ============================================================ -->
-<div class="page-break"></div>
-<h1>CHÆ¯Æ NG 3. DEMO CÃC BÆ¯á»šC Báº¢O Máº¬T TRÃŠN SQL SERVER</h1>
-<blockquote><strong>MÃ´i trÆ°á»ng demo:</strong> Microsoft SQL Server 2019/2022, SQL Server Management Studio (SSMS)<br><strong>Database máº«u:</strong> <code>QuanLyNhanSu</code> - Há»‡ thá»‘ng quáº£n lÃ½ nhÃ¢n sá»±</blockquote>
+<h1 class="chapter">ChÆ°Æ¡ng 3. Demo CÃ¡c BÆ°á»›c Báº£o Máº­t TrÃªn SQL Server</h1>
+<blockquote><strong>MÃ´i trÆ°á»ng demo:</strong> Microsoft SQL Server 2019/2022, SQL Server Management Studio (SSMS)<br><strong>Database máº«u:</strong> <code>QuanLyNhanSu</code> â€” Há»‡ thá»‘ng quáº£n lÃ½ nhÃ¢n sá»±</blockquote>
 
 <h2>3.0. Chuáº©n bá»‹ mÃ´i trÆ°á»ng Demo</h2>
 <h3>Táº¡o Database vÃ  dá»¯ liá»‡u máº«u</h3>
@@ -404,24 +663,41 @@ CREATE TABLE ChamCong (
     NgayChamCong DATE, GioVao TIME, GioRa TIME,
     TrangThai NVARCHAR(20)
 );
-
+</pre>
+<pre>
 INSERT INTO PhongBan (TenPB, MoTa) VALUES
 (N'PhÃ²ng Ká»¹ thuáº­t', N'Phá»¥ trÃ¡ch phÃ¡t triá»ƒn pháº§n má»m'),
 (N'PhÃ²ng NhÃ¢n sá»±', N'Quáº£n lÃ½ nhÃ¢n sá»± vÃ  tuyá»ƒn dá»¥ng'),
 (N'PhÃ²ng Káº¿ toÃ¡n', N'Quáº£n lÃ½ tÃ i chÃ­nh vÃ  lÆ°Æ¡ng');
 
-INSERT INTO NhanVien (HoTen, Email, SoDienThoai, CMND, Luong, MaPB, NgayVaoLam, ChucVu) VALUES
-(N'Nguyá»…n VÄƒn An','an.nv@company.com','0901234567','012345678901',25000000,1,'2020-01-15',N'TrÆ°á»Ÿng phÃ²ng'),
-(N'Tráº§n Thá»‹ BÃ¬nh','binh.tt@company.com','0912345678','012345678902',18000000,1,'2021-03-20',N'NhÃ¢n viÃªn'),
-(N'LÃª VÄƒn CÆ°á»ng','cuong.lv@company.com','0923456789','012345678903',22000000,2,'2019-06-10',N'TrÆ°á»Ÿng phÃ²ng'),
-(N'Pháº¡m Thá»‹ Dung','dung.pt@company.com','0934567890','012345678904',20000000,3,'2020-09-01',N'Káº¿ toÃ¡n trÆ°á»Ÿng'),
-(N'HoÃ ng VÄƒn Em','em.hv@company.com','0945678901','012345678905',15000000,1,'2022-01-10',N'NhÃ¢n viÃªn');
+INSERT INTO NhanVien (HoTen,Email,SoDienThoai,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
+VALUES
+(N'Nguyá»…n VÄƒn An','an.nv@company.com','0901234567',
+ '012345678901',25000000,1,'2020-01-15',N'TrÆ°á»Ÿng phÃ²ng'),
+(N'Tráº§n Thá»‹ BÃ¬nh','binh.tt@company.com','0912345678',
+ '012345678902',18000000,1,'2021-03-20',N'NhÃ¢n viÃªn'),
+(N'LÃª VÄƒn CÆ°á»ng','cuong.lv@company.com','0923456789',
+ '012345678903',22000000,2,'2019-06-10',N'TrÆ°á»Ÿng phÃ²ng'),
+(N'Pháº¡m Thá»‹ Dung','dung.pt@company.com','0934567890',
+ '012345678904',20000000,3,'2020-09-01',N'Káº¿ toÃ¡n trÆ°á»Ÿng'),
+(N'HoÃ ng VÄƒn Em','em.hv@company.com','0945678901',
+ '012345678905',15000000,1,'2022-01-10',N'NhÃ¢n viÃªn');
 GO
 </pre>
+</div>
 
-<hr class="separator">
+<!-- Demo PhÃ¢n quyá»n -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">16</span>
+</div>
+
 <h2>3.1. Demo PhÃ¢n quyá»n ngÆ°á»i dÃ¹ng</h2>
-
 <h3>BÆ°á»›c 1: Táº¡o Login</h3>
 <pre>
 CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!';
@@ -430,7 +706,6 @@ CREATE LOGIN staff_user WITH PASSWORD = 'Staff@2024!';
 CREATE LOGIN accountant_user WITH PASSWORD = 'Accountant@2024!';
 GO
 </pre>
-
 <h3>BÆ°á»›c 2: Táº¡o User trong Database</h3>
 <pre>
 USE QuanLyNhanSu;
@@ -441,7 +716,6 @@ CREATE USER staff_user FOR LOGIN staff_user;
 CREATE USER accountant_user FOR LOGIN accountant_user;
 GO
 </pre>
-
 <h3>BÆ°á»›c 3: Táº¡o cÃ¡c Role (vai trÃ²)</h3>
 <pre>
 CREATE ROLE Role_QuanTriNhanSu;    -- Quáº£n trá»‹ nhÃ¢n sá»±: toÃ n quyá»n
@@ -450,7 +724,6 @@ CREATE ROLE Role_NhanVien;         -- NhÃ¢n viÃªn: chá»‰ xem thÃ´ng ti
 CREATE ROLE Role_KeToan;           -- Káº¿ toÃ¡n: truy cáº­p thÃ´ng tin lÆ°Æ¡ng
 GO
 </pre>
-
 <h3>BÆ°á»›c 4: GÃ¡n quyá»n cho cÃ¡c Role</h3>
 <pre>
 -- Role Quáº£n trá»‹ NhÃ¢n sá»±: ToÃ n quyá»n
@@ -459,19 +732,33 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON PhongBan TO Role_QuanTriNhanSu;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ChamCong TO Role_QuanTriNhanSu;
 
 -- Role TrÆ°á»Ÿng phÃ²ng: Xem nhÃ¢n viÃªn vÃ  cháº¥m cÃ´ng, KHÃ”NG xem lÆ°Æ¡ng
-GRANT SELECT ON NhanVien (MaNV,HoTen,Email,SoDienThoai,MaPB,NgayVaoLam,ChucVu) TO Role_TruongPhong;
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,SoDienThoai,MaPB,
+    NgayVaoLam,ChucVu) TO Role_TruongPhong;
 GRANT SELECT ON ChamCong TO Role_TruongPhong;
 DENY SELECT ON NhanVien (Luong, CMND) TO Role_TruongPhong;
 
 -- Role NhÃ¢n viÃªn: Chá»‰ xem thÃ´ng tin cÆ¡ báº£n
-GRANT SELECT ON NhanVien (MaNV,HoTen,Email,MaPB,ChucVu) TO Role_NhanVien;
-DENY SELECT ON NhanVien (CMND, Luong, SoDienThoai) TO Role_NhanVien;
+GRANT SELECT ON NhanVien (MaNV,HoTen,Email,MaPB,ChucVu)
+    TO Role_NhanVien;
+DENY SELECT ON NhanVien (CMND,Luong,SoDienThoai) TO Role_NhanVien;
 
 -- Role Káº¿ toÃ¡n: Xem lÆ°Æ¡ng nhÆ°ng khÃ´ng Ä‘Æ°á»£c sá»­a
 GRANT SELECT ON NhanVien (MaNV,HoTen,Luong,MaPB) TO Role_KeToan;
 DENY INSERT, UPDATE, DELETE ON NhanVien TO Role_KeToan;
 GO
 </pre>
+</div>
+
+<!-- Demo PhÃ¢n quyá»n (tiáº¿p) -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">17</span>
+</div>
 
 <h3>BÆ°á»›c 5-6: GÃ¡n User vÃ o Role vÃ  Kiá»ƒm tra</h3>
 <pre>
@@ -507,36 +794,54 @@ GO
 
 <hr class="separator">
 <h2>3.2. Demo MÃ£ hÃ³a dá»¯ liá»‡u</h2>
-
 <h3>3.2.1. MÃ£ hÃ³a cá»™t dá»¯ liá»‡u nháº¡y cáº£m (Column-Level Encryption)</h3>
 <pre>
 -- BÆ°á»›c 1: Táº¡o Master Key vÃ  Certificate
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'MasterKey@2024!Secure';
 GO
 CREATE CERTIFICATE Cert_NhanVien
-    WITH SUBJECT = 'Certificate for NhanVien sensitive data encryption';
+    WITH SUBJECT = 'Certificate for NhanVien sensitive data';
 GO
 CREATE SYMMETRIC KEY Key_NhanVien
     WITH ALGORITHM = AES_256
     ENCRYPTION BY CERTIFICATE Cert_NhanVien;
 GO
 
--- BÆ°á»›c 2: ThÃªm cá»™t mÃ£ hÃ³a vÃ  mÃ£ hÃ³a dá»¯ liá»‡u
+-- BÆ°á»›c 2: ThÃªm cá»™t mÃ£ hÃ³a
 ALTER TABLE NhanVien ADD CMND_Encrypted VARBINARY(256);
 ALTER TABLE NhanVien ADD Luong_Encrypted VARBINARY(256);
 GO
 
-OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
-UPDATE NhanVien SET CMND_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CMND);
-UPDATE NhanVien SET Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CAST(Luong AS VARCHAR(50)));
+-- MÃ£ hÃ³a dá»¯ liá»‡u
+OPEN SYMMETRIC KEY Key_NhanVien
+    DECRYPTION BY CERTIFICATE Cert_NhanVien;
+UPDATE NhanVien SET
+    CMND_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CMND),
+    Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'),
+        CAST(Luong AS VARCHAR(50)));
 CLOSE SYMMETRIC KEY Key_NhanVien;
 GO
+</pre>
+</div>
 
--- BÆ°á»›c 3: Giáº£i mÃ£ dá»¯ liá»‡u khi cáº§n
+<!-- Demo MÃ£ hÃ³a (tiáº¿p) + Audit -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">19</span>
+</div>
+
+<h3>Giáº£i mÃ£ dá»¯ liá»‡u khi cáº§n</h3>
+<pre>
 OPEN SYMMETRIC KEY Key_NhanVien DECRYPTION BY CERTIFICATE Cert_NhanVien;
 SELECT MaNV, HoTen,
     CONVERT(VARCHAR(20), DecryptByKey(CMND_Encrypted)) AS CMND_GiaiMa,
-    CONVERT(DECIMAL(18,2), CONVERT(VARCHAR(50), DecryptByKey(Luong_Encrypted))) AS Luong_GiaiMa
+    CONVERT(DECIMAL(18,2),
+        CONVERT(VARCHAR(50), DecryptByKey(Luong_Encrypted))) AS Luong_GiaiMa
 FROM NhanVien;
 CLOSE SYMMETRIC KEY Key_NhanVien;
 GO
@@ -544,7 +849,7 @@ GO
 
 <h3>3.2.2. Transparent Data Encryption (TDE)</h3>
 <pre>
--- BÆ°á»›c 1: Táº¡o Master Key vÃ  Certificate á»Ÿ má»©c Server
+-- Táº¡o Master Key vÃ  Certificate á»Ÿ má»©c Server
 USE master;
 GO
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'ServerMaster@2024!';
@@ -553,7 +858,7 @@ CREATE CERTIFICATE Cert_TDE_QuanLyNhanSu
     WITH SUBJECT = 'TDE Certificate for QuanLyNhanSu';
 GO
 
--- BÆ°á»›c 2: Táº¡o Database Encryption Key vÃ  báº­t TDE
+-- Táº¡o Database Encryption Key vÃ  báº­t TDE
 USE QuanLyNhanSu;
 GO
 CREATE DATABASE ENCRYPTION KEY
@@ -568,20 +873,36 @@ SELECT db.name AS DatabaseName,
     CASE dek.encryption_state
         WHEN 3 THEN N'ÄÃ£ mÃ£ hÃ³a' ELSE N'ChÆ°a mÃ£ hÃ³a'
     END AS TrangThai,
-    dek.key_algorithm AS ThuatToan, dek.key_length AS DoRongKey
+    dek.key_algorithm AS ThuatToan,
+    dek.key_length AS DoRongKey
 FROM sys.dm_database_encryption_keys dek
 JOIN sys.databases db ON dek.database_id = db.database_id;
 GO
 </pre>
+</div>
 
-<hr class="separator">
+<!-- Demo Audit -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">21</span>
+</div>
+
 <h2>3.3. Demo Kiá»ƒm toÃ¡n (Audit)</h2>
 <pre>
 -- BÆ°á»›c 1: Táº¡o Server Audit
 USE master;
 GO
 CREATE SERVER AUDIT Audit_QuanLyNhanSu
-TO FILE (FILEPATH = 'C:\AuditLogs\', MAXSIZE = 100 MB, MAX_ROLLOVER_FILES = 10)
+TO FILE (
+    FILEPATH = 'C:\AuditLogs\',
+    MAXSIZE = 100 MB,
+    MAX_ROLLOVER_FILES = 10
+)
 WITH (QUEUE_DELAY = 1000, ON_FAILURE = CONTINUE);
 GO
 ALTER SERVER AUDIT Audit_QuanLyNhanSu WITH (STATE = ON);
@@ -603,18 +924,25 @@ GO
 SELECT * FROM NhanVien;
 UPDATE NhanVien SET ChucVu = N'PhÃ³ phÃ²ng' WHERE MaNV = 2;
 INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
-VALUES (N'Äá»— VÄƒn PhÃºc','phuc.dv@company.com','012345678906',16000000,2,'2024-02-01',N'NhÃ¢n viÃªn');
+VALUES (N'Äá»— VÄƒn PhÃºc','phuc.dv@company.com','012345678906',
+    16000000,2,'2024-02-01',N'NhÃ¢n viÃªn');
 DELETE FROM NhanVien WHERE MaNV = 6;
 GO
 
 -- BÆ°á»›c 4: Xem káº¿t quáº£ audit log
 SELECT event_time AS ThoiGian,
-    CASE action_id WHEN 'SL' THEN 'SELECT' WHEN 'IN' THEN 'INSERT'
-        WHEN 'UP' THEN 'UPDATE' WHEN 'DL' THEN 'DELETE' ELSE action_id END AS HanhDong,
-    server_principal_name AS NguoiDung, object_name AS TenBang,
-    statement AS CauLenhSQL, succeeded AS KetQua
+    CASE action_id
+        WHEN 'SL' THEN 'SELECT' WHEN 'IN' THEN 'INSERT'
+        WHEN 'UP' THEN 'UPDATE' WHEN 'DL' THEN 'DELETE'
+        ELSE action_id
+    END AS HanhDong,
+    server_principal_name AS NguoiDung,
+    object_name AS TenBang,
+    statement AS CauLenhSQL,
+    succeeded AS KetQua
 FROM sys.fn_get_audit_file('C:\AuditLogs\*.sqlaudit', DEFAULT, DEFAULT)
-WHERE database_name = 'QuanLyNhanSu' ORDER BY event_time DESC;
+WHERE database_name = 'QuanLyNhanSu'
+ORDER BY event_time DESC;
 GO
 </pre>
 
@@ -626,22 +954,34 @@ GO
 <tr><td>2024-01-15 10:28</td><td>UPDATE</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
 <tr><td>2024-01-15 10:27</td><td>SELECT</td><td>sa</td><td>NhanVien</td><td>ThÃ nh cÃ´ng</td></tr>
 </table>
+</div>
+<!-- Demo Backup & Restore -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">23</span>
+</div>
 
-<hr class="separator">
 <h2>3.4. Demo Sao lÆ°u vÃ  Phá»¥c há»“i</h2>
-
 <h3>3.4.1. Sao lÆ°u (Backup)</h3>
 <pre>
 -- Full Backup
-BACKUP DATABASE QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Full.bak'
+BACKUP DATABASE QuanLyNhanSu
+TO DISK = 'C:\Backup\QuanLyNhanSu_Full.bak'
 WITH FORMAT, INIT, NAME = N'Full Backup', COMPRESSION, STATS = 10;
 GO
 
 -- ThÃªm dá»¯ liá»‡u má»›i rá»“i Differential Backup
 INSERT INTO NhanVien (HoTen,Email,CMND,Luong,MaPB,NgayVaoLam,ChucVu)
-VALUES (N'VÅ© Thá»‹ Giang','giang.vt@company.com','012345678907',17000000,3,'2024-03-01',N'NhÃ¢n viÃªn');
+VALUES (N'VÅ© Thá»‹ Giang','giang.vt@company.com','012345678907',
+    17000000,3,'2024-03-01',N'NhÃ¢n viÃªn');
 GO
-BACKUP DATABASE QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Diff.bak'
+BACKUP DATABASE QuanLyNhanSu
+TO DISK = 'C:\Backup\QuanLyNhanSu_Diff.bak'
 WITH DIFFERENTIAL, FORMAT, INIT, COMPRESSION, STATS = 10;
 GO
 
@@ -650,7 +990,8 @@ ALTER DATABASE QuanLyNhanSu SET RECOVERY FULL;
 GO
 UPDATE NhanVien SET Luong = Luong * 1.1 WHERE MaPB = 1;
 GO
-BACKUP LOG QuanLyNhanSu TO DISK = 'C:\Backup\QuanLyNhanSu_Log.trn'
+BACKUP LOG QuanLyNhanSu
+TO DISK = 'C:\Backup\QuanLyNhanSu_Log.trn'
 WITH FORMAT, INIT, COMPRESSION, STATS = 10;
 GO
 </pre>
@@ -667,18 +1008,21 @@ USE master;
 ALTER DATABASE QuanLyNhanSu SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
 
-RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Full.bak'
+RESTORE DATABASE QuanLyNhanSu
+    FROM DISK='C:\Backup\QuanLyNhanSu_Full.bak'
     WITH NORECOVERY, REPLACE, STATS=10;
-RESTORE DATABASE QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Diff.bak'
+RESTORE DATABASE QuanLyNhanSu
+    FROM DISK='C:\Backup\QuanLyNhanSu_Diff.bak'
     WITH NORECOVERY, STATS=10;
-RESTORE LOG QuanLyNhanSu FROM DISK='C:\Backup\QuanLyNhanSu_Log.trn'
+RESTORE LOG QuanLyNhanSu
+    FROM DISK='C:\Backup\QuanLyNhanSu_Log.trn'
     WITH RECOVERY, STATS=10;
 GO
 
 ALTER DATABASE QuanLyNhanSu SET MULTI_USER;
 GO
 USE QuanLyNhanSu;
-SELECT COUNT(*) AS SoNhanVien FROM NhanVien;   -- Káº¿t quáº£: 6 âœ…
+SELECT COUNT(*) AS SoNhanVien FROM NhanVien; -- Káº¿t quáº£: 6 âœ…
 SELECT * FROM NhanVien;
 GO
 </pre>
@@ -692,8 +1036,19 @@ GO
 <tr><td>Sau Restore Log</td><td>âœ… DB Online</td><td>Dá»¯ liá»‡u phá»¥c há»“i hoÃ n toÃ n</td></tr>
 <tr><td>Kiá»ƒm tra cuá»‘i</td><td>6 nhÃ¢n viÃªn</td><td>ToÃ n bá»™ dá»¯ liá»‡u Ä‘Ã£ phá»¥c há»“i</td></tr>
 </table>
+</div>
 
-<hr class="separator">
+<!-- Tá»•ng káº¿t Demo -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">25</span>
+</div>
+
 <h2>3.5. Tá»•ng káº¿t Demo</h2>
 <table class="result-table">
 <tr><th>Giáº£i phÃ¡p</th><th>Má»¥c tiÃªu</th><th>Káº¿t quáº£ Demo</th></tr>
@@ -703,15 +1058,12 @@ GO
 <tr><td><strong>Sao lÆ°u/Phá»¥c há»“i</strong></td><td>Äáº£m báº£o kháº£ nÄƒng phá»¥c há»“i</td><td>âœ… Full + Diff + Log backup, restore thÃ nh cÃ´ng</td></tr>
 </table>
 
-<!-- ============================================================ -->
-<!-- Káº¾T LUáº¬N -->
-<!-- ============================================================ -->
-<div class="page-break"></div>
-<h1>Káº¾T LUáº¬N</h1>
+<hr class="separator">
 
+<!-- Káº¾T LUáº¬N -->
+<h1 class="chapter">Káº¿t Luáº­n</h1>
 <h2>Tá»•ng káº¿t</h2>
 <p>Qua quÃ¡ trÃ¬nh nghiÃªn cá»©u vÃ  thá»±c hÃ nh, tÃ i liá»‡u Ä‘Ã£ trÃ¬nh bÃ y há»‡ thá»‘ng cÃ¡c váº¥n Ä‘á» vá» báº£o máº­t vÃ  an toÃ n thÃ´ng tin trong cÆ¡ sá»Ÿ dá»¯ liá»‡u:</p>
-
 <p><strong>ChÆ°Æ¡ng 1</strong> â€” Há»‡ thá»‘ng hÃ³a kiáº¿n thá»©c ná»n táº£ng vá» CSDL, HQTCSDL, vÃ  phÃ¢n tÃ­ch toÃ n diá»‡n Æ°u nhÆ°á»£c Ä‘iá»ƒm cá»§a báº£o máº­t thÃ´ng tin.</p>
 <p><strong>ChÆ°Æ¡ng 2</strong> â€” PhÃ¢n tÃ­ch chi tiáº¿t cÃ¡c má»‘i Ä‘e dá»a, Ä‘á» xuáº¥t 4 giáº£i phÃ¡p theo nguyÃªn táº¯c Defense in Depth:</p>
 <table>
@@ -721,9 +1073,19 @@ GO
 <tr><td>3</td><td>Kiá»ƒm toÃ¡n</td><td><strong>PhÃ¡t hiá»‡n</strong> â€” GiÃ¡m sÃ¡t vÃ  cáº£nh bÃ¡o báº¥t thÆ°á»ng</td></tr>
 <tr><td>4</td><td>Sao lÆ°u vÃ  phá»¥c há»“i</td><td><strong>Phá»¥c há»“i</strong> â€” Äáº£m báº£o kháº£ nÄƒng khÃ´i phá»¥c</td></tr>
 </table>
+<p><strong>ChÆ°Æ¡ng 3</strong> â€” Triá»ƒn khai thÃ nh cÃ´ng cáº£ 4 giáº£i phÃ¡p trÃªn SQL Server vá»›i database máº«u <code>QuanLyNhanSu</code>: phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä‘áº§y Ä‘á»§, sao lÆ°u 3 cáº¥p vÃ  phá»¥c há»“i thÃ nh cÃ´ng.</p>
+</div>
 
-<p><strong>ChÆ°Æ¡ng 3</strong> â€” Triá»ƒn khai thÃ nh cÃ´ng cáº£ 4 giáº£i phÃ¡p trÃªn SQL Server vá»›i database máº«u <code>QuanLyNhanSu</code>:
-phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä‘áº§y Ä‘á»§, sao lÆ°u 3 cáº¥p vÃ  phá»¥c há»“i thÃ nh cÃ´ng.</p>
+<!-- Trang cuá»‘i - Háº¡n cháº¿ + TÃ i liá»‡u tham kháº£o -->
+<div class="page">
+<div class="page-header">
+  <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/b/b4/Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png/200px-Logo_%C4%90H_H%C3%B2a_B%C3%ACnh.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="header-text">TRÆ¯á»œNG Äáº I Há»ŒC HÃ’A BÃŒNH<span>ChÆ°Æ¡ng trÃ¬nh Tháº¡c sÄ© â€” BÃ i táº­p mÃ´n há»c</span></div>
+</div>
+<div class="page-footer">
+  <span class="footer-title">Báº£o máº­t vÃ  An toÃ n ThÃ´ng tin trong CÆ¡ sá»Ÿ Dá»¯ liá»‡u</span>
+  <span class="page-number">27</span>
+</div>
 
 <h2>Háº¡n cháº¿ vÃ  hÆ°á»›ng phÃ¡t triá»ƒn</h2>
 <p><strong>Háº¡n cháº¿:</strong> Demo trÃªn mÃ´i trÆ°á»ng phÃ¡t triá»ƒn, chÆ°a Ä‘Ã¡nh giÃ¡ hiá»‡u nÄƒng thá»±c táº¿; chÆ°a triá»ƒn khai báº£o máº­t máº¡ng (firewall, IDS/IPS); chÆ°a Ä‘á» cáº­p báº£o máº­t á»©ng dá»¥ng.</p>
@@ -731,7 +1093,6 @@ phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä�
 
 <h2>Lá»i cáº£m Æ¡n</h2>
 <p>ChÃºng tÃ´i xin chÃ¢n thÃ nh cáº£m Æ¡n cÃ¡c tháº§y cÃ´ giÃ¡o trong chÆ°Æ¡ng trÃ¬nh Ä‘Ã o táº¡o Tháº¡c sÄ© táº¡i Äáº¡i há»c HÃ²a BÃ¬nh Ä‘Ã£ hÆ°á»›ng dáº«n vÃ  táº¡o Ä‘iá»u kiá»‡n Ä‘á»ƒ hoÃ n thÃ nh tÃ i liá»‡u nghiÃªn cá»©u nÃ y.</p>
-
 <table>
 <tr><th>Há» vÃ  tÃªn</th><th>Vai trÃ²</th></tr>
 <tr><td><strong>Nguyá»…n Há»¯u Huy</strong></td><td>NghiÃªn cá»©u vÃ  biÃªn soáº¡n</td></tr>
@@ -742,7 +1103,7 @@ phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä�
 <hr class="separator">
 <h2>TÃ i liá»‡u tham kháº£o</h2>
 <ol class="ref">
-<li>E.F. Codd, "A Relational Model of Data for Large Shared Data Banks", Communications of the ACM, 1970.</li>
+<li>E.F. Codd, "A Relational Model of Data for Large Shared Data Banks", <em>Communications of the ACM</em>, 1970.</li>
 <li>Ramez Elmasri, Shamkant B. Navathe, <em>"Fundamentals of Database Systems"</em>, 7th Edition, Pearson, 2015.</li>
 <li>Abraham Silberschatz, Henry F. Korth, <em>"Database System Concepts"</em>, 7th Edition, McGraw-Hill, 2019.</li>
 <li>IBM Security, <em>"Cost of a Data Breach Report 2023"</em>, IBM Corporation, 2023.</li>
@@ -755,7 +1116,7 @@ phÃ¢n quyá»n 4 cáº¥p, mÃ£ hÃ³a AES-256 + TDE, kiá»ƒm toÃ¡n Ä�
 <li>Quá»‘c há»™i nÆ°á»›c CHXHCNVN, <em>"Luáº­t An ninh máº¡ng"</em>, Luáº­t sá»‘ 24/2018/QH14, 2018.</li>
 <li>ChÃ­nh phá»§ nÆ°á»›c CHXHCNVN, <em>"Nghá»‹ Ä‘á»‹nh 13/2023/NÄ-CP vá» Báº£o vá»‡ dá»¯ liá»‡u cÃ¡ nhÃ¢n"</em>, 2023.</li>
 </ol>
-
 </div>
+
 </body>
 </html>
