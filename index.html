@@ -2164,9 +2164,48 @@ GO</pre>
     </ol>
   </div>
 
-  <button class="no-print" onclick="window.print()" title="Xuất file PDF">
+  <button class="no-print" id="btnExportPDF" title="Xuất file PDF">
     &#128196; Xuất PDF
   </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    document.getElementById('btnExportPDF').addEventListener('click', async function () {
+      const btn = this;
+      btn.textContent = '⏳ Đang xuất...';
+      btn.disabled = true;
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pages = document.querySelectorAll('.page');
+        const pdfW = 210, pdfH = 297;
+
+        for (let i = 0; i < pages.length; i++) {
+          btn.textContent = '⏳ Trang ' + (i + 1) + '/' + pages.length;
+          const canvas = await html2canvas(pages[i], {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            width: pages[i].scrollWidth,
+            height: pages[i].scrollHeight
+          });
+          const imgData = canvas.toDataURL('image/jpeg', 0.95);
+          if (i > 0) pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
+        }
+
+        pdf.save('BaoMat_CNTT_TieuLuan.pdf');
+      } catch (err) {
+        alert('Lỗi xuất PDF: ' + err.message);
+        console.error(err);
+      }
+
+      btn.textContent = '📄 Xuất PDF';
+      btn.disabled = false;
+    });
+  </script>
 
 </body>
 
