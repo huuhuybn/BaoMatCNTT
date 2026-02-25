@@ -1,0 +1,64 @@
+P01:  31L 0T 0P | COVER
+P02:   1L 0T 0P | (no heading)
+P03:   4L 0T 0P | (no heading)
+P04:  46L 0T 0P | Mục Lục
+P05:   1L 0T 0P | (no heading)
+P06:   4L 0T 0P | (no heading)
+P07:  82L 1T 0P | Chương 1. Cơ Sở Lý Thuyết | 1.1. Cơ sở dữ liệu (Database)
+P08:   1L 0T 0P | (no heading)
+P09:   4L 0T 0P | (no heading)
+P10:  62L 1T 0P | 1.2. Hệ quản trị cơ sở dữ liệu (DBMS)
+P11:   1L 0T 0P | (no heading)
+P12:   4L 0T 0P | (no heading)
+P13: 164L 3T 0P | 1.3. Các thách thức và sự đánh đổi khi triển khai 
+P14:   1L 0T 0P | (no heading)
+P15:   4L 0T 0P | (no heading)
+P16:  92L 2T 0P | Chương 2. Vấn Đề Nghiên Cứu và Giải Pháp An Toàn | 2.1. Các mối đe dọa đối với cơ sở dữ liệu
+P17:   1L 0T 0P | (no heading)
+P18:   4L 0T 0P | (no heading)
+P19:  84L 2T 0P | 2.2. Các giải pháp bảo mật và an toàn thông tin
+P20:   1L 0T 0P | (no heading)
+P21:   4L 0T 0P | (no heading)
+P22:  81L 2T 0P | 2.3. Tổng kết các giải pháp
+P23:   1L 0T 0P | (no heading)
+P24:   4L 0T 0P | (no heading)
+P25:  52L 0T 2P | Chương 3. Demo Các Bước Bảo Mật Trên SQL Server | 3.0. Chuẩn bị môi trường Demo
+P26:   1L 0T 0P | (no heading)
+P27:   4L 0T 0P | (no heading)
+P28:  46L 0T 4P | 3.1. Demo Phân quyền người dùng
+P29:   1L 0T 0P | (no heading)
+P30:   4L 0T 0P | (no heading)
+P31:  96L 1T 2P | 3.2. Demo Mã hóa dữ liệu
+P32:   1L 0T 0P | (no heading)
+P33:   4L 0T 0P | (no heading)
+P34:  30L 0T 2P | (no heading)
+P35:   1L 0T 0P | (no heading)
+P36:   4L 0T 0P | (no heading)
+P37:  90L 1T 1P | 3.3. Demo Kiểm toán (Audit)
+P38:   1L 0T 0P | (no heading)
+P39:   4L 0T 0P | (no heading)
+P40:  49L 0T 2P | 3.4. Demo Sao lưu và Phục hồi
+P41:   1L 0T 0P | (no heading)
+P42:   4L 0T 0P | (no heading)
+P43:  35L 1T 0P | 3.5. Tổng kết Demo
+P44:   1L 0T 0P | (no heading)
+P45:   4L 0T 0P | (no heading)
+P46:  54L 1T 0P | Chương 4. Áp Dụng Bảo Mật Cho Dự Án Thực Tiễn — Op | 4.1. Giới thiệu dự án Opdo.store
+P47:   1L 0T 0P | (no heading)
+P48:   4L 0T 0P | (no heading)
+P49: 110L 2T 1P | 4.2. Kiến trúc hệ thống và cơ sở dữ liệu | 4.3. Triển khai phân quyền cho Quản trị viên và Tà
+P50:   1L 0T 0P | (no heading)
+P51:   4L 0T 0P | (no heading)
+P52:  50L 0T 2P | 4.4. Triển khai mã hóa dữ liệu
+P53:   1L 0T 0P | (no heading)
+P54:   4L 0T 0P | (no heading)
+P55:  91L 2T 1P | 4.5. Triển khai kiểm toán và giám sát | 4.6. Triển khai sao lưu và phục hồi
+P56:   1L 0T 0P | (no heading)
+P57:   4L 0T 0P | (no heading)
+P58: 110L 2T 0P | 4.7. Các biện pháp bảo mật bổ sung | 4.8. Tổng kết triển khai thực tiễn
+P59:   1L 0T 0P | (no heading)
+P60:   4L 0T 0P | (no heading)
+P61:  89L 2T 0P | Kết Luận | Tổng kết
+P62:   1L 0T 0P | (no heading)
+P63:   4L 0T 0P | (no heading)
+P64:  69L 0T 0P | Tài liệu tham khảo
