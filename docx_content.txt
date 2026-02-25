@@ -1,0 +1,91 @@
+﻿  1|Bß╗ÿ GI├üO Dß╗ñC V├Ç ─É├ÇO Tß║áO
+  2|TR╞»ß╗£NG ─Éß║áI Hß╗îC H├ÆA B├îNH
+  5|B├ÇI TIß╗éU LUß║¼N
+  6|C╞á Sß╗₧ Dß╗« LIß╗åU N├éNG CAO
+  8|─Éß╗Ç T├ÇI: X├éY Dß╗░NG C╞á Sß╗₧ Dß╗« LIß╗åU Hß╗å THß╗ÉNG QUß║óN L├¥ B├üN S├üCH
+ 10|Gi├ío vi├¬n h╞░ß╗¢ng dß║½n: TS. ─Éo├án V─ân H├▓a
+ 11|Lß╗¢p: CNTT	2023
+ 12|Hß╗ìc vi├¬n: Trß║ºn Trß╗ìng Ho├án
+ 13|V┼⌐ ─Éß╗⌐c Thuß║¡n
+ 17|H├á Nß╗Öi, th├íng 01/2024
+ 18|Mß╗ñC Lß╗ñC
+ 19|DANH Mß╗ñC H├îNH	4
+ 20|DANH Mß╗ñC Bß║óNG	5
+ 21|CH╞»╞áNG I: Tß╗öNG QUAN Vß╗Ç C╞á Sß╗₧ Dß╗« LIß╗åU	6
+ 22|1. Kh├íi niß╗çm dß╗» liß╗çu, c╞í sß╗ƒ dß╗» liß╗çu v├á hß╗ç quß║ún trß╗ï CSDL	6
+ 23|1.1. Kh├íi niß╗çm dß╗» liß╗çu	6
+ 24|1.2. Kh├íi niß╗çm CSDL	6
+ 25|1.3. Kh├íi niß╗çm hß╗ç quß║ún trß╗ï CSDL	7
+ 26|2. C├íc m├┤ h├¼nh c╞í sß╗ƒ dß╗» liß╗çu	9
+ 27|2.1. M├┤ h├¼nh dß╗» liß╗çu file phß║│ng (Flat file)	9
+ 28|2.2. M├┤ h├¼nh dß╗» liß╗çu mß║íng (Network model)	9
+ 29|2.3. M├┤ h├¼nh dß╗» liß╗çu ph├ón cß║Ñp (Hierarchical model)	10
+ 30|2.4. M├┤ h├¼nh dß╗» liß╗çu quan hß╗ç (Relational model)	11
+ 31|2.5. M├┤ h├¼nh dß╗» liß╗çu h╞░ß╗¢ng ─æß╗æi t╞░ß╗úng (Object-Oriented model)	12
+ 32|3. Hß╗ç quß║ún trß╗ï c╞í sß╗ƒ dß╗» liß╗çu l├á g├¼?	12
+ 33|3.1. Hß╗ç quß║ún trß╗ï CSDL m├ú nguß╗ôn mß╗ƒ Enterprise Postgres	13
+ 34|3.2. Hß╗ç quß║ún trß╗ï CSDL Oracle	16
+ 35|3.3. Hß╗ç quß║ún trß╗ï CSDL MongoDB	17
+ 36|3.4. Hß╗ç quß║ún trß╗ï CSDL Microsoft SQL Server	18
+ 37|4. Cß║Ñu tr├║c cß╗ºa mß╗Öt DBMS	21
+ 38|4.1. C├íc th├ánh phß║ºn cß╗ºa mß╗Öt DBMS	21
+ 39|4.2. C├íc kiß╗âu thao t├íc vß╗¢i DBMS	22
+ 40|5. SQL v├á NoSQL	22
+ 41|5.1. SQL l├á g├¼?	22
+ 42|5.2. NoSQL l├á g├¼?	24
+ 43|5.3. So s├ính SQL v├á NoSQL	25
+ 44|6. Tß║ºm quan trß╗ìng cß╗ºa CSDL	29
+ 45|CH╞»╞áNG II: ─Éß║╢C Tß║ó Y├èU Cß║ªU	32
+ 46|1.	Tß║ºm quan trß╗ìng cß╗ºa th╞░╞íng mß║íi ─æiß╗çn tß╗¡	32
+ 47|2. ─Éß║╖t vß║Ñn ─æß╗ü	34
+ 48|3. Phß║ím vi nghi├¬n cß╗⌐u v├á giß║úi quyß║┐t b├ái to├ín	35
+ 49|4. M├┤ tß║ú nghiß╗çp vß╗Ñ	35
+ 50|4.1. Thuß║¡t ngß╗» v├á tß╗½ viß║┐t tß║»t	35
+ 51|4.2. X├íc ─æß╗ïnh thß╗▒c thß╗â v├á chß╗⌐c n─âng	35
+ 52|CH╞»╞áNG III: PH├éN T├ìCH THIß║╛T Kß║╛	38
+ 53|1. Luß╗ông nghiß╗çp vß╗Ñ	38
+ 54|1.1. Luß╗ông nghiß╗çp vß╗Ñ ─æ─âng k├╜ t├ái khoß║ún	38
+ 55|1.2. Luß╗ông nghiß╗çp vß╗Ñ Quß║ún l├╜ b├ín s├ích	39
+ 56|2. M├┤ h├¼nh ph├ón r├ú chß╗⌐c n─âng cß╗ºa hß╗ç thß╗æng	39
+ 57|2.1 S╞í ─æß╗ô ph├ón r├ú	39
+ 58|2.2. Danh s├ích chß╗⌐c n─âng	40
+ 59|2.2.1. M├┤ tß║ú Ph├ón hß╗ç Quß║ún l├╜ b├ín s├ích	40
+ 60|2.2.2. M├┤ tß║ú ph├ón hß╗ç Quß║ún l├╜ ─æ─âng k├╜ t├ái khoß║ún	42
+ 61|2.2.3. M├┤ tß║ú ph├ón hß╗ç Quß║ún l├╜ kho	42
+ 62|2.2.4. M├┤ tß║ú ph├ón hß╗ç Quß║ún trß╗ï hß╗ç thß╗æng	43
+ 63|2.2.5. M├┤ tß║ú ph├ón hß╗ç Quß║ún trß╗ï danh mß╗Ñc	43
+ 64|3. X├íc ─æß╗ïnh thß╗▒c thß╗â	43
+ 65|3.1. Danh s├ích thß╗▒c thß╗â	43
+ 66|3.2. X├íc ─æß╗ïnh thuß╗Öc t├¡nh cho thß╗▒c thß╗â	44
+ 67|4. M├┤ h├¼nh li├¬n kß║┐t thß╗▒c thß╗â E-R	45
+ 68|5. Chuyß╗ân ─æß╗òi m├┤ h├¼nh li├¬n kß║┐t thß╗▒c thß╗â ER sang m├┤ h├¼nh logic chuß║⌐n 3NF	47
+ 69|5.1. Ph├ón t├¡ch m├┤ h├¼nh thß╗▒c thß╗â	47
+ 70|5.2. K─⌐ thuß║¡t kh├│a ß║úo	47
+ 71|5.2.1. ├üp dß╗Ñng k─⌐ thuß║¡t kh├│a ß║úo chuyß╗ân ─æß╗òi thß╗▒c thß╗â ─æß║úm bß║úo m├┤ h├¼nh logic 3NF ├íp dß╗Ñng vß╗¢i hß╗ç quß║ún trß╗ï dß╗» liß╗çu SQL Server	47
+ 72|5.2.2. Diß╗àn giß║úi chi tiß║┐t tß╗½ng bß║úng	49
+ 73|CH╞»╞áNG IV: Kß║╛T LUß║¼N	54
+ 74|T├ÇI LIß╗åU THAM KHß║óO	56
+ 76|DANH Mß╗ñC H├îNH
+ 77|H├¼nh 1:  V├¡ dß╗Ñ vß╗ü dß╗» liß╗çu v├á c╞í sß╗ƒ dß╗» liß╗çu	8
+ 78|H├¼nh 2: C╞í sß╗ƒ dß╗» liß╗çu dß║íng file phß║│ng	9
+ 79|H├¼nh 3: Thß╗▒c thß╗â kß║┐t nß╗æi	9
+ 80|H├¼nh 4:  M├┤ h├¼nh dß╗» liß╗çu ph├ón cß║Ñp	10
+ 81|H├¼nh 5:  M├┤ h├¼nh dß╗» liß╗çu quan hß╗ç	11
+ 82|H├¼nh 6: M├┤ h├¼nh dß╗» liß╗çu h╞░ß╗¢ng ─æß╗æi t╞░ß╗úng	12
+ 83|H├¼nh 7: (theo: https://db-engines.com/en/ranking)	14
+ 84|H├¼nh 8: C├íc t├¡nh n─âng cß╗ºa Enterprise Postgres	14
+ 85|H├¼nh 9: Mß╗Öt v├¡ dß╗Ñ vß╗ü cß║Ñu tr├║c hß╗ç quß║ún trß╗ï CSDL SQL Server	19
+ 86|H├¼nh 10: H├¼nh minh hoß║í vß╗ü t├¡nh chß║Ñt kh├┤i phß╗Ñc nhanh ch├│ng cß╗ºa hß╗ç quß║ún tri CSDL SQL Server	20
+ 87|H├¼nh 11:  Cß║Ñu tr├║c DBMS	21
+ 88|H├¼nh 12: H├¼nh minh hoß║í v├¡ dß╗Ñ nh├│m c├óu lß╗çnh Data D├¿inition Language	23
+ 89|H├¼nh 13: DML (Data Manipulation Language)	23
+ 90|H├¼nh 14: DCL (Data Control Language)	23
+ 91|H├¼nh 15: TCL (Transaction Control Language)	23
+ 92|H├¼nh 16:  Thß╗æng k├¬ dß╗» liß╗çu ng╞░ß╗¥i d├╣ng MongoDB, MySQL, MS SQL Server trong 5 n─âm trß╗ƒ lß║íi ─æ├óy tß║íi Viß╗çt Nam	25
+ 93|H├¼nh 17: Ph├ón biß╗çt SQL v├á No SQL	28
+ 94|H├¼nh 18: Luß╗ông nghiß╗çp vß╗Ñ ─æ─âng k├╜ t├ái khoß║ún	34
+ 95|H├¼nh 19: Luß╗ông nghiß╗çp vß╗Ñ quß║ún l├╜ b├ín s├ích	35
+ 96|H├¼nh 20: S╞í ─æß╗ô ph├ón r├ú	35
+ 97|H├¼nh 21: Ph├ón hß╗ç quß║ún l├╜ b├ín s├ích	36
+ 98|H├¼nh 22: Ph├ón hß╗ç Quß║ún l├╜ ─æ─âng k├╜ t├ái khoß║ún	38
+ 99|H├¼nh 23: Ph├ón hß╗ç Quß║ún l├╜ kho	38
