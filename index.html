@@ -512,7 +512,7 @@
         <ul class="toc-sub">
           <li>1.1. Cơ sở dữ liệu <span class="toc-page">1</span></li>
           <li>1.2. Hệ quản trị cơ sở dữ liệu <span class="toc-page">3</span></li>
-          <li>1.3. Phân tích ưu nhược điểm của bảo mật thông tin <span class="toc-page">5</span></li>
+          <li>1.3. Các thách thức và sự đánh đổi khi triển khai bảo mật <span class="toc-page">5</span></li>
         </ul>
         <li>Chương 2. Vấn đề nghiên cứu và giải pháp an toàn <span class="toc-page">7</span></li>
         <ul class="toc-sub">
@@ -711,7 +711,7 @@
       <span class="page-number">5</span>
     </div>
 
-    <h2>1.3. Phân tích ưu nhược điểm của tính bảo mật thông tin</h2>
+    <h2>1.3. Các thách thức và sự đánh đổi khi triển khai bảo mật</h2>
     <h3>1.3.1. Tổng quan về bảo mật thông tin</h3>
     <p>Bảo mật thông tin (Information Security) là tập hợp các biện pháp nhằm bảo vệ thông tin khỏi các truy cập, sử
       dụng, tiết lộ, sửa đổi hoặc phá hủy trái phép. Ba trụ cột cơ bản của bảo mật thông tin được gọi là <strong>bộ ba
@@ -767,11 +767,11 @@
       </tr>
     </table>
 
-    <h3>1.3.3. Nhược điểm và thách thức</h3>
+    <h3>1.3.3. Thách thức và sự đánh đổi khi triển khai</h3>
     <table>
       <tr>
         <th>STT</th>
-        <th>Nhược điểm</th>
+        <th>Thách thức</th>
         <th>Mô tả chi tiết</th>
       </tr>
       <tr>
@@ -822,48 +822,50 @@
       </tr>
       <tr>
         <td>Phân quyền (Authorization)</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★☆☆</td>
+        <td>Cao</td>
+        <td>Cao</td>
+        <td>Thấp</td>
+        <td>Trung bình</td>
       </tr>
       <tr>
         <td>Mã hóa dữ liệu (Encryption)</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★☆☆</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★★☆</td>
+        <td>Rất cao</td>
+        <td>Trung bình</td>
+        <td>Trung bình</td>
+        <td>Cao</td>
       </tr>
       <tr>
         <td>Kiểm toán (Auditing)</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★☆☆</td>
+        <td>Cao</td>
+        <td>Cao</td>
+        <td>Trung bình</td>
+        <td>Trung bình</td>
       </tr>
       <tr>
         <td>Sao lưu &amp; Phục hồi</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★☆☆</td>
-        <td class="stars">★★★☆☆</td>
+        <td>Trung bình</td>
+        <td>Cao</td>
+        <td>Trung bình</td>
+        <td>Trung bình</td>
       </tr>
       <tr>
         <td>Tường lửa (Firewall)</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★☆☆</td>
-        <td class="stars">★★★★☆</td>
+        <td>Cao</td>
+        <td>Cao</td>
+        <td>Trung bình</td>
+        <td>Cao</td>
       </tr>
       <tr>
         <td>Xác thực đa yếu tố (MFA)</td>
-        <td class="stars">★★★★★</td>
-        <td class="stars">★★★★☆</td>
-        <td class="stars">★★★☆☆</td>
-        <td class="stars">★★★★☆</td>
+        <td>Rất cao</td>
+        <td>Cao</td>
+        <td>Trung bình</td>
+        <td>Cao</td>
       </tr>
     </table>
-    <blockquote>★★★★★ = Xuất sắc &nbsp;|&nbsp; ★★★★☆ = Tốt &nbsp;|&nbsp; ★★★☆☆ = Trung bình</blockquote>
+    <blockquote><strong>Ghi chú:</strong> Sao lưu &amp; Phục hồi chủ yếu phục vụ <strong>Tính sẵn sàng</strong>
+      (Availability), không trực tiếp tăng tính bảo mật (Confidentiality). Tuy nhiên, nếu file backup không được mã hóa,
+      nó trở thành một vector tấn công.</blockquote>
   </div>
 
 
@@ -917,13 +919,13 @@
         <td>&#128308; Rất cao</td>
       </tr>
       <tr>
-        <td><strong>DDoS</strong></td>
-        <td>Tấn công từ chối dịch vụ làm tê liệt hệ thống</td>
-        <td>&#128992; Cao</td>
+        <td><strong>Privilege Escalation</strong></td>
+        <td>Lợi dụng lỗ hổng để user thường chiếm quyền sysadmin trên CSDL</td>
+        <td>&#128308; Rất cao</td>
       </tr>
       <tr>
-        <td><strong>Phishing</strong></td>
-        <td>Lừa đảo người dùng để lấy thông tin đăng nhập</td>
+        <td><strong>Backup Theft</strong></td>
+        <td>Đánh cắp file sao lưu (.bak) không được mã hóa từ ổ cứng/mạng</td>
         <td>&#128992; Cao</td>
       </tr>
     </table>
@@ -1208,10 +1210,10 @@ GO</pre>
     </div>
     <h2>3.1. Demo Phân quyền người dùng</h2>
     <h3>Bước 1: Tạo Login</h3>
-    <pre>CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!';
-CREATE LOGIN manager_user WITH PASSWORD = 'Manager@2024!';
-CREATE LOGIN staff_user WITH PASSWORD = 'Staff@2024!';
-CREATE LOGIN accountant_user WITH PASSWORD = 'Accountant@2024!';
+    <pre>CREATE LOGIN admin_hr WITH PASSWORD = 'Admin@Hr2024!', CHECK_POLICY = ON;
+CREATE LOGIN manager_user WITH PASSWORD = 'Manager@2024!', CHECK_POLICY = ON;
+CREATE LOGIN staff_user WITH PASSWORD = 'Staff@2024!', CHECK_POLICY = ON;
+CREATE LOGIN accountant_user WITH PASSWORD = 'Accountant@2024!', CHECK_POLICY = ON;
 GO</pre>
     <h3>Bước 2: Tạo User trong Database</h3>
     <pre>USE QuanLyNhanSu;
@@ -1340,6 +1342,12 @@ UPDATE NhanVien SET
     CMND_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CMND),
     Luong_Encrypted = EncryptByKey(Key_GUID('Key_NhanVien'), CAST(Luong AS VARCHAR(50)));
 CLOSE SYMMETRIC KEY Key_NhanVien;
+GO
+
+-- Buoc 3: Xoa cot ban ro (QUAN TRONG!)
+-- Neu de song song cot goc va cot ma hoa, viec ma hoa tro nen vo nghia
+ALTER TABLE NhanVien DROP COLUMN CMND;
+ALTER TABLE NhanVien DROP COLUMN Luong;
 GO</pre>
   </div>
 
@@ -1445,28 +1453,28 @@ GO</pre>
       <tr>
         <td>2024-01-15 10:30</td>
         <td>DELETE</td>
-        <td>sa</td>
+        <td>admin_hr</td>
         <td>NhanVien</td>
         <td>Thành công</td>
       </tr>
       <tr>
         <td>2024-01-15 10:29</td>
         <td>INSERT</td>
-        <td>sa</td>
+        <td>admin_hr</td>
         <td>NhanVien</td>
         <td>Thành công</td>
       </tr>
       <tr>
         <td>2024-01-15 10:28</td>
         <td>UPDATE</td>
-        <td>sa</td>
+        <td>admin_hr</td>
         <td>NhanVien</td>
         <td>Thành công</td>
       </tr>
       <tr>
         <td>2024-01-15 10:27</td>
         <td>SELECT</td>
-        <td>sa</td>
+        <td>admin_hr</td>
         <td>NhanVien</td>
         <td>Thành công</td>
       </tr>
@@ -1484,16 +1492,16 @@ GO</pre>
     </div>
     <h2>3.4. Demo Sao lưu và Phục hồi</h2>
     <h3>3.4.1. Sao lưu (Backup)</h3>
-    <pre>-- Full Backup
+    <pre>-- Full Backup (co ma hoa bao ve file backup)
 BACKUP DATABASE QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Full.bak'
-WITH FORMAT, INIT, NAME = N'Full Backup', COMPRESSION, STATS = 10;
+WITH FORMAT, INIT, NAME = N'Full Backup', COMPRESSION, CHECKSUM, STATS = 10;
 GO
 
 -- Differential Backup
 BACKUP DATABASE QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Diff.bak'
-WITH DIFFERENTIAL, FORMAT, INIT, COMPRESSION, STATS = 10;
+WITH DIFFERENTIAL, FORMAT, INIT, COMPRESSION, CHECKSUM, STATS = 10;
 GO
 
 -- Transaction Log Backup
@@ -1501,7 +1509,7 @@ ALTER DATABASE QuanLyNhanSu SET RECOVERY FULL;
 GO
 BACKUP LOG QuanLyNhanSu
 TO DISK = 'C:\Backup\QuanLyNhanSu_Log.trn'
-WITH FORMAT, INIT, COMPRESSION, STATS = 10;
+WITH FORMAT, INIT, COMPRESSION, CHECKSUM, STATS = 10;
 GO</pre>
     <h3>3.4.2. Phục hồi sau khi xóa nhầm dữ liệu</h3>
     <pre>-- Gia lap su co: Xoa nham toan bo nhan vien!
@@ -1673,7 +1681,12 @@ GO</pre>
         <td>Toàn bộ thao tác hệ thống</td>
       </tr>
     </table>
-    <h2>4.3. Triển khai phân quyền người dùng trên Opdo.store</h2>
+    <h2>4.3. Triển khai phân quyền cho Quản trị viên và Tài khoản Dịch vụ</h2>
+    <blockquote><strong>Lưu ý kiến trúc:</strong> Trong ứng dụng Web/E-commerce hiện đại, <strong>khách hàng (Customer)
+        và người bán (Seller) không truy cập trực tiếp vào CSDL</strong>. Ứng dụng Backend sử dụng một <strong>Service
+        Account</strong> duy nhất với quyền hạn tối thiểu để thay mặt người dùng thực thi các truy vấn đã được tham số
+      hóa (Parameterized Queries). Việc xác định ai là Customer/Seller được xử lý bằng JWT token ở tầng ứng dụng.
+    </blockquote>
     <h3>4.3.1. Mô hình phân quyền RBAC</h3>
     <table>
       <tr>
@@ -1746,9 +1759,14 @@ GO</pre>
       <span class="page-number">30</span>
     </div>
     <h2>4.4. Triển khai mã hóa dữ liệu</h2>
-    <h3>4.4.1. Mã hóa mật khẩu (Password Hashing)</h3>
-    <p>Sử dụng thuật toán <strong>bcrypt</strong> với salt để hash mật khẩu. Mật khẩu KHÔNG lưu dưới dạng plain text.
-    </p>
+    <h3>4.4.1. Băm mật khẩu (Password Hashing)</h3>
+    <p><strong>Băm (Hashing) không phải là Mã hóa (Encryption).</strong> Mã hóa là hàm 2 chiều (có thể giải mã), còn Băm
+      là hàm 1 chiều — không thể khôi phục mật khẩu gốc từ chuỗi băm.</p>
+    <p>Mật khẩu tuyệt đối không lưu dưới dạng bản rõ (plain-text). Quá trình băm bằng thuật toán <strong>bcrypt</strong>
+      + salt được thực hiện tại <strong>tầng Ứng dụng (Backend)</strong> — ví dụ Node.js, C#, Java — trước khi lưu chuỗi
+      băm vào CSDL. Điều này đảm bảo Database Server không bao giờ nhìn thấy mật khẩu thật.</p>
+    <p><em>Lưu ý: SQL Server không có sẵn hàm bcrypt. Việc băm phải được xử lý ở code Backend, không phải ở stored
+        procedure.</em></p>
     <h3>4.4.2. Mã hóa dữ liệu nhạy cảm (Column-Level Encryption)</h3>
     <pre>CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'OpdoStore@Master2025!';
 GO
@@ -1958,7 +1976,7 @@ GO</pre>
       <tr>
         <td><strong>Phân quyền</strong></td>
         <td>RBAC, Least Privilege</td>
-        <td>5 role, Row-Level Security, Column-level DENY</td>
+        <td>RBAC, Column-level DENY</td>
         <td>&#9989; Hoàn thành</td>
       </tr>
       <tr>
@@ -2047,8 +2065,10 @@ GO</pre>
       </tr>
     </table>
     <h2>Hạn chế và hướng phát triển</h2>
-    <p><strong>Hạn chế:</strong> Demo trên môi trường phát triển, chưa đánh giá hiệu năng thực tế; chưa triển khai bảo
-      mật mạng (firewall, IDS/IPS); chưa đề cập bảo mật ứng dụng.</p>
+    <p><strong>Hạn chế:</strong> Demo trên môi trường phát triển, chưa đánh giá hiệu năng thực tế với dữ liệu lớn. Tuy
+      dự án thực tế Opdo.store đã áp dụng một số biện pháp bảo mật ứng dụng và hạ tầng mạng (WAF, JWT, CSP), nhưng phạm
+      vi tiểu luận tập trung chính vào mức CSDL, chưa đi sâu vào các kịch bản kiểm thử xâm nhập (Penetration Testing) để
+      đánh giá toàn diện khả năng phòng thủ của hệ thống.</p>
     <p><strong>Hướng phát triển:</strong> Mở rộng bảo mật ứng dụng web; giám sát real-time với SIEM; bảo mật CSDL trên
       đám mây; áp dụng ML phát hiện bất thường; quy trình DevSecOps.</p>
     <h2>Lời cảm ơn</h2>
