@@ -453,6 +453,34 @@
         page-break-inside: avoid;
       }
 
+      .no-print {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        background: linear-gradient(135deg, #1a237e, #283593);
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        font-size: 14pt;
+        font-family: 'Times New Roman', serif;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+      }
+
+      .no-print:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
       h1,
       h2,
       h3 {
@@ -2137,6 +2165,10 @@ GO</pre>
       <li>Chính phủ nước CHXHCNVN, <em>"Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân"</em>, 2023.</li>
     </ol>
   </div>
+
+  <button class="no-print" onclick="window.print()" title="Xuất file PDF">
+    &#128196; Xuất PDF
+  </button>
 
 </body>
 
